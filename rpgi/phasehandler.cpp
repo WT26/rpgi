@@ -18,8 +18,9 @@ void phasehandler(Player player){
     }
 }
 
+// Character creation phase. Returns Player class to next phase.
 Player phase_1(){
-
+    cout<<"Character creation:\n"
 }
 void phase_2(Player player){
 
