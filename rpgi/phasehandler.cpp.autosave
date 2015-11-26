@@ -41,16 +41,40 @@ Player phase_1(){
         getline(cin, answer);
     }
     if (answer == "Curator" || answer == "curator"){
-
+        int hp = 14;
+        int str = 1;
+        int spd = 2;
+        int handy = 3;
+        string class_name = "Curator";
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        phase_2(player);
     }
     else if (answer == "Salto" || answer == "salto"){
-
+        int hp = 10;
+        int str = 2;
+        int spd = 5;
+        int handy = 3;
+        string class_name = "Salto";
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        phase_2(player);
     }
     else if (answer == "Ensis" || answer == "Ensis"){
-
+        int hp = 11;
+        int str = 5;
+        int spd = 3;
+        int handy = 1;
+        string class_name = "Ensis";
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        phase_2(player);
     }
     else if (answer == "Piger" || answer == "piger"){
-
+        int hp = 14;
+        int str = 1;
+        int spd = 2;
+        int handy = 3;
+        string class_name = "Curator";
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        phase_2(player);
     }
     else if (answer == "end" || answer == "End"){
 

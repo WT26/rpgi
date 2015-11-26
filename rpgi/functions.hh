@@ -7,6 +7,7 @@
 using namespace std;
 
     bool start_menu();
-    vector<string> split();
+    vector<string> split(const string& stringToSplit, char charToSplit);
+    void endGame();
 
 #endif // FUNCTIONS_HH

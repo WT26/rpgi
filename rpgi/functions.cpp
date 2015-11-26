@@ -30,8 +30,8 @@ bool start_menu(){
                 while (!savefile.eof()) {
                    savefile >> output;
                    vector<string> save_info;
-                   save_info = split(output, ":");
-                   player = player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
+                   save_info = split(output, ':');
+                   Player player = Player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
                            stoi(save_info[4]), stoi(save_info[5]), stoi(save_info[6]), stoi(save_info[7]),
                            stoi(save_info[8]));
                 }
@@ -75,5 +75,8 @@ vector<string> split(const string& merkkijono, char erotinmerkki) {
     return tulos;
 }
 
+void endGame(){
+
+}
 
 
