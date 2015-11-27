@@ -1,0 +1,12 @@
+#ifndef DEBUG_HH
+#define DEBUG_HH
+
+using namespace std;
+
+class debug
+{
+public:
+    debug();
+};
+
+#endif // DEBUG_HH
