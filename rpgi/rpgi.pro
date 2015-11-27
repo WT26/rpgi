@@ -9,7 +9,8 @@ SOURCES += main.cpp \
     fight.cpp \
     item.cpp \
     functions.cpp \
-    Player.cpp
+    Player.cpp \
+    debug.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -19,7 +20,8 @@ HEADERS += \
     fight.hh \
     item.hh \
     functions.hh \
-    Player.hh
+    Player.hh \
+    debug.hh
 
 DISTFILES += \
     save_01.txt

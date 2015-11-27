@@ -8,6 +8,6 @@ using namespace std;
 
     bool start_menu();
     vector<string> split(const string& stringToSplit, char charToSplit);
-    void endGame();
+    int endGame();
 
 #endif // FUNCTIONS_HH

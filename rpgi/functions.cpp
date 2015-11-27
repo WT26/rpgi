@@ -75,8 +75,8 @@ vector<string> split(const string& merkkijono, char erotinmerkki) {
     return tulos;
 }
 
-void endGame(){
-
+int endGame(){
+    return 0;
 }
 
 
