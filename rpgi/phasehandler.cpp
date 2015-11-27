@@ -92,7 +92,7 @@ Player phase_1(){
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_2(Player player){
     cout<<"You venture outside of your little hut. Its bright outside and you see"
-          "a bunch of people "<<endl;
+          "a bunch of people of your little village gathered around."<<endl;
 
     string command{"twentysix"};
 
@@ -113,16 +113,22 @@ void phase_2(Player player){
 
         }
         else if (command == "fight"){
-
+            main_lvl_fight(player);
         }
         else if (command == "boss"){
-            if(player.main_lvl_ <= 20){
+            if(player.print_main_lvl() <= 20){
                 cout<<"You're too weak to challenge him"<<endl;
             }
         }
         else if (command == "c"|| command == "C"||
                  command == "commands" || command == "Commands"){
             cout<<"All commands are:\nitems\nstats\nshop\ntalk\nfight\nboss"<<endl;
+        }
+        else if (command == "end"){
+            endGame();
+        }
+        else if (command == "debug"){
+            Debug debug = Debug();
         }
     }
 }

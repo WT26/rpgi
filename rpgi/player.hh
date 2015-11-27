@@ -12,11 +12,16 @@ public:
            int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase);
     int print_phase();
     int print_main_lvl();
+    int print_current_hp();
+    int print_spd();
+    int print_str();
+    int print_handy();
     void show_stats();
     void show_items();
     void give_money(int amount);
     void check_lvl_up();
     void level_up();
+    bool trehit_open();
 
 
 
@@ -32,6 +37,7 @@ private:
     int all_exp_;
     int current_phase_;
     int money_;
+    bool trehitcombo_;
 };
 
 #endif // PLAYER_HH

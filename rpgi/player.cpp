@@ -20,6 +20,7 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     all_exp_ = all_exp;
     current_phase_ = phase;
     money_ = 0;
+    bool trehitcombo_ = false;
 }
 
 int Player::print_phase(){
@@ -28,6 +29,31 @@ int Player::print_phase(){
 
 int Player::print_main_lvl(){
     return main_lvl_;
+}
+
+int Player::print_current_hp(){
+    return current_hp_;
+}
+
+int Player::print_spd(){
+    return spd;
+}
+
+int Player::print_str(){
+    return str;
+}
+
+int Player::print_handy(){
+    return handy;
+}
+
+bool Player::trehit_open(){
+    if (trehitcombo_ == true){
+        return true;
+    }
+    else {
+        return false;
+    }
 }
 
 void Player::show_stats(){

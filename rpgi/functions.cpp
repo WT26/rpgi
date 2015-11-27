@@ -1,5 +1,6 @@
 #include "functions.hh"
 #include "phasehandler.hh"
+#include "Player.hh"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -84,20 +85,71 @@ void main_lvl_fight(Player player){
     int main_lvl = player.print_main_lvl();
 
     if (rand()%100 > 75){
-        int enemy_lvl = main_lvl - 3 + rand(6);
+        int enemy_lvl = main_lvl - 3 + rand()%6;
+        if (rand()%100 == 26){
+            vector<string> animal{"?"};
+        }
+        else{
+            vector<string> animal{"Bird", "Dog", "Cat", "Cow", "Bat", "Mole", "Bunny", "Rabbit", "Monkey"};
+            vector<string> adjective{"Mystery", "Epic", "Baby", "Little", "Weird", "Silent", "Angry", "Massive", "Gentle"};
+            string enemy_name = adjective[rand()%9] + " " + animal[rand()%9];
+
+            cout<<"Enemy name: "<<enemy_name<<"\nEnemy level: "<<enemy_lvl<<endl;
+
+            int enemy_hp = rand()%enemy_lvl;
+            int enemy_str = rand()%(enemy_lvl - enemy_hp);
+            int enemy_spd = rand()%(enemy_lvl - enemy_hp - enemy_str);
+            int enemy_handy = rand()%(enemy_lvl - enemy_hp - enemy_str - enemy_spd);
+
+            vector<string> normal_attacks{"swiped", "hit", "striked", "bit", "smashed", "punched"};
+
+            if(enemy_handy >= 15 && enemy_handy < 20){
+                vector<string> handy_attacks{"hit you with stick!", "hit you with rock!", "throwed dirt at you!"};
+            }
+            else if(enemy_handy >= 20 && enemy_handy < 25){
+                vector<string> handy_attacks{"hit you with metal stick!", "throwed firey ball at you!", "Throwed glowing rock at you!"};
+            }
+
+            bool enemy_alive = true;
+            if(enemy_alive == true && player.print_current_hp() < 0){
+                if(op(player.print_spd, enemy_spd)){
+                    cout<<"Enemy is three time faster than you so you can only have one hit per turn!"<<endl;
+                }
+                else if(player.trehit_open()){
+                        int player_attack_count{3};
+                }
+                else {
+                        int player_attack_count{2};
+                }
+
+                string command{twentysix};
+                cout<<"You encounter "<<enemy_name<<"! Its lvl "<<enemy_lvl<<"!"<<endl;
+                while(enemy_alive == true && player.print_current_hp() < 0){
+                    cout<<"What you want to do?"<<endl;
+                    if (command == "attack"){
+
+                    }
+                }
+            }
+        }
     }
     else{
-        int enemy_lvl = main_lvl -2 + rand(4);
-    }
+        int enemy_lvl = main_lvl - 2 + rand()%4;
+        if (rand()%100 == 26){
+            vector<string> animal{"?"};
+        }
+        else{
 
-    if (rand()%100 == 26){
-        vector<string> animal{"?"};
+        }
+    }
+}
+
+bool op(int number_to_compare, int compare_it_with_this){
+    if((compare_it_with_this / number_to_compare) >= 3){
+        return true;
     }
     else{
-        vector<string> animal{"Bird", "Dog", "Cat", "Cow", "Bat", "Mole"};
-        vector<string> adjective{"Mystery", "Epic", "Baby", "Little", "Weird", "Silent", "Angry", "Massive"};
-        string enemy_name = adjective[rand()%8] + " " + animal[rand()%6];
-
+        return false;
     }
 }
 
