@@ -97,6 +97,7 @@ void main_lvl_fight(Player player){
         vector<string> animal{"Bird", "Dog", "Cat", "Cow", "Bat", "Mole"};
         vector<string> adjective{"Mystery", "Epic", "Baby", "Little", "Weird", "Silent", "Angry", "Massive"};
         string enemy_name = adjective[rand()%8] + " " + animal[rand()%6];
+        
 
     }
 }

@@ -1,13 +1,18 @@
-#include "debug.hh"
+#include "Debug.hh"
 #include "Player.hh"
 #include "phasehandler.hh"
 #include <iostream>
+#include <ostream>
 #include <string>
 
 using namespace std;
 
-debug::debug()
+Debug::Debug()
 {
+    debugger();
+}
+
+void Debug::debugger(){
     string name;
     string class_name;
     int main_lvl;
@@ -22,23 +27,31 @@ debug::debug()
     cout<<"class? (Salto, Piger, Curator, ensis) ";
     getline(cin, class_name);
 
+    string temporary;
+
     cout<<"main level? ";
-    getline(cin, main_lvl);
+    getline(cin, temporary);
+    main_lvl = stoi(temporary);
 
     cout<<"hp level? ";
-    getline(cin, hp_lvl);
+    getline(cin, temporary);
+    hp_lvl = stoi(temporary);
 
     cout<<"str level? ";
-    getline(cin, str_lvl);
+    getline(cin, temporary);
+    str_lvl = stoi(temporary);
 
     cout<<"spd level? ";
-    getline(cin, spd_lvl);
+    getline(cin, temporary);
+    spd_lvl = stoi(temporary);
 
     cout<<"handy level? ";
-    getline(cin, handy_lvl);
+    getline(cin, temporary);
+    handy_lvl = stoi(temporary);
 
     cout<<"Phase? ";
-    getline(cin, skip_to_phase);
+    getline(cin, temporary);
+    skip_to_phase = stoi(temporary);
 
     Player player = Player(name, class_name, main_lvl, hp_lvl, str_lvl, spd_lvl, handy_lvl, 0, skip_to_phase);
 

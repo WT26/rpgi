@@ -1,4 +1,10 @@
 #include "Player.hh"
+#include <iostream>
+#include <ostream>
+#include <string>
+#include <vector>
+
+using namespace std;
 
 Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
                int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase)
@@ -7,6 +13,7 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     class_name_ = class_name;
     main_lvl_ = main_lvl;
     hp_lvl_ = hp_lvl;
+    current_hp_ = hp_lvl_;
     str_lvl_ = str_lvl;
     spd_lvl_ = spd_lvl;
     handy_lvl_ = handy_lvl;
@@ -17,6 +24,10 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
 
 int Player::print_phase(){
     return current_phase_;
+}
+
+int Player::print_main_lvl(){
+    return main_lvl_;
 }
 
 void Player::show_stats(){

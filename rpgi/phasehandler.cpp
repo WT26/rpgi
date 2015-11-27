@@ -1,5 +1,6 @@
 #include "phasehandler.hh"
 #include "functions.hh"
+#include "Debug.hh"
 #include <iostream>
 #include <string>
 
@@ -31,7 +32,8 @@ Player phase_1(){
     cout<<"\nHey "<<name<<", now choose your class. But first let me explain all the skills:";
     string answer;
     while(answer != "Curator" && answer != "Salto" && answer != "curator" && answer != "salto" &&
-          answer != "Ensis" && answer != "ensis" && answer != "Piger" && answer != "piger" && answer != "end"){
+          answer != "Ensis" && answer != "ensis" && answer != "Piger" && answer != "piger" &&
+          answer != "end" && answer != "debug"){
 
         cout<<"\nhp: Your health, if it runs out you will die.\nstr: How much your "
                           "single hit will do damage\nspd: Speed of how quickly you will do your"
@@ -77,22 +79,70 @@ Player phase_1(){
         Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
         phase_2(player);
     }
+    else if (answer == "debug"){
+        Debug debug = Debug();
+        cout<<"moi"<<endl;
+    }
     else if (answer == "end" || answer == "End"){
         endGame();
     }
-
 }
+//############################################################################################
+//###V######V######V######V######V###### Phase 2 ######V######V######V######V######V######V###
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_2(Player player){
-    cout<<"its phase 2"<<endl;
+    cout<<"You venture outside of your little hut. Its bright outside and you see"
+          "a bunch of people "<<endl;
+
+    string command{"twentysix"};
+
+    while(command != "end"){
+        cout<<"command >";
+        getline(cin, command);
+
+        if (command == "items"){
+
+        }
+        else if (command == "stats"){
+
+        }
+        else if (command == "shop"){
+
+        }
+        else if (command == "talk"){
+
+        }
+        else if (command == "fight"){
+
+        }
+        else if (command == "boss"){
+            if(player.main_lvl_ <= 20){
+                cout<<"You're too weak to challenge him"<<endl;
+            }
+        }
+        else if (command == "c"|| command == "C"||
+                 command == "commands" || command == "Commands"){
+            cout<<"All commands are:\nitems\nstats\nshop\ntalk\nfight\nboss"<<endl;
+        }
+    }
 }
+//############################################################################################
+//###V######V######V######V######V###### Phase 3 ######V######V######V######V######V######V###
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_3(Player player){
     cout<<"its phase 3"<<endl;
 
 }
+//############################################################################################
+//###V######V######V######V######V###### Phase 4 ######V######V######V######V######V######V###
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_4(Player player){
     cout<<"its phase 4"<<endl;
 
 }
+//############################################################################################
+//###V######V######V######V######V###### Phase 5 ######V######V######V######V######V######V###
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_5(Player player){
     cout<<"its phase 5"<<endl;
 

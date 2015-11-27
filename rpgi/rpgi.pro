@@ -6,22 +6,20 @@ CONFIG += C++11
 
 SOURCES += main.cpp \
     phasehandler.cpp \
-    fight.cpp \
     item.cpp \
     functions.cpp \
     Player.cpp \
-    debug.cpp
+    Debug.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
 
 HEADERS += \
     phasehandler.hh \
-    fight.hh \
     item.hh \
     functions.hh \
     Player.hh \
-    debug.hh
+    Debug.hh
 
 DISTFILES += \
     save_01.txt

@@ -1,11 +1,13 @@
 #ifndef DEBUG_HH
 #define DEBUG_HH
 
+using namespace std;
 
-class debug
+class Debug
 {
 public:
-    debug();
+    Debug();
+    void debugger();
 };
 
 #endif // DEBUG_HH
