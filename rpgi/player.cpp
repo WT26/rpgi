@@ -12,10 +12,10 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     handy_lvl_ = handy_lvl;
     all_exp_ = all_exp;
     current_phase_ = phase;
-    money_=0;
+    money_ = 0;
 }
 
-int Player::give_phase(){
+int Player::print_phase(){
     return current_phase_;
 }
 
@@ -27,4 +27,48 @@ void Player::show_stats(){
 
 void Player::show_items(){
     cout<<"Items: none\nMoney: "<<money_<<endl;
+}
+
+void Player::give_money(int amount){
+    money_ += amount;
+}
+
+void Player::check_lvl_up(){
+    if (all_exp_ >= 100){
+        level_up();
+    }
+}
+
+void Player::level_up(){
+    cout<<"LEVEL UP!\nWhat you want to level up?"<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
+       <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<endl;
+    string answer;
+    bool answered = false;
+    while(answered == false){
+        getline(cin, answer);
+
+        if(answer == "hp" || answer == "Hp"){
+            hp_lvl_ ++;
+            answered = true;
+        }
+
+        else if(answer == "str" || answer == "Str"){
+            str_lvl_ ++;
+            answered = true;
+        }
+
+        else if(answer == "spd" || answer == "Spd"){
+            spd_lvl_ ++;
+            answered = true;
+        }
+
+        else if(answer == "handy" || answer == "Handy"){
+            handy_lvl_ ++;
+            answered = true;
+        }
+
+        else{
+            cout<<"Enter one of the levels: hp, str, spd or handy."<<endl;
+        }
+    }
 }

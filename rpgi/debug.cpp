@@ -42,24 +42,6 @@ debug::debug()
 
     Player player = Player(name, class_name, main_lvl, hp_lvl, str_lvl, spd_lvl, handy_lvl, 0, skip_to_phase);
 
-    if(skip_to_phase == 1){
-        phase_1();
-    }
-
-    else if(skip_to_phase == 2){
-        phase_2(player);
-    }
-
-    else if(skip_to_phase == 3){
-        phase_3(player);
-    }
-
-    else if(skip_to_phase == 4){
-        phase_4(player);
-    }
-
-    else if(skip_to_phase == 5){
-        phase_5(player);
-    }
+    phasehandler(player);
 }
 

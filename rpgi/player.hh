@@ -10,9 +10,12 @@ class Player
 public:
     Player(string player_name, string class_name, int main_lvl, int hp_lvl,
            int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase);
-    int give_phase();
+    int print_phase();
     void show_stats();
     void show_items();
+    void give_money();
+    void check_lvl_up();
+    void level_up();
 
 
 

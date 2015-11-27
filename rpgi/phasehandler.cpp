@@ -6,19 +6,19 @@
 using namespace std;
 
 void phasehandler(Player player){
-    if(player.give_phase() == 1){
+    if(player.print_phase() == 1){
         phase_1();
     }
-    else if(player.give_phase() == 2){
+    else if(player.print_phase() == 2){
         phase_2(player);
     }
-    else if(player.give_phase() == 3){
+    else if(player.print_phase() == 3){
         phase_3(player);
     }
-    else if(player.give_phase() == 4){
+    else if(player.print_phase() == 4){
         phase_4(player);
     }
-    else if(player.give_phase() == 5){
+    else if(player.print_phase() == 5){
         phase_5(player);
     }
 }
@@ -83,14 +83,17 @@ Player phase_1(){
 
 }
 void phase_2(Player player){
-
+    cout<<"its phase 2"<<endl;
 }
 void phase_3(Player player){
+    cout<<"its phase 3"<<endl;
 
 }
 void phase_4(Player player){
+    cout<<"its phase 4"<<endl;
 
 }
 void phase_5(Player player){
+    cout<<"its phase 5"<<endl;
 
 }
