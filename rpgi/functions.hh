@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_HH
 #define FUNCTIONS_HH
 
-#include "Player.hh"
+#include "player.hh"
 #include <vector>
 #include <string>
 

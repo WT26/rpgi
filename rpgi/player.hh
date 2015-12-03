@@ -21,6 +21,8 @@ public:
     void give_money(int amount);
     void check_lvl_up();
     void level_up();
+    void player_lose_damage(int damage);
+    void player_died();
     bool trehit_open();
 
 

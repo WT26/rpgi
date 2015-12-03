@@ -162,6 +162,7 @@ void main_lvl_fight(Player player){
                             cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
                             cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
                             player.player_lose_damage(enemy_damage);
+                            cout<<"Your current hp: "<<player.print_current_hp()<<endl;
                         }
 
 

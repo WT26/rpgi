@@ -1,7 +1,7 @@
 #ifndef PHASEHANDLER_HH
 #define PHASEHANDLER_HH
 
-#include "Player.hh"
+#include "player.hh"
 
 
 void phasehandler(Player player);

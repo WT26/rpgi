@@ -1,4 +1,7 @@
-#include "Player.hh"
+#include "player.hh"
+#include "debug.hh"
+#include "functions.hh"
+#include <unistd.h>
 #include <iostream>
 #include <ostream>
 #include <string>
@@ -106,6 +109,33 @@ void Player::level_up(){
 
         else{
             cout<<"Enter one of the levels: hp, str, spd or handy."<<endl;
+        }
+    }
+}
+
+void Player::player_lose_damage(int damage){
+    current_hp_ -= damage;
+}
+
+void Player::player_died(){
+    cout<<"\n"<<endl;
+    usleep(200000);
+    cout<<"YOU DIED"<<endl;
+    usleep(400000);
+    bool for_ever{true};
+    while(for_ever == false){
+        cout<<"main menu or end"<<endl;
+        string command{"twentysix"};
+        getline(cin, command);
+
+        if(command == "main menu"){
+            start_menu();
+        }
+        else if(command == "end"){
+            endGame();
+        }
+        else if(command == "debug"){
+            Debug debug = Debug();
         }
     }
 }

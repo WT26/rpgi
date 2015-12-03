@@ -1,5 +1,5 @@
 #include "debug.hh"
-#include "Player.hh"
+#include "player.hh"
 #include "phasehandler.hh"
 #include <iostream>
 #include <ostream>

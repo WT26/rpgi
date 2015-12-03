@@ -8,8 +8,8 @@ SOURCES += main.cpp \
     phasehandler.cpp \
     item.cpp \
     functions.cpp \
-    Player.cpp \
-    debug.cpp
+    debug.cpp \
+    player.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -18,8 +18,8 @@ HEADERS += \
     phasehandler.hh \
     item.hh \
     functions.hh \
-    Player.hh \
-    debug.hh
+    debug.hh \
+    player.hh
 
 DISTFILES += \
     save_01.txt
