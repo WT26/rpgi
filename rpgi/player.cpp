@@ -115,6 +115,9 @@ void Player::level_up(){
 
 void Player::player_lose_damage(int damage){
     current_hp_ -= damage;
+    if (current_hp_ < 0){
+        current_hp_ = 0;
+    }
 }
 
 void Player::player_died(){
