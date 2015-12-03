@@ -1,4 +1,4 @@
-#include "Debug.hh"
+#include "debug.hh"
 #include "Player.hh"
 #include "phasehandler.hh"
 #include <iostream>

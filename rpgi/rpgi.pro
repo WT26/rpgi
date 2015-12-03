@@ -9,7 +9,7 @@ SOURCES += main.cpp \
     item.cpp \
     functions.cpp \
     Player.cpp \
-    Debug.cpp
+    debug.cpp
 
 include(deployment.pri)
 qtcAddDeployment()
@@ -19,7 +19,7 @@ HEADERS += \
     item.hh \
     functions.hh \
     Player.hh \
-    Debug.hh
+    debug.hh
 
 DISTFILES += \
     save_01.txt

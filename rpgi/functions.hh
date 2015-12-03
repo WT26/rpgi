@@ -8,6 +8,7 @@
 using namespace std;
 
     bool start_menu();
+    bool op(int compare_this, int compare_with);
     vector<string> split(const string& stringToSplit, char charToSplit);
     int endGame();
     void main_lvl_fight(Player player);

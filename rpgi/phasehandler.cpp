@@ -1,6 +1,6 @@
 #include "phasehandler.hh"
 #include "functions.hh"
-#include "Debug.hh"
+#include "debug.hh"
 #include <iostream>
 #include <string>
 

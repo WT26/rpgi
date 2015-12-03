@@ -1,6 +1,7 @@
 #include "functions.hh"
 #include "phasehandler.hh"
 #include "Player.hh"
+#include "debug.hh"
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -122,12 +123,34 @@ void main_lvl_fight(Player player){
                         int player_attack_count{2};
                 }
 
-                string command{twentysix};
+                string command{"twentysix"};
                 cout<<"You encounter "<<enemy_name<<"! Its lvl "<<enemy_lvl<<"!"<<endl;
+
                 while(enemy_alive == true && player.print_current_hp() < 0){
                     cout<<"What you want to do?"<<endl;
+                    getline(cin, command);
                     if (command == "attack"){
 
+                    }
+                    else if (command == "commands"){
+                        cout<<"All commands:\nattack\nuse item\nrun"<<endl;
+                    }
+                    else if (command == "use item"){
+                        cout<<"Which item you want to use:\empty"<<endl;
+                        while (command != "back"){
+                            if (command == "commands"){
+                                cout<<"All commands:\nback"<<endl;
+                            }
+                        }
+                    }
+                    else if (command == "run"){
+
+                    }
+                    else if (command == "debug"){
+                        Debug debug();
+                    }
+                    else {
+                        cout<<"Wrong command, see all commands 'commands'"<<endl;
                     }
                 }
             }
@@ -144,8 +167,8 @@ void main_lvl_fight(Player player){
     }
 }
 
-bool op(int number_to_compare, int compare_it_with_this){
-    if((compare_it_with_this / number_to_compare) >= 3){
+bool op(int compare_this, int compare_with){
+    if((compare_with / compare_this) >= 3){
         return true;
     }
     else{
