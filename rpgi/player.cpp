@@ -36,15 +36,15 @@ int Player::print_current_hp(){
 }
 
 int Player::print_spd(){
-    return spd;
+    return spd_lvl_;
 }
 
 int Player::print_str(){
-    return str;
+    return str_lvl_;
 }
 
 int Player::print_handy(){
-    return handy;
+    return handy_lvl_;
 }
 
 bool Player::trehit_open(){

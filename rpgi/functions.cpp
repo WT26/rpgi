@@ -2,6 +2,7 @@
 #include "phasehandler.hh"
 #include "Player.hh"
 #include "debug.hh"
+#include <unistd.h>
 #include <iostream>
 #include <fstream>
 #include <vector>
@@ -96,25 +97,41 @@ void main_lvl_fight(Player player){
             string enemy_name = adjective[rand()%9] + " " + animal[rand()%9];
 
             cout<<"Enemy name: "<<enemy_name<<"\nEnemy level: "<<enemy_lvl<<endl;
-
+            usleep(100000);
             int enemy_hp = rand()%enemy_lvl;
             int enemy_str = rand()%(enemy_lvl - enemy_hp);
             int enemy_spd = rand()%(enemy_lvl - enemy_hp - enemy_str);
             int enemy_handy = rand()%(enemy_lvl - enemy_hp - enemy_str - enemy_spd);
-
-            vector<string> normal_attacks{"swiped", "hit", "striked", "bit", "smashed", "punched"};
-
+            int handy_tier;
+            vector<string> handy_attacks;
             if(enemy_handy >= 15 && enemy_handy < 20){
-                vector<string> handy_attacks{"hit you with stick!", "hit you with rock!", "throwed dirt at you!"};
+                handy_attacks.push_back("hit you with stick!");
+                handy_attacks.push_back("hit you with rock!");
+                handy_attacks.push_back("throwed dirt at you!");
+                handy_tier = 5;
             }
             else if(enemy_handy >= 20 && enemy_handy < 25){
-                vector<string> handy_attacks{"hit you with metal stick!", "throwed firey ball at you!", "Throwed glowing rock at you!"};
+                handy_attacks.push_back("hit you with metal stick!");
+                handy_attacks.push_back("throwed firey ball at you!");
+                handy_attacks.push_back("Throwed glowing rock at you!");
+                handy_tier = 7;
+            }
+            else {
+                handy_attacks.push_back("swiped you!");
+                handy_attacks.push_back("hit you!");
+                handy_attacks.push_back("striked you!");
+                handy_attacks.push_back("bit you!");
+                handy_attacks.push_back("smashed you!");
+                handy_attacks.push_back("punched you!");
+                handy_tier = 1;
             }
 
             bool enemy_alive = true;
-            if(enemy_alive == true && player.print_current_hp() < 0){
-                if(op(player.print_spd, enemy_spd)){
+
+            if(enemy_alive == true && player.print_current_hp() > 0){
+                if(op(player.print_spd(), enemy_spd)){
                     cout<<"Enemy is three time faster than you so you can only have one hit per turn!"<<endl;
+                    int player_attack_count{1};
                 }
                 else if(player.trehit_open()){
                         int player_attack_count{3};
@@ -126,10 +143,28 @@ void main_lvl_fight(Player player){
                 string command{"twentysix"};
                 cout<<"You encounter "<<enemy_name<<"! Its lvl "<<enemy_lvl<<"!"<<endl;
 
-                while(enemy_alive == true && player.print_current_hp() < 0){
+                while(enemy_alive == true && player.print_current_hp() > 0){
                     cout<<"What you want to do?"<<endl;
                     getline(cin, command);
                     if (command == "attack"){
+                        int enemy_attack_count{2};
+
+                        // First attack, enemy first
+                        if (enemy_spd * 3 + rand()%3 > player.print_spd() * 3 + rand()%4){
+                            cout<<"Enemy was faster! ";
+                            int enemy_damage;
+                            enemy_damage += enemy_str - 4;
+                            enemy_damage += rand()% handy_tier;
+                            cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
+                            cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
+                        }
+
+
+
+
+
+
+
 
                     }
                     else if (command == "commands"){
@@ -148,6 +183,9 @@ void main_lvl_fight(Player player){
                     }
                     else if (command == "debug"){
                         Debug debug();
+                    }
+                    else if (command == "stats"){
+                        cout<<"stats"<<endl;
                     }
                     else {
                         cout<<"Wrong command, see all commands 'commands'"<<endl;
