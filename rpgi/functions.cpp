@@ -205,12 +205,13 @@ void main_lvl_fight(Player player){
                                 enemy_hp -= player_damage;
                                 if (enemy_hp <= 0){
                                     enemy_hp = 0;
-                                    cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                     cout<<"Enemy died."<<endl;
+                                    main_fight_won(player);
                                     return;
 
                                 }
-                                cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                 usleep(100000);
                                 player_attack_count--;
 
@@ -227,10 +228,12 @@ void main_lvl_fight(Player player){
                                     enemy_hp -= player_damage;
                                     if (enemy_hp <= 0){
                                         enemy_hp = 0;
-                                        cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                         cout<<"Enemy died."<<endl;
+                                        main_fight_won(player);
+                                        return;
                                     }
-                                    cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                     usleep(100000);
                                     player_attack_count--;
 
@@ -247,10 +250,12 @@ void main_lvl_fight(Player player){
                                         enemy_hp -= player_damage;
                                         if (enemy_hp <= 0){
                                             enemy_hp = 0;
-                                            cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                            cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                             cout<<"Enemy died."<<endl;
+                                            main_fight_won(player);
+                                            return;
                                         }
-                                        cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                         usleep(100000);
                                         player_attack_count--;
                                     }
@@ -269,12 +274,13 @@ void main_lvl_fight(Player player){
                                 enemy_hp -= player_damage;
                                 if (enemy_hp <= 0){
                                     enemy_hp = 0;
-                                    cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                     cout<<"Enemy died."<<endl;
+                                    main_fight_won(player);
                                     return;
 
                                 }
-                                cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                 usleep(100000);
                                 player_attack_count--;
 
@@ -291,10 +297,12 @@ void main_lvl_fight(Player player){
                                     enemy_hp -= player_damage;
                                     if (enemy_hp <= 0){
                                         enemy_hp = 0;
-                                        cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                         cout<<"Enemy died."<<endl;
+                                        main_fight_won(player);
+                                        return;
                                     }
-                                    cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                     usleep(100000);
                                     player_attack_count--;
 
@@ -311,10 +319,12 @@ void main_lvl_fight(Player player){
                                         enemy_hp -= player_damage;
                                         if (enemy_hp <= 0){
                                             enemy_hp = 0;
-                                            cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                            cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                             cout<<"Enemy died."<<endl;
+                                            main_fight_won(player);
+                                            return;
                                         }
-                                        cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                         usleep(100000);
                                         player_attack_count--;
                                     }
@@ -357,7 +367,6 @@ void main_lvl_fight(Player player){
                             }
                         }
                         else if(player.print_spd() * 3 + rand()%3 > enemy_spd * 3 + rand()%3){
-                            //TODO player faster, attacks goes player player player enemy enemy
                             //Youre faster, you zero enemy zero
                             cout<<"You hit enemy!"<<endl;
                             usleep(100000);
@@ -370,12 +379,12 @@ void main_lvl_fight(Player player){
                             enemy_hp -= player_damage;
                             if (enemy_hp <= 0){
                                 enemy_hp = 0;
-                                cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                 cout<<"Enemy died."<<endl;
+                                main_fight_won(player);
                                 return;
-
                             }
-                            cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                            cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                             usleep(100000);
                             player_attack_count--;
 
@@ -392,10 +401,12 @@ void main_lvl_fight(Player player){
                                 enemy_hp -= player_damage;
                                 if (enemy_hp <= 0){
                                     enemy_hp = 0;
-                                    cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                     cout<<"Enemy died."<<endl;
+                                    main_fight_won(player);
+                                    return;
                                 }
-                                cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                 usleep(100000);
                                 player_attack_count--;
 
@@ -412,10 +423,12 @@ void main_lvl_fight(Player player){
                                     enemy_hp -= player_damage;
                                     if (enemy_hp <= 0){
                                         enemy_hp = 0;
-                                        cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                         cout<<"Enemy died."<<endl;
+                                        main_fight_won(player);
+                                        return;
                                     }
-                                    cout<<"Enemy has "<<enemy_hp_<<" left."<<endl;
+                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
                                     usleep(100000);
                                     player_attack_count--;
                                 }
@@ -505,7 +518,15 @@ bool op(int compare_this, int compare_with){
     }
 }
 
-int main_fight_won_xp(Player player){
+void main_fight_won(Player player) {
+    int money_drop = main_fight_won_money(player);
+    int xp_drop = main_fight_won_xp(player);
+    cout<<"You got "<<xp_drop<<"xp and "<<money_drop<<"money!"<<endl;
+    player.give_money(money_drop);
+    player.give_xp(xp_drop);
+}
+
+int main_fight_won_xp(Player player) {
     double xp_drop;
     xp_drop = 12 + rand()%4;
     if(player.print_main_lvl()<20){
@@ -519,6 +540,11 @@ int main_fight_won_xp(Player player){
 }
 
 int main_fight_won_money(Player player) {
-
+    int money_drop;
+    money_drop = 26 + rand()%10;
+    if (player.print_main_lvl() > 20){
+        money_drop += 50;
+    }
+    return money_drop;
 }
 

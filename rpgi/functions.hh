@@ -12,5 +12,8 @@ using namespace std;
     vector<string> split(const string& stringToSplit, char charToSplit);
     int endGame();
     void main_lvl_fight(Player player);
+    void main_fight_won(Player player);
+    int main_fight_won_money(Player player);
+    int main_fight_won_xp(Player player);
 
 #endif // FUNCTIONS_HH

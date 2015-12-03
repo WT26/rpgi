@@ -73,6 +73,14 @@ void Player::give_money(int amount){
     money_ += amount;
 }
 
+void Player::give_xp(int amount){
+    all_exp_ += amount;
+    if(all_exp_ >= 100){
+        all_exp_ -= 100;
+        level_up();
+    }
+}
+
 void Player::check_lvl_up(){
     if (all_exp_ >= 100){
         level_up();

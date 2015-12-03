@@ -81,7 +81,6 @@ Player phase_1(){
     }
     else if (answer == "debug"){
         Debug debug = Debug();
-        cout<<"moi"<<endl;
     }
     else if (answer == "end" || answer == "End"){
         endGame();
