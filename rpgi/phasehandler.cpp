@@ -37,7 +37,7 @@ Player phase_1(){
 
         cout<<"\nhp: Your health, if it runs out you will die.\nstr: How much your "
                           "single hit will do damage\nspd: Speed of how quickly you will do your"
-                          " next hit\nhandy: What kind of items you can wield and use.\n"
+                          " next hit\nhandy: What kind of items you can wield and use.\n\n"
                           "Classes:\nSalto : hp10  str2  spd5  handy3\n"
                           "Ensis : hp11  str5  spd3  handy1\nCurator : hp14  str1  spd2"
                           "  handy3\nPiger : hp12  str2  spd2  handy2\nEnter one of the classes: ";
@@ -61,7 +61,7 @@ Player phase_1(){
         Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
         phase_2(player);
     }
-    else if (answer == "Ensis" || answer == "Ensis"){
+    else if (answer == "Ensis" || answer == "ensis"){
         int hp = 11;
         int str = 5;
         int spd = 3;
@@ -90,8 +90,8 @@ Player phase_1(){
 //###V######V######V######V######V###### Phase 2 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_2(Player player){
-    cout<<"You venture outside of your little hut. Its bright outside and you see"
-          "a bunch of people of your little village gathered around."<<endl;
+    cout<<"You venture outside of your little hut.\nIts bright outside and you see"
+          "a bunch of people\nof your little village gathered around."<<endl;
 
     string command{"twentysix"};
 

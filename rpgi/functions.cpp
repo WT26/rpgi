@@ -2,6 +2,7 @@
 #include "phasehandler.hh"
 #include "player.hh"
 #include "debug.hh"
+#include <time.h>
 #include <unistd.h>
 #include <iostream>
 #include <fstream>
@@ -87,9 +88,11 @@ int endGame(){
 }
 
 void main_lvl_fight(Player player){
+    srand(time(NULL));
+
     int main_lvl = player.print_main_lvl();
 
-    if (rand()%100 > 75){
+    if (rand()%100 > 1){
         int enemy_lvl = main_lvl - 3 + rand()%6;
         if (rand()%100 == 26){
             vector<string> animal{"?"};
@@ -99,7 +102,6 @@ void main_lvl_fight(Player player){
             vector<string> adjective{"Mystery", "Epic", "Baby", "Little", "Weird", "Silent", "Angry", "Massive", "Gentle"};
             string enemy_name = adjective[rand()%9] + " " + animal[rand()%9];
 
-            cout<<"Enemy name: "<<enemy_name<<"\nEnemy level: "<<enemy_lvl<<endl;
             usleep(100000);
             int enemy_hp = rand()%enemy_lvl;
             int enemy_str = rand()%(enemy_lvl - enemy_hp);
@@ -152,13 +154,14 @@ void main_lvl_fight(Player player){
                     getline(cin, command);
                     if (command == "attack"){
                         int enemy_attack_count{2};
-                        int player_damage;
+                        int player_damage{0};
+
 
                         // First attack, enemy first
                         if (enemy_spd * 3 + rand()%3 > player.print_spd() * 3 + rand()%3){
                             cout<<"Enemy was faster! ";
                             usleep(100000);
-                            int enemy_damage;
+                            int enemy_damage{0};
                             enemy_damage += enemy_str - 4;
                             enemy_damage += rand()% handy_tier;
                             if(enemy_damage < 0){
@@ -177,7 +180,7 @@ void main_lvl_fight(Player player){
                             if(enemy_attack_count > 0 && enemy_spd * 2 > player.print_spd() * 3 + rand()%4){
                                 cout<<"Enemy was faster! ";
                                 usleep(100000);
-                                int enemy_damage;
+                                int enemy_damage{0};
                                 enemy_damage += enemy_str - 4;
                                 enemy_damage += rand()% handy_tier;
                                 if(enemy_damage < 0){
@@ -332,7 +335,7 @@ void main_lvl_fight(Player player){
                                 //enemy first, then you(1-3times) then enemy again
                                 cout<<"Its enemys turn! ";
                                 usleep(100000);
-                                int enemy_damage;
+                                int enemy_damage{0};
                                 enemy_damage += enemy_str - 4;
                                 enemy_damage += rand()% handy_tier;
                                 if(enemy_damage < 0){
@@ -350,7 +353,7 @@ void main_lvl_fight(Player player){
                             if(enemy_attack_count > 0){
                                 cout<<"Its enemys turn! ";
                                 usleep(100000);
-                                int enemy_damage;
+                                int enemy_damage{0};
                                 enemy_damage += enemy_str - 4;
                                 enemy_damage += rand()% handy_tier;
                                 if(enemy_damage < 0){
@@ -368,8 +371,9 @@ void main_lvl_fight(Player player){
                         }
                         else if(player.print_spd() * 3 + rand()%3 > enemy_spd * 3 + rand()%3){
                             //Youre faster, you zero enemy zero
-                            cout<<"You hit enemy!"<<endl;
-                            usleep(100000);
+                            cout<<"\nYou hit enemy!"<<endl;
+                            sleep(10000);
+
                             player_damage += player.print_str() - 3;
                             player_damage += rand()% handy_tier;
                             if(player_damage < 0){
@@ -385,12 +389,29 @@ void main_lvl_fight(Player player){
                                 return;
                             }
                             cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                            usleep(100000);
+                            usleep(30000000);
                             player_attack_count--;
 
                             //(You one, enemy zero)
+                            cout<<"\nIts enemys turn! ";
+                            usleep(1000000);
+                            int enemy_damage{0};
+                            enemy_damage += enemy_str - 4;
+                            enemy_damage += rand()% handy_tier;
+                            if(enemy_damage < 0){
+                                enemy_damage = 0;
+                            }
+                            cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
+                            cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
+                            player.player_lose_damage(enemy_damage);
+                            cout<<"Your current hp: "<<player.print_current_hp()<<endl;
+                            if(player.print_current_hp() <= 0){
+                                player.player_died();
+                            }
+                            enemy_attack_count--;
+                            // You once, enemy once
                             if(player_attack_count > 0){
-                                cout<<"You hit enemy!"<<endl;
+                                cout<<"\nYou hit enemy!"<<endl;
                                 usleep(100000);
                                 player_damage += player.print_str() - 3;
                                 player_damage += rand()% handy_tier;
@@ -410,9 +431,26 @@ void main_lvl_fight(Player player){
                                 usleep(100000);
                                 player_attack_count--;
 
-                                //(you twice, enemy zero)
+                                //(you twice, enemy once)
+                                cout<<"\nIts enemys turn! ";
+                                usleep(1000000);
+                                int enemy_damage{0};
+                                enemy_damage += enemy_str - 4;
+                                enemy_damage += rand()% handy_tier;
+                                if(enemy_damage < 0){
+                                    enemy_damage = 0;
+                                }
+                                cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
+                                cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
+                                player.player_lose_damage(enemy_damage);
+                                cout<<"Your current hp: "<<player.print_current_hp()<<endl;
+                                if(player.print_current_hp() <= 0){
+                                    player.player_died();
+                                }
+                                enemy_attack_count--;
+                                // You twice, enemy twice
                                 if(player_attack_count>0){
-                                    cout<<"You hit enemy!"<<endl;
+                                    cout<<"\nYou hit enemy!"<<endl;
                                     usleep(100000);
                                     player_damage += player.print_str() - 3;
                                     player_damage += rand()% handy_tier;
@@ -433,45 +471,9 @@ void main_lvl_fight(Player player){
                                     player_attack_count--;
                                 }
                             }
-                            cout<<"Its enemys turn! ";
-                            usleep(100000);
-                            int enemy_damage;
-                            enemy_damage += enemy_str - 4;
-                            enemy_damage += rand()% handy_tier;
-                            if(enemy_damage < 0){
-                                enemy_damage = 0;
-                            }
-                            cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                            cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                            player.player_lose_damage(enemy_damage);
-                            cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                            if(player.print_current_hp() <= 0){
-                                player.player_died();
-                            }
-                            enemy_attack_count--;
-
-                            // Enemy so fast he does second attack too
-                            if(enemy_attack_count > 0 && enemy_spd * 2 > player.print_spd() * 3 + rand()%4){
-                                cout<<"Its enemys turn! ";
-                                usleep(100000);
-                                int enemy_damage;
-                                enemy_damage += enemy_str - 4;
-                                enemy_damage += rand()% handy_tier;
-                                if(enemy_damage < 0){
-                                    enemy_damage = 0;
-                                }
-                                cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                                cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                                player.player_lose_damage(enemy_damage);
-                                cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                                if(player.print_current_hp() <= 0){
-                                    player.player_died();
-                                }
-                                enemy_attack_count--;
-                            }
                         }
                     }
-                    else if (command == "commands"){
+                    else if (command == "commands" || command == "c"){
                         cout<<"All commands:\nattack\nuse item\nrun"<<endl;
                     }
                     else if (command == "use item"){

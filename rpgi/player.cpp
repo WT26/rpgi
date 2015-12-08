@@ -134,7 +134,7 @@ void Player::player_died(){
     cout<<"YOU DIED"<<endl;
     usleep(400000);
     bool for_ever{true};
-    while(for_ever == false){
+    while(for_ever != false){
         cout<<"main menu or end"<<endl;
         string command{"twentysix"};
         getline(cin, command);
