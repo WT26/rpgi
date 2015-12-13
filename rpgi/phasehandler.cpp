@@ -121,7 +121,7 @@ void phase_2(Player player){
         }
         else if (command == "c"|| command == "C"||
                  command == "commands" || command == "Commands"){
-            cout<<"All commands are:\nitems\nstats\nshop\ntalk\nfight\nboss"<<endl;
+            cout<<"\nAll commands are:\nitems\nstats\nshop\ntalk\nfight\nboss"<<endl;
         }
         else if (command == "end"){
             endGame();

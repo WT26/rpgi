@@ -110,6 +110,10 @@ void main_lvl_fight(Player player){
             int handy_tier;
             int player_attack_count;
             vector<string> handy_attacks;
+            
+            const PLAYER_DMG_PERCENT;
+            const ENEMY_DMG_PERCENT;
+            
             if(enemy_handy >= 15 && enemy_handy < 20){
                 handy_attacks.push_back("hit you with stick!");
                 handy_attacks.push_back("hit you with rock!");
