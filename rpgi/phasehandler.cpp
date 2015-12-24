@@ -129,6 +129,9 @@ void phase_2(Player player){
         else if (command == "debug"){
             Debug debug = Debug();
         }
+        else {
+            cout<<"Wrong command, see all commands 'commands'\n";
+        }
     }
 }
 //############################################################################################

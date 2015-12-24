@@ -2,6 +2,7 @@
 #define PLAYER_HH
 
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -16,6 +17,7 @@ public:
     int print_spd();
     int print_str();
     int print_handy();
+    int handy_tier();
     void show_stats();
     void show_items();
     void give_money(int amount);
@@ -26,6 +28,7 @@ public:
     void player_died();
     bool trehit_open();
 
+    Player react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks);
 
 
 private:

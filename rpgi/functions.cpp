@@ -107,20 +107,24 @@ void main_lvl_fight(Player player){
             int enemy_str = rand()%(enemy_lvl - enemy_hp);
             int enemy_spd = rand()%(enemy_lvl - enemy_hp - enemy_str);
             int enemy_handy = rand()%(enemy_lvl - enemy_hp - enemy_str - enemy_spd);
-            int handy_tier;
+            int enemy_handy_tier;
             int player_attack_count;
             vector<string> handy_attacks;
+
+            double const PLAYER_DMG_PERCENT{0.5};
+            double const ENEMY_DMG_PERCENT{0.5};
+
             if(enemy_handy >= 15 && enemy_handy < 20){
                 handy_attacks.push_back("hit you with stick!");
                 handy_attacks.push_back("hit you with rock!");
                 handy_attacks.push_back("throwed dirt at you!");
-                handy_tier = 5;
+                enemy_handy_tier = 5;
             }
             else if(enemy_handy >= 20 && enemy_handy < 25){
                 handy_attacks.push_back("hit you with metal stick!");
                 handy_attacks.push_back("throwed firey ball at you!");
                 handy_attacks.push_back("Throwed glowing rock at you!");
-                handy_tier = 7;
+                enemy_handy_tier = 7;
             }
             else {
                 handy_attacks.push_back("swiped you!");
@@ -129,7 +133,7 @@ void main_lvl_fight(Player player){
                 handy_attacks.push_back("bit you!");
                 handy_attacks.push_back("smashed you!");
                 handy_attacks.push_back("punched you!");
-                handy_tier = 1;
+                enemy_handy_tier = 1;
             }
 
             bool enemy_alive = true;
@@ -156,332 +160,132 @@ void main_lvl_fight(Player player){
                         int enemy_attack_count{2};
                         int player_damage{0};
 
-
                         // First attack, enemy first
                         if (enemy_spd * 3 + rand()%3 > player.print_spd() * 3 + rand()%3){
-                            cout<<"Enemy was faster! ";
-                            sleep(2);
-                            int enemy_damage{0};
-                            enemy_damage += enemy_str - 2;
-                            enemy_damage += rand()% handy_tier;
-                            if(enemy_damage < 0){
-                                enemy_damage = 0;
-                            }
-                            cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                            cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                            player.player_lose_damage(enemy_damage);
-                            cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                            sleep(2);
-                            if(player.print_current_hp() <= 0){
-                                player.player_died();
-                            }
+                            cout<<"Enemy was faster!\n";
+                            int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT);
+                            player = player.react_to_damage(player, enemy_damage, handy_attacks);
                             enemy_attack_count--;
 
                             // Enemy so fast he does second attack too
                             if(enemy_attack_count > 0 && enemy_spd * 2 > player.print_spd() * 3 + rand()%4){
-                                cout<<"Enemy was faster! ";
-                                sleep(2);
-                                int enemy_damage{0};
-                                enemy_damage += enemy_str - 2;
-                                enemy_damage += rand()% handy_tier;
-                                if(enemy_damage < 0){
-                                    enemy_damage = 0;
-                                }
-                                cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                                cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                                player.player_lose_damage(enemy_damage);
-                                cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                                sleep(2);
-                                if(player.print_current_hp() <= 0){
-                                    player.player_died();
-                                }
+                                int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT);
+                                player = player.react_to_damage(player, enemy_damage, handy_attacks);
                                 enemy_attack_count--;
 
-
                                 //Your turn, enemy attacked already twice
-                                cout<<"You hit enemy!"<<endl;
-                                sleep(2);
-                                player_damage += player.print_str() - 1;
-                                player_damage += rand()% handy_tier;
-                                if(player_damage < 0){
-                                    player_damage = 0;
-                                }
-                                cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                                player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                 enemy_hp -= player_damage;
-                                if (enemy_hp <= 0){
-                                    enemy_hp = 0;
-                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                    cout<<"Enemy died."<<endl;
+                                if ( enemy_hp_out( enemy_hp) ){
                                     main_fight_won(player);
                                     return;
-
                                 }
-                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                sleep(2);
-                                player_attack_count--;
+                                player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
 
                                 //(enemy twice, you once, now you more if you have attacks left)
                                 if(player_attack_count > 0){
-                                    cout<<"You hit enemy!"<<endl;
-                                    sleep(2);
-                                    player_damage += player.print_str() - 1;
-                                    player_damage += rand()% handy_tier;
-                                    if(player_damage < 0){
-                                        player_damage = 0;
-                                    }
-                                    cout<<"You did "<<player_damage<<" to enemy."<<endl;
-                                    sleep(2);
+                                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                     enemy_hp -= player_damage;
-                                    if (enemy_hp <= 0){
-                                        enemy_hp = 0;
-                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                        cout<<"Enemy died."<<endl;
-                                        sleep(2);
+                                    if ( enemy_hp_out(enemy_hp) ){
                                         main_fight_won(player);
                                         return;
                                     }
-                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                    sleep(2);
-                                    player_attack_count--;
+                                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
 
                                     //(enemy twice, you twice, now you more if you have attacks left)
                                     if(player_attack_count>0){
-                                        cout<<"You hit enemy!"<<endl;
-                                        sleep(2);
-                                        player_damage += player.print_str() - 1;
-                                        player_damage += rand()% handy_tier;
-                                        if(player_damage < 0){
-                                            player_damage = 0;
-                                        }
-                                        cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                                        player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                         enemy_hp -= player_damage;
-                                        if (enemy_hp <= 0){
-                                            enemy_hp = 0;
-                                            cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                            cout<<"Enemy died."<<endl;
-                                            sleep(2);
+                                        if ( enemy_hp_out(enemy_hp) ){
                                             main_fight_won(player);
                                             return;
                                         }
-                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                        sleep(2);
-                                        player_attack_count--;
+                                        player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
                                     }
                                 }
                             }
                             // Your turn to hit 1st time(enemy once, now you)
                             else {
-                                cout<<"You hit enemy!"<<endl;
-                                sleep(2);
-                                player_damage += player.print_str() - 1;
-                                player_damage += rand()% handy_tier;
-                                if(player_damage < 0){
-                                    player_damage = 0;
-                                }
-                                cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                                player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                 enemy_hp -= player_damage;
-                                if (enemy_hp <= 0){
-                                    enemy_hp = 0;
-                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                    cout<<"Enemy died."<<endl;
-                                    sleep(2);
+                                if ( enemy_hp_out(enemy_hp) ){
                                     main_fight_won(player);
                                     return;
-
                                 }
-                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                sleep(2);
-                                player_attack_count--;
+                                player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
 
                                 //(enemy once, you once, now you more if you have attacks left)
                                 if(player_attack_count>0){
-                                    cout<<"You hit enemy!"<<endl;
-                                    sleep(2);
-                                    player_damage += player.print_str() - 1;
-                                    player_damage += rand()% handy_tier;
-                                    if(player_damage < 0){
-                                        player_damage = 0;
-                                    }
-                                    cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                     enemy_hp -= player_damage;
-                                    if (enemy_hp <= 0){
-                                        enemy_hp = 0;
-                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                        cout<<"Enemy died."<<endl;
-                                        sleep(2);
+                                    if ( enemy_hp_out(enemy_hp) ){
                                         main_fight_won(player);
                                         return;
                                     }
-                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                    sleep(2);
-                                    player_attack_count--;
+                                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
 
                                     //(enemy once, you twice, now you more if you have attacks left)
                                     if(player_attack_count>0){
-                                        cout<<"You hit enemy!"<<endl;
-                                        sleep(2);
-                                        player_damage += player.print_str() - 1;
-                                        player_damage += rand()% handy_tier;
-                                        if(player_damage < 0){
-                                            player_damage = 0;
-                                        }
-                                        cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                                        player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                         enemy_hp -= player_damage;
-                                        if (enemy_hp <= 0){
-                                            enemy_hp = 0;
-                                            cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                            cout<<"Enemy died."<<endl;
-                                            sleep(2);
+                                        if ( enemy_hp_out(enemy_hp) ){
                                             main_fight_won(player);
                                             return;
                                         }
-                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                        sleep(2);
-                                        player_attack_count--;
+                                        player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
                                     }
                                 }
                                 //enemy first, then you(1-3times) then enemy again
-                                cout<<"Its enemys turn! ";
-                                sleep(2);
-                                int enemy_damage{0};
-                                enemy_damage += enemy_str - 2;
-                                enemy_damage += rand()% handy_tier;
-                                if(enemy_damage < 0){
-                                    enemy_damage = 0;
-                                }
-                                cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                                cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                                player.player_lose_damage(enemy_damage);
-                                cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                                if(player.print_current_hp() <= 0){
-                                    player.player_died();
-                                }
+                                int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT);
+                                player = player.react_to_damage(player, enemy_damage, handy_attacks);
                                 enemy_attack_count--;
                             }
                             if(enemy_attack_count > 0){
-                                cout<<"Its enemys turn! ";
-                                sleep(2);
-                                int enemy_damage{0};
-                                enemy_damage += enemy_str - 2;
-                                enemy_damage += rand()% handy_tier;
-                                if(enemy_damage < 0){
-                                    enemy_damage = 0;
-                                }
-                                cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                                cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                                player.player_lose_damage(enemy_damage);
-                                cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                                sleep(2);
-                                if(player.print_current_hp() <= 0){
-                                    player.player_died();
-                                }
+                                int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT);
+                                player = player.react_to_damage(player, enemy_damage, handy_attacks);
                                 enemy_attack_count--;
                             }
                         }
                         else if(player.print_spd() * 3 + rand()%3 > enemy_spd * 3 + rand()%3){
                             //Youre faster, you zero enemy zero
-                            cout<<"\nYou hit enemy!"<<endl;
-                            sleep(2);
-
-                            player_damage += player.print_str() - 1;
-                            player_damage += rand()% handy_tier;
-                            if(player_damage < 0){
-                                player_damage = 0;
-                            }
-                            cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                            player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                             enemy_hp -= player_damage;
-                            if (enemy_hp <= 0){
-                                enemy_hp = 0;
-                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                cout<<"Enemy died."<<endl;
+                            if ( enemy_hp_out(enemy_hp) ){
                                 main_fight_won(player);
                                 return;
                             }
-                            cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                            sleep(2);
-                            player_attack_count--;
+                            player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
 
                             //(You one, enemy zero)
-                            cout<<"\nIts enemys turn! ";
-                            sleep(2);
-                            int enemy_damage{0};
-                            enemy_damage += enemy_str - 2;
-                            enemy_damage += rand()% handy_tier;
-                            if(enemy_damage < 0){
-                                enemy_damage = 0;
-                            }
-                            cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                            cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                            player.player_lose_damage(enemy_damage);
-                            cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                            sleep(2);
-                            if(player.print_current_hp() <= 0){
-                                player.player_died();
-                            }
+                            int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT);
+                            player = player.react_to_damage(player, enemy_damage, handy_attacks);
                             enemy_attack_count--;
+
                             // You once, enemy once
                             if(player_attack_count > 0){
-                                cout<<"\nYou hit enemy!"<<endl;
-                                sleep(2);
-                                player_damage += player.print_str() - 1;
-                                player_damage += rand()% handy_tier;
-                                if(player_damage < 0){
-                                    player_damage = 0;
-                                }
-                                cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                                player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                 enemy_hp -= player_damage;
-                                if (enemy_hp <= 0){
-                                    enemy_hp = 0;
-                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                    cout<<"Enemy died."<<endl;
-                                    sleep(2);
+                                if ( enemy_hp_out(enemy_hp) ){
                                     main_fight_won(player);
                                     return;
                                 }
-                                cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                sleep(2);
-                                player_attack_count--;
+                                player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
+
 
                                 //(you twice, enemy once)
-                                cout<<"\nIts enemys turn! ";
-                                sleep(2);
-                                int enemy_damage{0};
-                                enemy_damage += enemy_str - 2;
-                                enemy_damage += rand()% handy_tier;
-                                if(enemy_damage < 0){
-                                    enemy_damage = 0;
-                                }
-                                cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-                                cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
-                                player.player_lose_damage(enemy_damage);
-                                cout<<"Your current hp: "<<player.print_current_hp()<<endl;
-                                sleep(2);
-                                if(player.print_current_hp() <= 0){
-                                    player.player_died();
-                                }
+                                int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT);
+                                player = player.react_to_damage(player, enemy_damage, handy_attacks);
                                 enemy_attack_count--;
+
                                 // You twice, enemy twice
                                 if(player_attack_count>0){
-                                    cout<<"\nYou hit enemy!"<<endl;
-                                    sleep(2);
-                                    player_damage += player.print_str() - 1;
-                                    player_damage += rand()% handy_tier;
-                                    if(player_damage < 0){
-                                        player_damage = 0;
-                                    }
-                                    cout<<"You did "<<player_damage<<" to enemy."<<endl;
+                                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT);
                                     enemy_hp -= player_damage;
-                                    if (enemy_hp <= 0){
-                                        enemy_hp = 0;
-                                        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                        cout<<"Enemy died."<<endl;
-                                        sleep(2);
+                                    if ( enemy_hp_out(enemy_hp) ){
                                         main_fight_won(player);
                                         return;
                                     }
-                                    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
-                                    sleep(2);
-                                    player_attack_count--;
+                                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count);
                                 }
                             }
                         }
@@ -522,6 +326,53 @@ void main_lvl_fight(Player player){
 
         }
     }
+}
+
+
+int enemy_did_damage(int enemy_str, int handy_tier, double const ENEMY_DAMAGE_PERCENT){
+    cout<<"\nIts enemys turn! ";
+    sleep(2);
+    int enemy_damage{0};
+    enemy_damage += enemy_str - 2;
+    enemy_damage += rand()% handy_tier;
+    if(enemy_damage < 0){
+        enemy_damage = 0;
+    }
+    return enemy_damage;
+}
+
+
+int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT){
+    int player_damage;
+    cout<<"You hit enemy!"<<endl;
+    sleep(2);
+    player_damage += player.print_str() - 1;
+    player_damage += rand()% player.handy_tier();
+    if(player_damage < 0){
+        player_damage = 0;
+    }
+    cout<<"You did "<<player_damage<<" to enemy."<<endl;
+    return player_damage;
+}
+
+bool enemy_hp_out(int enemy_hp){
+    if (enemy_hp <= 0 ){
+        enemy_hp = 0;
+        cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
+        cout<<"Enemy died."<<endl;
+        sleep(2);
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+int player_attack_done(int enemy_hp, int player_attack_count){
+    cout<<"Enemy has "<<enemy_hp<<" left."<<endl;
+    sleep(2);
+    player_attack_count--;
+    return player_attack_count;
 }
 
 bool op(int compare_this, int compare_with){

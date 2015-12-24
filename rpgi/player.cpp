@@ -50,6 +50,29 @@ int Player::print_handy(){
     return handy_lvl_;
 }
 
+int Player::handy_tier(){
+    int handy_tier;
+    if ( handy_lvl_ <=5 ){
+        handy_tier = 1;
+    }
+    else if( handy_lvl_ <= 10 ){
+        handy_tier = 3;
+    }
+    else if( handy_lvl_ <= 15 ){
+        handy_tier = 10;
+    }
+    else if( handy_lvl_ <= 20 ){
+        handy_tier = 18;
+    }
+    else if( handy_lvl_ <= 25 ){
+        handy_tier = 24;
+    }
+    else{
+        handy_tier = 30;
+    }
+    return handy_tier;
+}
+
 bool Player::trehit_open(){
     if (trehitcombo_ == true){
         return true;
@@ -150,3 +173,17 @@ void Player::player_died(){
         }
     }
 }
+
+Player react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks){
+        cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
+        cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
+        player.player_lose_damage(enemy_damage);
+        cout<<"Your current hp: "<<player.print_current_hp()<<endl;
+        sleep(2);
+        if(player.print_current_hp() <= 0){
+            player.player_died();
+        }
+        return player;
+    }
+}
+
