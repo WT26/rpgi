@@ -92,6 +92,7 @@ Player phase_1(){
 void phase_2(Player player){
     cout<<"You venture outside of your little hut.\nIts bright outside and you see"
           "a bunch of people\nof your little village gathered around."<<endl;
+    bool talked = false;
 
     string command{"twentysix"};
 
@@ -103,16 +104,24 @@ void phase_2(Player player){
 
         }
         else if (command == "stats"){
-
+            player.show_stats();
         }
         else if (command == "shop"){
 
         }
         else if (command == "talk"){
-
+            if(talked == false){
+                cout<<"\nYou walk to the group. You see a bunch of people that you haven't\nseen before. It appears that they are collecting some new tax moneys.\n";
+                cout<<"Everyone is resisting, but then a bigger guy, calling himself The Relego, appears and\ninsists the money. Everyone quiets up and act scared.\n";
+                cout<<"\nA little guy grabs your hand and tells you: \n\n 'Hey "<<player.print_name()<<" you got to deal with that big guy, that tax is outrageous!\n\n";
+                talked = true;
+            }
+            else {
+                cout<<"\nYou see the group still arguing with kindom people.\n\n";
+            }
         }
-        else if (command == "fight"){
-            main_lvl_fight(player);
+        else if (command == "woods" || command == "w"){
+            player = main_lvl_fight(player);
         }
         else if (command == "boss"){
             if(player.print_main_lvl() <= 20){
@@ -121,7 +130,7 @@ void phase_2(Player player){
         }
         else if (command == "c"|| command == "C"||
                  command == "commands" || command == "Commands"){
-            cout<<"\nAll commands are:\nitems\nstats\nshop\ntalk\nfight\nboss"<<endl;
+            cout<<"\nAll commands are:\nitems\nstats\nshop\ntalk\nwoods          (random encounter)\nboss"<<endl;
         }
         else if (command == "end"){
             endGame();

@@ -50,6 +50,10 @@ int Player::print_handy(){
     return handy_lvl_;
 }
 
+string Player::print_name(){
+    return player_name_;
+}
+
 int Player::handy_tier(){
     int handy_tier;
     if ( handy_lvl_ <=5 ){
@@ -83,9 +87,9 @@ bool Player::trehit_open(){
 }
 
 void Player::show_stats(){
-    cout<<"Your stats:\nMain level: "<<main_lvl_<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
+    cout<<"\nYour stats:\nMain level: "<<main_lvl_<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
        <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<"\nAll experience: "
-      <<all_exp_<<endl;
+      <<all_exp_<<"\n\n";
 }
 
 void Player::show_items(){
@@ -169,12 +173,12 @@ void Player::player_died(){
             endGame();
         }
         else if(command == "debug"){
-            Debug debug = Debug();
+            Debug debug();
         }
     }
 }
 
-Player react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks){
+Player Player::react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks, string enemy_name){
         cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
         cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
         player.player_lose_damage(enemy_damage);
@@ -184,6 +188,5 @@ Player react_to_damage(Player player, int enemy_damage, vector<string> handy_att
             player.player_died();
         }
         return player;
-    }
-}
+        }
 
