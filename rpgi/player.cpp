@@ -166,10 +166,10 @@ void Player::player_died(){
         string command{"twentysix"};
         getline(cin, command);
 
-        if(command == "main menu"){
+        if(command == "main menu" || command == "Main menu"){
             start_menu();
         }
-        else if(command == "end"){
+        else if(command == "end" || command == "e"){
             endGame();
         }
         else if(command == "debug"){

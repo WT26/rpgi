@@ -44,6 +44,9 @@ private:
     int all_exp_;
     int current_phase_;
     int money_;
+
+    int total_commands_;
+
     bool trehitcombo_;
 };
 

@@ -100,20 +100,25 @@ void phase_2(Player player){
         cout<<"command >";
         getline(cin, command);
 
-        if (command == "items"){
-
+        if (command == "items" || command == "i"){
+            cout<<"You dont have any items\n";
         }
-        else if (command == "stats"){
+        else if (command == "stats" || command == "st"){
             player.show_stats();
         }
         else if (command == "shop"){
-
+            if (talked == false){
+                cout<<"\nShop's clercks man doesn't seem to be here.\n";
+            }
+            else {
+                cout<<"\nShop's clercks man is talking with tax people.\n";
+            }
         }
         else if (command == "talk"){
             if(talked == false){
                 cout<<"\nYou walk to the group. You see a bunch of people that you haven't\nseen before. It appears that they are collecting some new tax moneys.\n";
                 cout<<"Everyone is resisting, but then a bigger guy, calling himself The Relego, appears and\ninsists the money. Everyone quiets up and act scared.\n";
-                cout<<"\nA little guy grabs your hand and tells you: \n\n 'Hey "<<player.print_name()<<" you got to deal with that big guy, that tax is outrageous!\n\n";
+                cout<<"\nA little guy grabs your hand and tells you: \n\n'Hey "<<player.print_name()<<" you've' got to deal with that big guy, that tax is outrageous!'\n\n";
                 talked = true;
             }
             else {
@@ -124,13 +129,31 @@ void phase_2(Player player){
             player = main_lvl_fight(player);
         }
         else if (command == "boss"){
-            if(player.print_main_lvl() <= 20){
-                cout<<"You're too weak to challenge him"<<endl;
+            if(player.print_main_lvl() <= 15){
+                cout<<"You're too weak to challenge him. (Suggested min. lvl is 15)\n";
+            }
+            else{
+                    //bossfite 01  The Relego
+            }
+        }
+        else if(command == "save" || command == "Save" || command == "save"){
+
+            while(command != "no" && command != "2" && command != "2." && command != "No"){
+                cout<<"\n\ndo you want to save the game?\n\n1. Yes\2. No\n\ncommand >";
+                getline(cin, command);
+                if(command == "yes" || command == "1" || command == "1." || command == "y"){
+                    //savegame
+                }
+                else if (command == "no" || command == "2" || command == "2." || command == "No"){
+                    break;
+                }
             }
         }
         else if (command == "c"|| command == "C"||
-                 command == "commands" || command == "Commands"){
-            cout<<"\nAll commands are:\nitems\nstats\nshop\ntalk\nwoods          (random encounter)\nboss"<<endl;
+                 command == "commands" || command == "Commands"
+                 || command == "8" || command == "8."){
+            cout<<"\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
+                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n;
         }
         else if (command == "end"){
             endGame();
