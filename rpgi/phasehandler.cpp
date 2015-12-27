@@ -150,10 +150,10 @@ void phase_2(Player player){
                  || command == "7" || command == "7."){
 
             while(command != "no" && command != "2" && command != "2." && command != "No"){
-                cout<<"\n\ndo you want to save the game?\n\n1. Yes\2. No\n\ncommand >";
+                cout<<"\n\ndo you want to save the game?\n\n1. Yes\n2. No\n\ncommand >";
                 getline(cin, command);
                 if(command == "yes" || command == "1" || command == "1." || command == "y"){
-                    //savegame
+                    save_game(player);
                 }
                 else if (command == "no" || command == "2" || command == "2." || command == "No"){
                     break;
@@ -181,14 +181,14 @@ void phase_2(Player player){
 //###V######V######V######V######V###### Phase 3 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_3(Player player){
-    cout<<"its phase 3"<<endl;
+    cout<<"its phase 3\n";
 
 }
 //############################################################################################
 //###V######V######V######V######V###### Phase 4 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_4(Player player){
-    cout<<"its phase 4"<<endl;
+    cout<<"its phase 4\n";
 
 }
 //############################################################################################

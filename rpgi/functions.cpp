@@ -2,6 +2,7 @@
 #include "phasehandler.hh"
 #include "player.hh"
 #include "debug.hh"
+#include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
 #include <iostream>
@@ -417,7 +418,99 @@ int main_fight_won_money(Player player) {
 }
 
 
-void save_game(){
-    //todo create new text file(save_x.txt) with info of player.
+void save_game(Player player){
+
+    string command{"twentysix"};
+
+    while(command != "back" || command != "end"){
+        cout<<"\n\nWhich file you want to save to?\n\n";
+
+        for(int i{1}; i != 11; i++){
+            string save_file_name{"save_"};
+            save_file_name += to_string(i) + ".txt";
+
+            cout<<i<<". ";
+            if( file_exists(save_file_name) ){
+                cout<<save_file_name<<"\n";
+            }
+            else{
+                cout<<"\n";
+            }
+        }
+        cout<<"\ncommand >";
+
+        getline(cin, command);
+
+        if (command == "1") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(1) + ".txt";
+            ofstream a_file(save_file_name);
+        }
+        else if (command == "2" || command == "2.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(2) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "3" || command == "3.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(3) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "4" || command == "4.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(4) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "5" || command == "5.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(5) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "6" || command == "6.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(6) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "7" || command == "7.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(7) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "8" || command == "8.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(8) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "9" || command == "9.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(9) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+        else if (command == "10" || command == "10.") {
+            string save_file_name{"save_"};
+            save_file_name += to_string(10) + ".txt";
+            ofstream a_file(save_file_name);
+
+        }
+    }
+    string save_string = player.get_save_info();
+    ofstream a_file("example.txt"); //this creates it.
+    //a_file << //use this to write to it.;
 }
+
+
+
+bool file_exists (string file_name) {
+struct stat buffer;
+return (stat (file_name.c_str(), &buffer) == 0);
+}
+
 

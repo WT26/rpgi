@@ -20,5 +20,8 @@ using namespace std;
     int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAIT_TIME);
     int player_attack_done(int enemy_hp, int player_attack_count, int WAIT_TIME);
 
+    bool file_exists(string file_name);
+
+    void save_game(Player player);
 
 #endif // FUNCTIONS_HH

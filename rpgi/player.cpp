@@ -114,6 +114,22 @@ void Player::check_lvl_up(){
     }
 }
 
+
+string Player::get_save_info(){
+    //matti:salto:10:30:5:20:10:75:2
+    string save_info;
+    save_info += player_name_ + ":" + class_name_ + ":" + to_string(main_lvl_) + ":" + to_string(hp_lvl_) + ":"
+            + to_string(str_lvl_) + ":" + to_string(spd_lvl_) + ":" + to_string(handy_lvl_) + ":" + to_string(all_exp_) + ":" + to_string(current_phase_);
+
+    /*
+    money_ = 0;
+    bool trehitcombo_ = false;
+    */
+
+    return save_info;
+}
+
+
 void Player::level_up(){
     cout<<"LEVEL UP!\nWhat you want to level up?"<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
        <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<endl;
@@ -188,5 +204,5 @@ Player Player::react_to_damage(Player player, int enemy_damage, vector<string> h
             player.player_died();
         }
         return player;
-        }
+}
 
