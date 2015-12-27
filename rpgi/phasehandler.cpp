@@ -100,13 +100,17 @@ void phase_2(Player player){
         cout<<"command >";
         getline(cin, command);
 
-        if (command == "items" || command == "i"){
+        if (command == "items" || command == "i" || command == "1"
+                || command == "1."){
             cout<<"You dont have any items\n";
         }
-        else if (command == "stats" || command == "st"){
+        else if (command == "stats" || command == "st" || command == "2"
+                  || command == "2."){
             player.show_stats();
         }
-        else if (command == "shop"){
+        else if (command == "shop" || command == "sh"
+                  || command == "Shop" || command == "3"
+                  || command == "3."){
             if (talked == false){
                 cout<<"\nShop's clercks man doesn't seem to be here.\n";
             }
@@ -114,7 +118,9 @@ void phase_2(Player player){
                 cout<<"\nShop's clercks man is talking with tax people.\n";
             }
         }
-        else if (command == "talk"){
+        else if (command == "talk" || command == "Talk"
+                  || command == "4" || command == "4."
+                  || command == "t"){
             if(talked == false){
                 cout<<"\nYou walk to the group. You see a bunch of people that you haven't\nseen before. It appears that they are collecting some new tax moneys.\n";
                 cout<<"Everyone is resisting, but then a bigger guy, calling himself The Relego, appears and\ninsists the money. Everyone quiets up and act scared.\n";
@@ -125,10 +131,14 @@ void phase_2(Player player){
                 cout<<"\nYou see the group still arguing with kindom people.\n\n";
             }
         }
-        else if (command == "woods" || command == "w"){
+        else if (command == "woods" || command == "w"
+                  || command == "Woods" || command == "5"
+                  || command == "5."){
             player = main_lvl_fight(player);
         }
-        else if (command == "boss"){
+        else if (command == "boss" || command == "Boss"
+                  || command == "6." || command == "6"
+                  || command == "b"){
             if(player.print_main_lvl() <= 15){
                 cout<<"You're too weak to challenge him. (Suggested min. lvl is 15)\n";
             }
@@ -136,7 +146,8 @@ void phase_2(Player player){
                     //bossfite 01  The Relego
             }
         }
-        else if(command == "save" || command == "Save" || command == "save"){
+        else if(command == "save" || command == "Save" || command == "save"
+                 || command == "7" || command == "7."){
 
             while(command != "no" && command != "2" && command != "2." && command != "No"){
                 cout<<"\n\ndo you want to save the game?\n\n1. Yes\2. No\n\ncommand >";
@@ -153,7 +164,7 @@ void phase_2(Player player){
                  command == "commands" || command == "Commands"
                  || command == "8" || command == "8."){
             cout<<"\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
-                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n;
+                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n";
         }
         else if (command == "end"){
             endGame();
