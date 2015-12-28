@@ -29,6 +29,8 @@ public:
     void player_died();
     bool trehit_open();
 
+    string save_header();
+
     string get_save_info();
 
     Player react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks, string enemy_name);

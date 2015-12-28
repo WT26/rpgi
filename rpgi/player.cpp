@@ -206,3 +206,7 @@ Player Player::react_to_damage(Player player, int enemy_damage, vector<string> h
         return player;
 }
 
+string Player::save_header(){
+    return string {"  Name: " + player_name_ + "  Main Level: " + to_string(main_lvl_)};
+}
+
