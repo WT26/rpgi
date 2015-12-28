@@ -29,7 +29,7 @@ bool start_menu(){
         }
         else if(command == "load game" || command == "Load game") {
             ifstream savefile;
-            cout<<"What file do you want to load?\n\n";
+            cout<<"What file do you want to load?\n\ncommand >";
             string file;
             getline(cin, file);
             savefile.open(file);
@@ -100,7 +100,7 @@ Player main_lvl_fight(Player player){
     vector<string> adjective{"Mystery", "Epic", "Baby", "Little", "Weird", "Silent", "Angry", "Massive", "Gentle"};
     string enemy_name = adjective[rand()%9] + " " + animal[rand()%9];
 
-    usleep(100000);
+
     int enemy_hp = rand()%enemy_lvl;
     int enemy_str = rand()%(enemy_lvl - enemy_hp);
     int enemy_spd = rand()%(enemy_lvl - enemy_hp - enemy_str);
@@ -138,159 +138,32 @@ Player main_lvl_fight(Player player){
     bool enemy_alive = true;
 
     if(enemy_alive == true && player.print_current_hp() > 0){
-        if(op(player.print_spd(), enemy_spd)){
-            cout<<"Enemy is three time faster than you so you can only have one hit per turn!"<<endl;
-            player_attack_count = 1;
-        }
-        else if(player.trehit_open()){
-                player_attack_count = 3;
-        }
-        else {
-                player_attack_count = 2;
-        }
 
         string command{"twentysix"};
         cout<<"\nYou encounter "<<enemy_name<<"! Its lvl "<<enemy_lvl<<"!"<<endl;
 
         while(enemy_alive == true && player.print_current_hp() > 0){
-            cout<<"What you want to do?\ncommand >";
+            cout<<"\nWhat you want to do?\ncommand >";
             getline(cin, command);
+
             if (command == "attack" || command == "a" || command == "A" || command == "Attack"){
-                int enemy_attack_count{2};
                 int player_damage{0};
+                int enemy_damage{0};
 
-                // First attack, enemy first
-                if (enemy_spd * 3 + rand()%3 > player.print_spd() * 3 + rand()%3){
-                    cout<<"Enemy was faster!\n";
-                    int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                    player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
-                    enemy_attack_count--;
-
-                    // Enemy so fast he does second attack too
-                    if(enemy_attack_count > 0 && enemy_spd * 2 > player.print_spd() * 3 + rand()%4){
-                        int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                        player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
-                        enemy_attack_count--;
-
-                        //Your turn, enemy attacked already twice
-                        player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                        enemy_hp -= player_damage;
-                        if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
-                            player = main_fight_won(player);
-                            return player;
-                        }
-                        player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-
-                        //(enemy twice, you once, now you more if you have attacks left)
-                        if(player_attack_count > 0){
-                            player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                            enemy_hp -= player_damage;
-                            if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                                player = main_fight_won(player);
-                                return player;
-                            }
-                            player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-
-                            //(enemy twice, you twice, now you more if you have attacks left)
-                            if(player_attack_count>0){
-                                player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                                enemy_hp -= player_damage;
-                                if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                                    player = main_fight_won(player);
-                                    return player;
-                                }
-                                player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-                            }
-                        }
-                    }
-                    // Your turn to hit 1st time(enemy once, now you)
-                    else {
-                        player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                        enemy_hp -= player_damage;
-                        if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                            player = main_fight_won(player);
-                            return player;
-                        }
-                        player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-
-                        //(enemy once, you once, now you more if you have attacks left)
-                        if(player_attack_count>0){
-                            player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                            enemy_hp -= player_damage;
-                            if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                                player = main_fight_won(player);
-                                return player;
-                            }
-                            player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-
-                            //(enemy once, you twice, now you more if you have attacks left)
-                            if(player_attack_count>0){
-                                player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                                enemy_hp -= player_damage;
-                                if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                                    player = main_fight_won(player);
-                                    return player;
-                                }
-                                player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-                            }
-                        }
-
-                        //enemy first, then you(1-3times) then enemy again
-                        int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                        player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
-                        enemy_attack_count--;
-                    }
-
-                    if(enemy_attack_count > 0){
-                        int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                        player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
-                        enemy_attack_count--;
-                    }
+                // Players turn
+                player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
+                enemy_hp -= player_damage;
+                if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
+                    player = main_fight_won(player);
+                    return player;
                 }
+                player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
 
-                else if(player.print_spd() * 3 + rand()%3 > enemy_spd * 3 + rand()%3){
-                    //Youre faster, you zero enemy zero
-                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                    enemy_hp -= player_damage;
-                    if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                        player = main_fight_won(player);
-                        return player;
-                    }
-                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
+                //Enemys turn
 
-                    //(You one, enemy zero)
-                    int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                    player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
-                    enemy_attack_count--;
+                enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
+                player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
 
-                    // You once, enemy once
-                    if(player_attack_count > 0){
-                        player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                        enemy_hp -= player_damage;
-                        if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                            player = main_fight_won(player);
-                            return player;
-                        }
-                        player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-
-
-                        //(you twice, enemy once)
-                        int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                        player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
-                        enemy_attack_count--;
-
-                        // You twice, enemy twice
-                        if(player_attack_count>0){
-                            player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                            enemy_hp -= player_damage;
-                            if ( enemy_hp_out(enemy_hp, WAIT_TIME) ){
-                                player = main_fight_won(player);
-                                return player;
-                            }
-                            player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
-                        }
-                    }
-                }
             }
             else if (command == "commands" || command == "c"){
                 cout<<"\nAll commands:\nattack\nuse item\nrun\n";
@@ -335,7 +208,8 @@ int enemy_did_damage(int enemy_str, int handy_tier, double const ENEMY_DAMAGE_PE
     cout<<"\nIts enemys turn! ";
     sleep(WAIT_TIME);
     int enemy_damage{0};
-    enemy_damage += (enemy_str - rand()% enemy_str) * ENEMY_DAMAGE_PERCENT;
+    int minus_str = rand()% (enemy_str + 1);
+    enemy_damage += (enemy_str - minus_str) * ENEMY_DAMAGE_PERCENT;
     enemy_damage += rand()% handy_tier;
     if(enemy_damage <= 0){
         enemy_damage = 0;
@@ -422,7 +296,7 @@ void save_game(Player player){
 
     string command{"twentysix"};
 
-    while(command != "back" || command != "end" || command != ""){
+    while(command != "back" || command != "end" || command != "" || command != " "){
         cout<<"\n\nWhich file you want to save to? ('back' or 'end' to return)\n\n";
 
         for(int i{1}; i != 11; i++){
@@ -517,6 +391,9 @@ void save_game(Player player){
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
 
+        }
+        else if (command == "end" || command == "" || command == " " || command == "back"){
+            break;
         }
     }
 }

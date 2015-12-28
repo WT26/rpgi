@@ -102,16 +102,35 @@ void Player::give_money(int amount){
 
 void Player::give_xp(int amount){
     all_exp_ += amount;
-    if(all_exp_ >= 100){
+    if(all_exp_ >= 30 && main_lvl_ == 10 ){
+        level_up();
+    }
+    else if(all_exp_ >= 60 && main_lvl_ == 11 ){
+        level_up();
+    }
+    else if(all_exp_ >= 90 && main_lvl_ == 12 ){
+        level_up();
+    }
+    else if(all_exp_ >= 100){
         all_exp_ -= 100;
         level_up();
     }
 }
 
 void Player::check_lvl_up(){
-    if (all_exp_ >= 100){
+    if(main_lvl_ == 10 && all_exp_ >= 30){
         level_up();
     }
+    else if(main_lvl_ == 11 && all_exp_ >= 60){
+        level_up();
+    }
+    else if (main_lvl_ == 12 && all_exp_ >= 90){
+        level_up();
+    }
+    else if (all_exp_ >= 100){
+        level_up();
+    }
+    return;
 }
 
 
@@ -131,35 +150,39 @@ string Player::get_save_info(){
 
 
 void Player::level_up(){
-    cout<<"LEVEL UP!\nWhat you want to level up?"<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
-       <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<endl;
+    cout<<"\n\nLEVEL UP ! !\nWhat you want to level up?"<<"\n1. Hp level: "<<hp_lvl_<<"\n2. Str level: "
+       <<str_lvl_<<"\n3. Spd level: "<<spd_lvl_<<"\n4. Handy level: "<<handy_lvl_<<endl;
     string answer;
     bool answered = false;
     while(answered == false){
         getline(cin, answer);
 
-        if(answer == "hp" || answer == "Hp"){
+        if(answer == "hp" || answer == "Hp" || answer == "1"
+                || answer == "1."){
             hp_lvl_ ++;
             answered = true;
         }
 
-        else if(answer == "str" || answer == "Str"){
+        else if(answer == "str" || answer == "Str" || answer == "2"
+                || answer == "2."){
             str_lvl_ ++;
             answered = true;
         }
 
-        else if(answer == "spd" || answer == "Spd"){
+        else if(answer == "spd" || answer == "Spd" || answer == "3"
+                || answer == "3.."){
             spd_lvl_ ++;
             answered = true;
         }
 
-        else if(answer == "handy" || answer == "Handy"){
+        else if(answer == "handy" || answer == "Handy" || answer == "4"
+                || answer == "4."){
             handy_lvl_ ++;
             answered = true;
         }
 
         else{
-            cout<<"Enter one of the levels: hp, str, spd or handy."<<endl;
+            cout<<"Enter one of the levels: hp, str, spd or handy.\n";
         }
     }
 }
@@ -172,7 +195,7 @@ void Player::player_lose_damage(int damage){
 }
 
 void Player::player_died(){
-    cout<<"\n"<<endl;
+    cout<<"\n\n";
     usleep(200000);
     cout<<"YOU DIED"<<endl;
     usleep(400000);

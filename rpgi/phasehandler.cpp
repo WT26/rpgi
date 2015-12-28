@@ -154,6 +154,7 @@ void phase_2(Player player){
                 getline(cin, command);
                 if(command == "yes" || command == "1" || command == "1." || command == "y"){
                     save_game(player);
+                    break;
                 }
                 else if (command == "no" || command == "2" || command == "2." || command == "No"){
                     break;
@@ -164,7 +165,7 @@ void phase_2(Player player){
                  command == "commands" || command == "Commands"
                  || command == "8" || command == "8."){
             cout<<"\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
-                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n";
+                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n\n";
         }
         else if (command == "end"){
             endGame();
