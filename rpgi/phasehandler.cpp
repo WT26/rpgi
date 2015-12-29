@@ -49,7 +49,7 @@ Player phase_1(){
         int spd = 2;
         int handy = 3;
         string class_name = "Curator";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 14);
         phase_2(player);
     }
     else if (answer == "Salto" || answer == "salto"){
@@ -58,7 +58,7 @@ Player phase_1(){
         int spd = 5;
         int handy = 3;
         string class_name = "Salto";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 10);
         phase_2(player);
     }
     else if (answer == "Ensis" || answer == "ensis"){
@@ -67,7 +67,7 @@ Player phase_1(){
         int spd = 3;
         int handy = 1;
         string class_name = "Ensis";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 11);
         phase_2(player);
     }
     else if (answer == "Piger" || answer == "piger"){
@@ -76,7 +76,7 @@ Player phase_1(){
         int spd = 2;
         int handy = 2;
         string class_name = "Piger";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 12);
         phase_2(player);
     }
     else if (answer == "debug"){
@@ -92,8 +92,8 @@ Player phase_1(){
 void phase_2(Player player){
     player.start_clock();
     player.update_phase(2);
-    cout<<"You venture outside of your little hut.\nIts bright outside and you see"
-          "a bunch of people\nof your little village gathered around."<<endl;
+    cout<<"\nYou venture outside of your little hut.\nIts bright outside and you see"
+          "a bunch of people\nof your little village gathered around.\n\n";
     bool talked = false;
 
     string command{"twentysix"};
@@ -105,7 +105,6 @@ void phase_2(Player player){
         if (command == "items" || command == "i" || command == "1"
                 || command == "1."){
             cout<<"You dont have any items\n";
-            player.seconds_elapsed();
         }
         else if (command == "stats" || command == "st" || command == "2"
                   || command == "2."){
@@ -168,10 +167,25 @@ void phase_2(Player player){
                  command == "commands" || command == "Commands"
                  || command == "8" || command == "8."){
             cout<<"\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
-                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n\n";
+                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n";
         }
-        else if (command == "end"){
-            endGame();
+        else if (command == "end" || command =="End"
+                 || command == "9" || command == "9."){
+            command = "twentysix";
+            while(command != "back"){
+                cout<<"\nDo you really want to return to main menu? All unsaved progress will be lost."
+                      "\n1. Yes\n2. No\n\ncommand >";
+                getline(cin, command);
+
+                if(command == "yes" || command == "Yes"
+                        || command == "1" || command == "1."){
+                    start_menu();
+                }
+                else if (command == "no" || command == "No"
+                         || command == "2" || command == "2."){
+                    command = "back";
+                }
+            }
         }
         else if (command == "debug"){
             Debug debug = Debug();

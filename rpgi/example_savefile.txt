@@ -1,0 +1,10 @@
+Example of what savefile should exist of:
+
+Name:Class:Main_lvl:Hp_lvl:Str_lvl:Spd_lvl:Handy_lvl:all_xp:phase:time:current_hp
+
+matti:salto:10:30:5:20:10:75:2:1000:10
+
+
+
+Adding new info:
+1.

@@ -15,10 +15,10 @@
 using namespace std;
 
 bool start_menu(){
-    vector<string> commands{"new game", "load game", "end"};
+    vector<string> commands{"new game", "load game", "quit"};
     string command;
 
-    cout<<"Start menu: \n1. new game\n2. load game\n\ncommand >";
+    cout<<"Start menu: \n1. new game\n2. load game\n3. quit\ncommand >";
 
     bool end_game{false};
     while(end_game != true){
@@ -32,8 +32,9 @@ bool start_menu(){
                 || command == "2" || command == "2.") {
             load_game();
         }
-        else if(command == "end" || command == "End"
+        else if(command == "quit" || command == "Quit"
                 || command == "3"|| command == "3."){
+            endGame();
             return false;
         }
         else if(command == "debug"){
@@ -73,7 +74,7 @@ vector<string> split(const string& merkkijono, char erotinmerkki) {
 }
 
 int endGame(){
-    return 0;
+    exit(0);
 }
 
 Player main_lvl_fight(Player player){
@@ -432,7 +433,7 @@ void load_game(){
                    save_info = split(output, ':');
                    Player player = Player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
                            stoi(save_info[4]), stoi(save_info[5]), stoi(save_info[6]), stoi(save_info[7]),
-                           stoi(save_info[8]));
+                           stoi(save_info[8]), stoi(save_info[9]), stoi(save_info[10]));
                    savefile.close();
                    phasehandler(player);
                 }

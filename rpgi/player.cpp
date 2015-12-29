@@ -11,20 +11,21 @@
 using namespace std;
 
 Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
-               int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase)
+               int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase, int elapsed_time, int current_hp)
 {
     player_name_ = player_name;
     class_name_ = class_name;
     main_lvl_ = main_lvl;
     hp_lvl_ = hp_lvl;
-    current_hp_ = hp_lvl_;
+    current_hp_ = current_hp;
     str_lvl_ = str_lvl;
     spd_lvl_ = spd_lvl;
     handy_lvl_ = handy_lvl;
     all_exp_ = all_exp;
     current_phase_ = phase;
     money_ = 0;
-    start_time_;
+    start_time_ = time(0);
+    elapsed_sofar_ = elapsed_time;
 }
 
 int Player::print_phase(){
@@ -84,9 +85,11 @@ void Player::start_clock(){
 }
 
 void Player::show_stats(){
+    update_time_elapsed();
+    string complete_time = seconds_minutes_hours();
     cout<<"\nYour stats:\nMain level: "<<main_lvl_<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
        <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<"\nAll experience: "
-      <<all_exp_<<"\nMoney: "<<money_<<"\n\n";
+      <<all_exp_<<"\nMoney: "<<money_<<"\nTotal playtime: " <<complete_time<< "\n\n";
 }
 
 void Player::show_items(){
@@ -131,17 +134,23 @@ void Player::check_lvl_up(){
 }
 
 
-void Player::seconds_elapsed(){
+double Player::seconds_elapsed(){
     double seconds_elapsed_since_start = difftime(time(0), start_time_);
     seconds_elapsed_since_start += elapsed_sofar_;
     return seconds_elapsed_since_start;
 }
 
+void Player::update_time_elapsed(){
+    elapsed_sofar_ += difftime( time(0), start_time_ );
+    start_time_ = time(0);
+}
+
 string Player::get_save_info(){
-    //matti:salto:10:30:5:20:10:75:2
+    update_time_elapsed();
     string save_info;
     save_info += player_name_ + ":" + class_name_ + ":" + to_string(main_lvl_) + ":" + to_string(hp_lvl_) + ":"
-            + to_string(str_lvl_) + ":" + to_string(spd_lvl_) + ":" + to_string(handy_lvl_) + ":" + to_string(all_exp_) + ":" + to_string(current_phase_);
+            + to_string(str_lvl_) + ":" + to_string(spd_lvl_) + ":" + to_string(handy_lvl_) + ":" + to_string(all_exp_) +
+            ":" + to_string(current_phase_) + ":" + to_string(elapsed_sofar_);
 
     /*
     money_ = 0;
@@ -245,3 +254,13 @@ void Player::update_phase(int phase_number){
     current_phase_ = phase_number;
 }
 
+string Player::seconds_minutes_hours(){
+    int total_seconds = elapsed_sofar_;
+    int hours = total_seconds / 60 / 60;
+    total_seconds -= 60 * 60 * hours;
+    int minutes = total_seconds / 60;
+    total_seconds -= minutes * 60;
+
+    string complete_string = "Hours: " + to_string(hours) + "  Minutes: " + to_string(minutes) + "  Seconds: " + to_string(total_seconds);
+    return complete_string;
+}
