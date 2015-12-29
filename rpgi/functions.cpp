@@ -18,45 +18,30 @@ bool start_menu(){
     vector<string> commands{"new game", "load game", "end"};
     string command;
 
-    cout<<"Start menu: Would you like to start a new game or load game"<<endl;
+    cout<<"Start menu: \n1. new game\n2. load game\n\ncommand >";
 
     bool end_game{false};
     while(end_game != true){
         getline(cin, command);
 
-        if(command == "new game" || command == "New game"){
+        if(command == "new game" || command == "New game"
+                || command == "1"|| command == "1."){
             phase_1();
         }
-        else if(command == "load game" || command == "Load game") {
-            ifstream savefile;
-            cout<<"What file do you want to load?\n\ncommand >";
-            string file;
-            getline(cin, file);
-            savefile.open(file);
-            string output;
-
-            if (savefile.is_open()) {
-                while (!savefile.eof()) {
-                   savefile >> output;
-                   vector<string> save_info;
-                   save_info = split(output, ':');
-                   Player player = Player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
-                           stoi(save_info[4]), stoi(save_info[5]), stoi(save_info[6]), stoi(save_info[7]),
-                           stoi(save_info[8]));
-                   phasehandler(player);
-                }
-            }
-            savefile.close();
+        else if(command == "load game" || command == "Load game"
+                || command == "2" || command == "2.") {
+            load_game();
         }
-        else if(command == "end" || command == "End"){
+        else if(command == "end" || command == "End"
+                || command == "3"|| command == "3."){
             return false;
         }
         else if(command == "debug"){
             Debug debug = Debug();
         }
         else{
-            cout<<"Wrong command, all commands: "<<commands[0]
-               <<", "<<commands[1]<<", "<<commands[2]<<endl;
+            cout<<"\nWrong command, all commands:\n1. "<<commands[0]
+               <<"\n2. "<<commands[1]<<"\n3.\n"<<commands[2]<<endl;
         }
     }
     return false;
@@ -318,6 +303,7 @@ void save_game(Player player){
                 cout<<"\n";
             }
         }
+
         cout<<"\ncommand >";
 
         getline(cin, command);
@@ -398,7 +384,72 @@ void save_game(Player player){
     }
 }
 
+void load_game(){
+    string command{"twentysix"};
 
+    while(command != "back" || command != "end" || command != "" || command != " "){
+
+        ifstream savefile;
+        cout<<"What file do you want to load?\n\n";
+
+        for(int i{1}; i != 11; i++){
+            string save_file_name{"save_"};
+            save_file_name += to_string(i) + ".txt";
+
+            cout<<i<<". ";
+            if( file_exists(save_file_name) ){
+                ifstream file;
+                file.open(save_file_name);
+                string output;
+                file >> output;
+                vector<string> save_info;
+                save_info = split(output, ':');
+                cout<<"Name: " <<save_info[0] <<"  Class: "<<save_info[1]
+                   <<"  Main level: "<<save_info[2]<<"\n";
+            }
+            else{
+                cout<<"\n";
+            }
+        }
+
+        cout<<"\ncommand >";
+        getline(cin, command);
+
+        if(command == "1" || command == "2" || command == "3" ||
+                command == "4" || command == "5" || command == "6" ||
+                command == "7" || command == "8" || command == "9" ||
+                command == "10"){
+
+            string file;
+            file = "save_" + command + ".txt";
+            savefile.open(file);
+            string output;
+
+            if (savefile.is_open()) {
+                while (!savefile.eof()) {
+                   savefile >> output;
+                   vector<string> save_info;
+                   save_info = split(output, ':');
+                   Player player = Player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
+                           stoi(save_info[4]), stoi(save_info[5]), stoi(save_info[6]), stoi(save_info[7]),
+                           stoi(save_info[8]));
+                   savefile.close();
+                   phasehandler(player);
+                }
+            }
+            else{
+                cout<<"\nFile you chose doesn't exist.\n\n";
+            }
+        }
+        else if (command == "back" || command == "end"
+                 || command == "Back" || command == "End"){
+            return;
+        }
+        else {
+            cout<<"\nWrong command, all commands are:\nNumbers 1-10\nback\n";
+        }
+    }
+}
 
 bool file_exists (string file_name) {
     struct stat buffer;

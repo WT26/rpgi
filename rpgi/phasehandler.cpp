@@ -90,6 +90,8 @@ Player phase_1(){
 //###V######V######V######V######V###### Phase 2 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_2(Player player){
+    player.start_clock();
+    player.update_phase(2);
     cout<<"You venture outside of your little hut.\nIts bright outside and you see"
           "a bunch of people\nof your little village gathered around."<<endl;
     bool talked = false;
@@ -103,6 +105,7 @@ void phase_2(Player player){
         if (command == "items" || command == "i" || command == "1"
                 || command == "1."){
             cout<<"You dont have any items\n";
+            player.seconds_elapsed();
         }
         else if (command == "stats" || command == "st" || command == "2"
                   || command == "2."){

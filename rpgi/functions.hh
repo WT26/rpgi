@@ -23,5 +23,6 @@ using namespace std;
     bool file_exists(string file_name);
 
     void save_game(Player player);
+    void load_game();
 
 #endif // FUNCTIONS_HH

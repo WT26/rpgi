@@ -6,6 +6,7 @@
 #include <ostream>
 #include <string>
 #include <vector>
+#include <time.h>
 
 using namespace std;
 
@@ -23,7 +24,7 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     all_exp_ = all_exp;
     current_phase_ = phase;
     money_ = 0;
-    bool trehitcombo_ = false;
+    start_time_;
 }
 
 int Player::print_phase(){
@@ -77,19 +78,15 @@ int Player::handy_tier(){
     return handy_tier;
 }
 
-bool Player::trehit_open(){
-    if (trehitcombo_ == true){
-        return true;
-    }
-    else {
-        return false;
-    }
+void Player::start_clock(){
+    time_t start = time(0);
+    start_time_ = start;
 }
 
 void Player::show_stats(){
     cout<<"\nYour stats:\nMain level: "<<main_lvl_<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
        <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<"\nAll experience: "
-      <<all_exp_<<"\n\n";
+      <<all_exp_<<"\nMoney: "<<money_<<"\n\n";
 }
 
 void Player::show_items(){
@@ -134,6 +131,12 @@ void Player::check_lvl_up(){
 }
 
 
+void Player::seconds_elapsed(){
+    double seconds_elapsed_since_start = difftime(time(0), start_time_);
+    seconds_elapsed_since_start += elapsed_sofar_;
+    return seconds_elapsed_since_start;
+}
+
 string Player::get_save_info(){
     //matti:salto:10:30:5:20:10:75:2
     string save_info;
@@ -160,24 +163,28 @@ void Player::level_up(){
         if(answer == "hp" || answer == "Hp" || answer == "1"
                 || answer == "1."){
             hp_lvl_ ++;
+            main_lvl_++;
             answered = true;
         }
 
         else if(answer == "str" || answer == "Str" || answer == "2"
                 || answer == "2."){
             str_lvl_ ++;
+            main_lvl_++;
             answered = true;
         }
 
         else if(answer == "spd" || answer == "Spd" || answer == "3"
                 || answer == "3.."){
             spd_lvl_ ++;
+            main_lvl_++;
             answered = true;
         }
 
         else if(answer == "handy" || answer == "Handy" || answer == "4"
                 || answer == "4."){
             handy_lvl_ ++;
+            main_lvl_++;
             answered = true;
         }
 
@@ -231,5 +238,10 @@ Player Player::react_to_damage(Player player, int enemy_damage, vector<string> h
 
 string Player::save_header(){
     return string {"  Name: " + player_name_ + "  Main Level: " + to_string(main_lvl_)};
+}
+
+
+void Player::update_phase(int phase_number){
+    current_phase_ = phase_number;
 }
 

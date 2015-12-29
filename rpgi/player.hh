@@ -1,6 +1,7 @@
 #ifndef PLAYER_HH
 #define PLAYER_HH
 
+#include <time.h>
 #include <string>
 #include <vector>
 
@@ -19,6 +20,8 @@ public:
     int print_handy();
     int handy_tier();
     string print_name();
+
+    void start_clock();
     void show_stats();
     void show_items();
     void give_money(int amount);
@@ -27,10 +30,12 @@ public:
     void level_up();
     void player_lose_damage(int damage);
     void player_died();
-    bool trehit_open();
+
+    double seconds_elapsed();
+
+     void update_phase(int phase_number);
 
     string save_header();
-
     string get_save_info();
 
     Player react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks, string enemy_name);
@@ -49,9 +54,11 @@ private:
     int current_phase_;
     int money_;
 
+    time_t elapsed_sofar_;
+    time_t start_time_;
+
     int total_commands_;
 
-    bool trehitcombo_;
 };
 
 #endif // PLAYER_HH

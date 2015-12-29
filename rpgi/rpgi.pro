@@ -23,5 +23,6 @@ HEADERS += \
 
 DISTFILES += \
     save_01.txt \
-    save_02.txt
+    save_02.txt \
+    example_savefile.txt
 
