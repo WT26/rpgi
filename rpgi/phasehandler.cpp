@@ -55,7 +55,8 @@ Player phase_1(){
         int spd = 2;
         int handy = 3;
         string class_name = "Curator";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 14, 0);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 14, 0,
+                               0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "Salto" || answer == "salto"){
@@ -64,7 +65,8 @@ Player phase_1(){
         int spd = 5;
         int handy = 3;
         string class_name = "Salto";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 10, 0);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 10, 0
+                               ,0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "Ensis" || answer == "ensis"){
@@ -73,7 +75,8 @@ Player phase_1(){
         int spd = 3;
         int handy = 1;
         string class_name = "Ensis";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 11, 0);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 11, 0
+                               ,0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "Piger" || answer == "piger"){
@@ -82,7 +85,8 @@ Player phase_1(){
         int spd = 2;
         int handy = 2;
         string class_name = "Piger";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 12, 0);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 12, 0,
+                               0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "debug"){
@@ -110,7 +114,7 @@ void phase_2(Player player){
 
         if (command == "items" || command == "i" || command == "1"
                 || command == "1."){
-            letter_by_letter_fast("You dont have any items\n");
+            player.show_items();
         }
         else if (command == "stats" || command == "st" || command == "2"
                   || command == "2."){

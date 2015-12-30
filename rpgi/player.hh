@@ -12,7 +12,8 @@ class Player
 public:
     Player(string player_name, string class_name, int main_lvl, int hp_lvl,
            int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase,
-           int elapsed_time, int current_hp, int money);
+           int elapsed_time, int current_hp, int money,
+           int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10);
     int print_phase();
     int print_main_lvl();
     int print_current_hp();
@@ -27,6 +28,7 @@ public:
     void show_items();
     void give_money(int amount);
     void give_xp(int amount);
+    void give_hp(int amount);
     void check_lvl_up();
     void level_up();
     void player_lose_damage(int damage);
@@ -60,6 +62,20 @@ private:
     time_t start_time_;
 
     int total_commands_;
+
+    int item_1_;
+    int item_2_;
+    int item_3_;
+    int item_4_;
+    int item_5_;
+    int item_6_;
+    int item_7_;
+    int item_8_;
+    int item_9_;
+    int item_10_;
+
+    int extra_damage_;
+
 
 };
 

@@ -60,8 +60,12 @@ void Debug::debugger(){
     getline(cin, temporary);
     int money = stoi(temporary);
 
+    cout<<"Items? ";
+    getline(cin, temporary);
+    int item = stoi(temporary);
     Player player = Player(name, class_name, main_lvl, hp_lvl, str_lvl, spd_lvl,
-                           handy_lvl, 0, skip_to_phase, elapsed_time, current_hp, money);
+                           handy_lvl, 0, skip_to_phase, elapsed_time, current_hp, money,
+                           item, item, item, item, item, item, item, item, item, item);
 
     phasehandler(player);
 }

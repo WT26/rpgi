@@ -1,6 +1,7 @@
 #include "player.hh"
 #include "debug.hh"
 #include "functions.hh"
+#include "item.hh"
 #include <unistd.h>
 #include <iostream>
 #include <ostream>
@@ -11,7 +12,8 @@
 using namespace std;
 
 Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
-               int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase, int elapsed_time, int current_hp, int money)
+               int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase, int elapsed_time, int current_hp, int money,
+               int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10)
 {
     player_name_ = player_name;
     class_name_ = class_name;
@@ -26,6 +28,19 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     money_ = money;
     start_time_ = time(0);
     elapsed_sofar_ = elapsed_time;
+
+    item_1_ = i_1;
+    item_2_ = i_2;
+    item_3_ = i_3;
+    item_4_ = i_4;
+    item_5_ = i_5;
+    item_6_ = i_6;
+    item_7_ = i_7;
+    item_8_ = i_8;
+    item_9_ = i_9;
+    item_10_ = i_10;
+
+    extra_damage_ = 0;
 }
 
 int Player::print_phase(){
@@ -93,7 +108,12 @@ void Player::show_stats(){
 }
 
 void Player::show_items(){
-    cout<<"Items: none\nMoney: "<<money_<<endl;
+        letter_by_letter_very_fast("\n1. " + give_items_name(item_1_) + "\n2. " + give_items_name(item_2_)
+                                    + "\n3. " + give_items_name(item_3_) + "\n4. " + give_items_name(item_4_)
+                                    + "\n5. " + give_items_name(item_5_) + "\n6. " + give_items_name(item_6_)
+                                    + "\n7. " + give_items_name(item_7_) + "\n8. " + give_items_name(item_8_)
+                                    + "\n9. " + give_items_name(item_9_) + "\n10. " + give_items_name(item_10_)
+                                   + "\n");
 }
 
 void Player::give_money(int amount){
@@ -151,7 +171,9 @@ string Player::get_save_info(){
     save_info += player_name_ + ":" + class_name_ + ":" + to_string(main_lvl_) + ":" + to_string(hp_lvl_) + ":"
             + to_string(str_lvl_) + ":" + to_string(spd_lvl_) + ":" + to_string(handy_lvl_) + ":" + to_string(all_exp_) +
             ":" + to_string(current_phase_) + ":" + to_string(elapsed_sofar_) + ":" + to_string(current_hp_)
-            + ":" + to_string(money_);
+            + ":" + to_string(money_) + ":" + to_string(item_1_) + ":" + to_string(item_2_) + ":" + to_string(item_3_)
+             + ":" + to_string(item_4_) + ":" + to_string(item_5_) + ":" + to_string(item_6_) + ":" + to_string(item_7_)
+             + ":" + to_string(item_8_) + ":" + to_string(item_9_) + ":" + to_string(item_10_);
     return save_info;
 }
 
@@ -261,3 +283,11 @@ string Player::player_seconds_minutes_hours(){
     string complete_string = "Hours: " + to_string(hours) + "  Minutes: " + to_string(minutes) + "  Seconds: " + to_string(total_seconds);
     return complete_string;
 }
+
+
+ void Player::give_hp(int amount){
+    current_hp_ += amount;
+    if (current_hp_ >= hp_lvl_){
+        current_hp_ = hp_lvl_;
+    }
+ }

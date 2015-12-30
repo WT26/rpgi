@@ -154,13 +154,51 @@ Player main_lvl_fight(Player player){
 
             }
             else if (command == "commands" || command == "c"){
-                letter_by_letter_very_fast("\nAll commands:\nattack\nuse item\nrun\n");
+                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n");
             }
             else if (command == "use item"){
-                letter_by_letter_fast("Which item you want to use:\empty\n");
+                letter_by_letter_fast("Which item you want to use, use number:\n");
+                player.show_items();
                 while (command != "back"){
+
+                    cout<<"\ncommand >";
+                    getline(cin, command);
+
                     if (command == "commands"){
-                        letter_by_letter_fast("All commands:\nback\n");
+                        letter_by_letter_fast("All commands:\nnumbers from 1 to 10\nback\n");
+                    }
+                    else if(stoi(command) == 1){
+                        player = use_consumable_item();
+                    }
+                    else if(stoi(command) == 2){
+
+                    }
+                    else if(stoi(command) == 3){
+
+                    }
+                    else if(stoi(command) == 4){
+
+                    }
+                    else if(stoi(command) == 5){
+
+                    }
+                    else if(stoi(command) == 6){
+
+                    }
+                    else if(stoi(command) == 7){
+
+                    }
+                    else if(stoi(command) == 8){
+
+                    }
+                    else if(stoi(command) == 9){
+
+                    }
+                    else if(stoi(command) == 10){
+
+                    }
+                    else {
+                        letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands");
                     }
                 }
             }
@@ -407,8 +445,12 @@ void load_game(){
                 file >> output;
                 vector<string> save_info;
                 save_info = split(output, ':');
+
+                int seconds = stoi(save_info[9]);
+                string time = seconds_minutes_hours(seconds);
+
                 cout<<"Name: " <<save_info[0] <<"  Class: "<<save_info[1]
-                   <<"  Main level: "<<save_info[2]<<"\n";
+                   <<"  Main level: "<<save_info[2]<<"  Playtime: "<<time<<"\n";
             }
             else{
                 cout<<"\n";
@@ -439,7 +481,10 @@ void load_game(){
                    else{
                        Player player = Player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
                                stoi(save_info[4]), stoi(save_info[5]), stoi(save_info[6]), stoi(save_info[7]),
-                               stoi(save_info[8]), stoi(save_info[9]), stoi(save_info[10]), stoi(save_info[11]));
+                               stoi(save_info[8]), stoi(save_info[9]), stoi(save_info[10]), stoi(save_info[11]),
+                               stoi(save_info[12]), stoi(save_info[13]), stoi(save_info[14]), stoi(save_info[15]),
+                               stoi(save_info[16]), stoi(save_info[17]), stoi(save_info[18]), stoi(save_info[19]),
+                               stoi(save_info[20]), stoi(save_info[21]));
                        savefile.close();
                        phasehandler(player);
                    }
@@ -496,7 +541,7 @@ void letter_by_letter_very_fast(string string_to_print){
 }
 
 
-string player_seconds_minutes_hours(int seconds){
+string seconds_minutes_hours(int seconds){
     int total_seconds = seconds;
     int hours = total_seconds / 60 / 60;
     total_seconds -= 60 * 60 * hours;
