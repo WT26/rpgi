@@ -56,8 +56,12 @@ void Debug::debugger(){
     time_t elapsed_time = time(0);
     int current_hp = hp_lvl;
 
+    cout<<"Money? ";
+    getline(cin, temporary);
+    int money = stoi(temporary);
+
     Player player = Player(name, class_name, main_lvl, hp_lvl, str_lvl, spd_lvl,
-                           handy_lvl, 0, skip_to_phase, elapsed_time, current_hp);
+                           handy_lvl, 0, skip_to_phase, elapsed_time, current_hp, money);
 
     phasehandler(player);
 }

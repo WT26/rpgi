@@ -11,7 +11,7 @@
 using namespace std;
 
 Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
-               int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase, int elapsed_time, int current_hp)
+               int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase, int elapsed_time, int current_hp, int money)
 {
     player_name_ = player_name;
     class_name_ = class_name;
@@ -23,7 +23,7 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     handy_lvl_ = handy_lvl;
     all_exp_ = all_exp;
     current_phase_ = phase;
-    money_ = 0;
+    money_ = money;
     start_time_ = time(0);
     elapsed_sofar_ = elapsed_time;
 }
@@ -86,7 +86,7 @@ void Player::start_clock(){
 
 void Player::show_stats(){
     update_time_elapsed();
-    string complete_time = seconds_minutes_hours();
+    string complete_time = player_seconds_minutes_hours();
     cout<<"\nYour stats:\nMain level: "<<main_lvl_<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
        <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<"\nAll experience: "
       <<all_exp_<<"\nMoney: "<<money_<<"\nTotal playtime: " <<complete_time<< "\n\n";
@@ -150,20 +150,17 @@ string Player::get_save_info(){
     string save_info;
     save_info += player_name_ + ":" + class_name_ + ":" + to_string(main_lvl_) + ":" + to_string(hp_lvl_) + ":"
             + to_string(str_lvl_) + ":" + to_string(spd_lvl_) + ":" + to_string(handy_lvl_) + ":" + to_string(all_exp_) +
-            ":" + to_string(current_phase_) + ":" + to_string(elapsed_sofar_);
-
-    /*
-    money_ = 0;
-    bool trehitcombo_ = false;
-    */
-
+            ":" + to_string(current_phase_) + ":" + to_string(elapsed_sofar_) + ":" + to_string(current_hp_)
+            + ":" + to_string(money_);
     return save_info;
 }
 
 
 void Player::level_up(){
-    cout<<"\n\nLEVEL UP ! !\nWhat you want to level up?"<<"\n1. Hp level: "<<hp_lvl_<<"\n2. Str level: "
-       <<str_lvl_<<"\n3. Spd level: "<<spd_lvl_<<"\n4. Handy level: "<<handy_lvl_<<endl;
+    letter_by_letter_slow("\n\nLEVEL UP ! !");
+    letter_by_letter_fast("\nWhat you want to level up?");
+    letter_by_letter_very_fast("\n1. Hp level: " + to_string(hp_lvl_) + "\n2. Str level: " + to_string(str_lvl_) +
+                               "\n3. Spd level: " + to_string(spd_lvl_) + "\n4. Handy level: " + to_string(handy_lvl_));
     string answer;
     bool answered = false;
     while(answered == false){
@@ -198,7 +195,7 @@ void Player::level_up(){
         }
 
         else{
-            cout<<"Enter one of the levels: hp, str, spd or handy.\n";
+            letter_by_letter_very_fast("Enter one of the levels: hp, str, spd or handy.\n");
         }
     }
 }
@@ -213,11 +210,11 @@ void Player::player_lose_damage(int damage){
 void Player::player_died(){
     cout<<"\n\n";
     usleep(200000);
-    cout<<"YOU DIED"<<endl;
+    letter_by_letter_slow("YOU DIED");
     usleep(400000);
     bool for_ever{true};
     while(for_ever != false){
-        cout<<"main menu or end"<<endl;
+        letter_by_letter_fast("main menu or end");
         string command{"twentysix"};
         getline(cin, command);
 
@@ -234,10 +231,10 @@ void Player::player_died(){
 }
 
 Player Player::react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks, string enemy_name){
-        cout<<enemy_name<<" "<<handy_attacks[rand()% (handy_attacks.size()-1)]<<endl;
-        cout<<"Enemy did "<<enemy_damage<<" to you."<<endl;
+        letter_by_letter_fast(enemy_name + " " + handy_attacks[rand()% (handy_attacks.size()-1)] + "\n") ;
+        letter_by_letter_fast("Enemy did " + to_string(enemy_damage) + " to you.\n");
         player.player_lose_damage(enemy_damage);
-        cout<<"Your current hp: "<<player.print_current_hp()<<endl;
+        letter_by_letter_fast("Your current hp: " + to_string(player.print_current_hp()));
         sleep(2);
         if(player.print_current_hp() <= 0){
             player.player_died();
@@ -254,7 +251,7 @@ void Player::update_phase(int phase_number){
     current_phase_ = phase_number;
 }
 
-string Player::seconds_minutes_hours(){
+string Player::player_seconds_minutes_hours(){
     int total_seconds = elapsed_sofar_;
     int hours = total_seconds / 60 / 60;
     total_seconds -= 60 * 60 * hours;

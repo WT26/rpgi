@@ -22,7 +22,6 @@ HEADERS += \
     player.hh
 
 DISTFILES += \
-    save_01.txt \
-    save_02.txt \
-    example_savefile.txt
+    example_savefile.txt \
+    save_1.txt
 

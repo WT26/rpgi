@@ -17,8 +17,9 @@ using namespace std;
 bool start_menu(){
     vector<string> commands{"new game", "load game", "quit"};
     string command;
-
-    cout<<"Start menu: \n1. new game\n2. load game\n3. quit\ncommand >";
+    letter_by_letter_slow("Start menu:\n");
+    letter_by_letter_very_fast("1. new game\n2. load game\n3. quit");
+    cout<<"\ncommand >";
 
     bool end_game{false};
     while(end_game != true){
@@ -41,8 +42,7 @@ bool start_menu(){
             Debug debug = Debug();
         }
         else{
-            cout<<"\nWrong command, all commands:\n1. "<<commands[0]
-               <<"\n2. "<<commands[1]<<"\n3.\n"<<commands[2]<<endl;
+            letter_by_letter_very_fast("\nWrong command, all commands:\n1. new game\n2. load game\n3. quit\n");
         }
     }
     return false;
@@ -126,10 +126,12 @@ Player main_lvl_fight(Player player){
     if(enemy_alive == true && player.print_current_hp() > 0){
 
         string command{"twentysix"};
-        cout<<"\nYou encounter "<<enemy_name<<"! Its lvl "<<enemy_lvl<<"!"<<endl;
+        letter_by_letter_fast("\nYou encounter " + enemy_name + "!" );
+        letter_by_letter_very_fast(" Its lvl " + to_string(enemy_lvl) + "!\n");
 
         while(enemy_alive == true && player.print_current_hp() > 0){
-            cout<<"\nWhat you want to do?\ncommand >";
+            letter_by_letter_very_fast("\nWhat you want to do?");
+            cout<<"\ncommand >";
             getline(cin, command);
 
             if (command == "attack" || command == "a" || command == "A" || command == "Attack"){
@@ -152,25 +154,25 @@ Player main_lvl_fight(Player player){
 
             }
             else if (command == "commands" || command == "c"){
-                cout<<"\nAll commands:\nattack\nuse item\nrun\n";
+                letter_by_letter_very_fast("\nAll commands:\nattack\nuse item\nrun\n");
             }
             else if (command == "use item"){
-                cout<<"Which item you want to use:\empty"<<endl;
+                letter_by_letter_fast("Which item you want to use:\empty\n");
                 while (command != "back"){
                     if (command == "commands"){
-                        cout<<"All commands:\nback"<<endl;
+                        letter_by_letter_fast("All commands:\nback\n");
                     }
                 }
             }
             else if (command == "run"){
-                cout<<"\nYou try to run away !";
-                sleep(2);
+                letter_by_letter_fast("\nYou try to run away !");
+                sleep(WAIT_TIME);
                 if(rand()% 100 <= 35){
-                    cout<<"\nYou successfully ran away!\n\n";
+                    letter_by_letter_fast("\nYou successfully ran away!\n\n");
                     return player;
                 }
                 else{
-                    cout<<"You couldn't !\n";
+                    letter_by_letter_fast("You couldn't !\n");
                     int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
                     player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
                 }
@@ -182,7 +184,7 @@ Player main_lvl_fight(Player player){
                 player.show_stats();
             }
             else {
-                cout<<"Wrong command, see all commands 'commands'"<<endl;
+                letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
             }
         }
     }
@@ -191,7 +193,7 @@ Player main_lvl_fight(Player player){
 
 
 int enemy_did_damage(int enemy_str, int handy_tier, double const ENEMY_DAMAGE_PERCENT, int WAIT_TIME){
-    cout<<"\nIts enemys turn! ";
+    letter_by_letter_very_fast("\nIts enemys turn! \n");
     sleep(WAIT_TIME);
     int enemy_damage{0};
     int minus_str = rand()% (enemy_str + 1);
@@ -206,22 +208,22 @@ int enemy_did_damage(int enemy_str, int handy_tier, double const ENEMY_DAMAGE_PE
 
 int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAIT_TIME){
     int player_damage{0};
-    cout<<"\nYou hit the enemy!"<<endl;
+    letter_by_letter_very_fast("\nYou hit the enemy!\n");
     sleep(WAIT_TIME);
     player_damage += ( player.print_str() - rand()% player.print_str() ) * PLAYER_DAMAGE_PERCENT;
     player_damage += rand()% player.handy_tier();
     if(player_damage < 0){
         player_damage = 0;
     }
-    cout<<"You did "<<player_damage<<" damage to enemy."<<endl;
+    letter_by_letter_very_fast("You did " + to_string(player_damage) +" damage to enemy.\n");
     return player_damage;
 }
 
 bool enemy_hp_out(int enemy_hp, int WAIT_TIME){
     if (enemy_hp <= 0 ){
         enemy_hp = 0;
-        cout<<"Enemy has "<<enemy_hp<<" hp left."<<endl;
-        cout<<"Enemy died."<<endl;
+        letter_by_letter_very_fast("Enemy has "+ to_string(enemy_hp) + " hp left.\n");
+        letter_by_letter_fast("Enemy died.\n");
         sleep(WAIT_TIME);
         return true;
     }
@@ -231,7 +233,7 @@ bool enemy_hp_out(int enemy_hp, int WAIT_TIME){
 }
 
 int player_attack_done(int enemy_hp, int player_attack_count, int WAIT_TIME){
-    cout<<"Enemy has "<<enemy_hp<<" hp left."<<endl;
+    letter_by_letter_very_fast("Enemy has " + to_string(enemy_hp) + " hp left.\n");
     sleep(WAIT_TIME);
     player_attack_count--;
     return player_attack_count;
@@ -249,7 +251,7 @@ bool op(int compare_this, int compare_with){
 Player main_fight_won(Player player) {
     int money_drop = main_fight_won_money(player);
     int xp_drop = main_fight_won_xp(player);
-    cout<<"You got "<<xp_drop<<"xp and "<<money_drop<<"money!"<<endl;
+    letter_by_letter_very_fast("You got " + to_string(xp_drop) + "xp and " + to_string(money_drop) + "money!\n");
     player.give_money(money_drop);
     player.give_xp(xp_drop);
     return player;
@@ -283,7 +285,7 @@ void save_game(Player player){
     string command{"twentysix"};
 
     while(command != "back" || command != "end" || command != "" || command != " "){
-        cout<<"\n\nWhich file you want to save to? ('back' or 'end' to return)\n\n";
+        letter_by_letter_very_fast("\n\nWhich file you want to save to? ('back' or 'end' to return)\n\n");
 
         for(int i{1}; i != 11; i++){
             string save_file_name{"save_"};
@@ -391,7 +393,7 @@ void load_game(){
     while(command != "back" || command != "end" || command != "" || command != " "){
 
         ifstream savefile;
-        cout<<"What file do you want to load?\n\n";
+        letter_by_letter_very_fast("What file do you want to load?\n\n");
 
         for(int i{1}; i != 11; i++){
             string save_file_name{"save_"};
@@ -431,15 +433,20 @@ void load_game(){
                    savefile >> output;
                    vector<string> save_info;
                    save_info = split(output, ':');
-                   Player player = Player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
-                           stoi(save_info[4]), stoi(save_info[5]), stoi(save_info[6]), stoi(save_info[7]),
-                           stoi(save_info[8]), stoi(save_info[9]), stoi(save_info[10]));
-                   savefile.close();
-                   phasehandler(player);
+                   if (save_info.size() != 12){
+                       letter_by_letter_very_fast("\nYou tried to load a old version of the game.\n");
+                   }
+                   else{
+                       Player player = Player(save_info[0], save_info[1], stoi(save_info[2]), stoi(save_info[3]),
+                               stoi(save_info[4]), stoi(save_info[5]), stoi(save_info[6]), stoi(save_info[7]),
+                               stoi(save_info[8]), stoi(save_info[9]), stoi(save_info[10]), stoi(save_info[11]));
+                       savefile.close();
+                       phasehandler(player);
+                   }
                 }
             }
             else{
-                cout<<"\nFile you chose doesn't exist.\n\n";
+                letter_by_letter_very_fast("\nFile you chose doesn't exist.\n\n");
             }
         }
         else if (command == "back" || command == "end"
@@ -447,7 +454,7 @@ void load_game(){
             return;
         }
         else {
-            cout<<"\nWrong command, all commands are:\nNumbers 1-10\nback\n";
+            letter_by_letter_very_fast("\nWrong command, all commands are:\nNumbers 1-10\nback\n");
         }
     }
 }
@@ -458,3 +465,44 @@ bool file_exists (string file_name) {
 }
 
 
+void letter_by_letter_slow(string string_to_print){
+    for(char& c : string_to_print){
+        cout<<c;
+        usleep(200000);
+    }
+}
+
+void letter_by_letter_very_slow(string string_to_print){
+    for(char& c : string_to_print){
+        cout<<c;
+        sleep(1);
+    }
+}
+
+
+void letter_by_letter_fast(string string_to_print){
+    for(char& c : string_to_print){
+        cout<<c;
+        usleep(50000);
+    }
+}
+
+
+void letter_by_letter_very_fast(string string_to_print){
+    for(char& c : string_to_print){
+        cout<<c;
+        usleep(20000);
+    }
+}
+
+
+string player_seconds_minutes_hours(int seconds){
+    int total_seconds = seconds;
+    int hours = total_seconds / 60 / 60;
+    total_seconds -= 60 * 60 * hours;
+    int minutes = total_seconds / 60;
+    total_seconds -= minutes * 60;
+
+    string complete_string = "Hours: " + to_string(hours) + "  Minutes: " + to_string(minutes) + "  Seconds: " + to_string(total_seconds);
+    return complete_string;
+}

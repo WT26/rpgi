@@ -11,7 +11,8 @@ class Player
 {
 public:
     Player(string player_name, string class_name, int main_lvl, int hp_lvl,
-           int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase, int elapsed_time, int current_hp);
+           int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase,
+           int elapsed_time, int current_hp, int money);
     int print_phase();
     int print_main_lvl();
     int print_current_hp();
@@ -31,7 +32,7 @@ public:
     void player_lose_damage(int damage);
     void player_died();
     void update_time_elapsed();
-    string seconds_minutes_hours();
+    string player_seconds_minutes_hours();
 
     double seconds_elapsed();
 

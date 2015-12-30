@@ -20,6 +20,13 @@ using namespace std;
     int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAIT_TIME);
     int player_attack_done(int enemy_hp, int player_attack_count, int WAIT_TIME);
 
+    void letter_by_letter_slow(string string_to_print);
+    void letter_by_letter_very_slow(string string_to_print);
+    void letter_by_letter_fast(string string_to_print);
+    void letter_by_letter_very_fast(string string_to_print);
+
+    string seconds_minutes_hours(int seconds);
+
     bool file_exists(string file_name);
 
     void save_game(Player player);

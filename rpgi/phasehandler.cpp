@@ -26,21 +26,27 @@ void phasehandler(Player player){
 
 // Character creation phase. Returns Player class to next phase.
 Player phase_1(){
-    cout<<"Character creation:\nPlease, enter your name: ";
+    letter_by_letter_slow("Character creation:");
+    letter_by_letter_fast("\nPlease, enter your name: ");
     string name;
     getline(cin, name);
-    cout<<"\nHey "<<name<<", now choose your class. But first let me explain all the skills:";
+    letter_by_letter_fast("\nHey "+ name +", now choose your class. But first let me explain all the skills:");
     string answer;
     while(answer != "Curator" && answer != "Salto" && answer != "curator" && answer != "salto" &&
           answer != "Ensis" && answer != "ensis" && answer != "Piger" && answer != "piger" &&
           answer != "end" && answer != "debug"){
 
-        cout<<"\nhp: Your health, if it runs out you will die.\nstr: How much your "
-                          "single hit will do damage\nspd: Speed of how quickly you will do your"
-                          " next hit\nhandy: What kind of items you can wield and use.\n\n"
-                          "Classes:\nSalto : hp10  str2  spd5  handy3\n"
-                          "Ensis : hp11  str5  spd3  handy1\nCurator : hp14  str1  spd2"
-                          "  handy3\nPiger : hp12  str2  spd2  handy2\nEnter one of the classes: ";
+        letter_by_letter_slow("\nhp:");
+        letter_by_letter_fast(" Your health, if it runs out you will die.");
+        letter_by_letter_slow("\nstr: ");
+        letter_by_letter_fast("How much a single hit will do damage.");
+        letter_by_letter_slow("\nspd: ");
+        letter_by_letter_fast("How quickly you will do your next hit.");
+        letter_by_letter_slow("\nhandy: ");
+        letter_by_letter_fast("What kind of items you can wield and use.\n\n");
+        letter_by_letter_very_fast("Classes:\nSalto : hp10  str2  spd5  handy3\n"
+                                   "Ensis : hp11  str5  spd3  handy1\nCurator : hp14  str1  spd2"
+                                   "  handy3\nPiger : hp12  str2  spd2  handy2\nEnter one of the classes: ");
         getline(cin, answer);
     }
     if (answer == "Curator" || answer == "curator"){
@@ -49,7 +55,7 @@ Player phase_1(){
         int spd = 2;
         int handy = 3;
         string class_name = "Curator";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 14);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 14, 0);
         phase_2(player);
     }
     else if (answer == "Salto" || answer == "salto"){
@@ -58,7 +64,7 @@ Player phase_1(){
         int spd = 5;
         int handy = 3;
         string class_name = "Salto";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 10);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 10, 0);
         phase_2(player);
     }
     else if (answer == "Ensis" || answer == "ensis"){
@@ -67,7 +73,7 @@ Player phase_1(){
         int spd = 3;
         int handy = 1;
         string class_name = "Ensis";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 11);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 11, 0);
         phase_2(player);
     }
     else if (answer == "Piger" || answer == "piger"){
@@ -76,7 +82,7 @@ Player phase_1(){
         int spd = 2;
         int handy = 2;
         string class_name = "Piger";
-        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 12);
+        Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 12, 0);
         phase_2(player);
     }
     else if (answer == "debug"){
@@ -92,8 +98,8 @@ Player phase_1(){
 void phase_2(Player player){
     player.start_clock();
     player.update_phase(2);
-    cout<<"\nYou venture outside of your little hut.\nIts bright outside and you see"
-          "a bunch of people\nof your little village gathered around.\n\n";
+    letter_by_letter_very_fast("\nYou venture outside of your little hut.\nIts bright outside and you see"
+                               "a bunch of people\nof your little village gathered around.\n\n");
     bool talked = false;
 
     string command{"twentysix"};
@@ -104,7 +110,7 @@ void phase_2(Player player){
 
         if (command == "items" || command == "i" || command == "1"
                 || command == "1."){
-            cout<<"You dont have any items\n";
+            letter_by_letter_fast("You dont have any items\n");
         }
         else if (command == "stats" || command == "st" || command == "2"
                   || command == "2."){
@@ -114,23 +120,26 @@ void phase_2(Player player){
                   || command == "Shop" || command == "3"
                   || command == "3."){
             if (talked == false){
-                cout<<"\nShop's clercks man doesn't seem to be here.\n";
+                letter_by_letter_fast("\nShop's clercks man doesn't seem to be here.\n");
             }
             else {
-                cout<<"\nShop's clercks man is talking with tax people.\n";
+                letter_by_letter_fast("\nShop's clercks man is talking with tax people.\n");
             }
         }
         else if (command == "talk" || command == "Talk"
                   || command == "4" || command == "4."
                   || command == "t"){
             if(talked == false){
-                cout<<"\nYou walk to the group. You see a bunch of people that you haven't\nseen before. It appears that they are collecting some new tax moneys.\n";
-                cout<<"Everyone is resisting, but then a bigger guy, calling himself The Relego, appears and\ninsists the money. Everyone quiets up and act scared.\n";
-                cout<<"\nA little guy grabs your hand and tells you: \n\n'Hey "<<player.print_name()<<" you've' got to deal with that big guy, that tax is outrageous!'\n\n";
+                letter_by_letter_very_fast("\nYou walk to the group. You see a bunch of people that you haven't\nseen before. It appears that they are collecting some new tax moneys.\n");
+                letter_by_letter_very_fast("Everyone is resisting, but then a bigger guy, calling himself");
+                letter_by_letter_slow(" The Relego, ");
+                letter_by_letter_very_fast("appears and\ninsists the money. Everyone quiets up and act scared.\n");
+                letter_by_letter_very_fast("\nThen A little guy grabs your hand and tells you: ");
+                letter_by_letter_fast("\n\n'Hey " + player.print_name() + " you've got to deal with that big guy, that tax is outrageous!'\n\n");
                 talked = true;
             }
             else {
-                cout<<"\nYou see the group still arguing with kindom people.\n\n";
+                letter_by_letter_very_fast("\nYou see the group still arguing with kindom people.\n\n");
             }
         }
         else if (command == "woods" || command == "w"
@@ -142,7 +151,7 @@ void phase_2(Player player){
                   || command == "6." || command == "6"
                   || command == "b"){
             if(player.print_main_lvl() <= 15){
-                cout<<"You're too weak to challenge him. (Suggested min. lvl is 15)\n";
+                letter_by_letter_very_fast("You're too weak to challenge him. (Suggested min. lvl is 15)\n");
             }
             else{
                     //bossfite 01  The Relego
@@ -152,7 +161,8 @@ void phase_2(Player player){
                  || command == "7" || command == "7."){
 
             while(command != "no" && command != "2" && command != "2." && command != "No"){
-                cout<<"\n\ndo you want to save the game?\n\n1. Yes\n2. No\n\ncommand >";
+                letter_by_letter_fast("\n\ndo you want to save the game?\n\n1. Yes\n2. No\n");
+                cout<<"\ncommand >";
                 getline(cin, command);
                 if(command == "yes" || command == "1" || command == "1." || command == "y"){
                     save_game(player);
@@ -166,15 +176,16 @@ void phase_2(Player player){
         else if (command == "c"|| command == "C"||
                  command == "commands" || command == "Commands"
                  || command == "8" || command == "8."){
-            cout<<"\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
-                  "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n";
+            letter_by_letter_very_fast("\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
+                                       "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n");
         }
         else if (command == "end" || command =="End"
                  || command == "9" || command == "9."){
             command = "twentysix";
             while(command != "back"){
-                cout<<"\nDo you really want to return to main menu? All unsaved progress will be lost."
-                      "\n1. Yes\n2. No\n\ncommand >";
+                letter_by_letter_very_fast("\nDo you really want to return to main menu? All unsaved progress will be lost."
+                                           "\n1. Yes\n2. No");
+                cout<<"\n\ncommand >";
                 getline(cin, command);
 
                 if(command == "yes" || command == "Yes"
@@ -191,7 +202,7 @@ void phase_2(Player player){
             Debug debug = Debug();
         }
         else {
-            cout<<"Wrong command, see all commands 'commands'\n";
+            letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
         }
     }
 }
