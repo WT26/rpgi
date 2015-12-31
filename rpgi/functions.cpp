@@ -2,6 +2,7 @@
 #include "phasehandler.hh"
 #include "player.hh"
 #include "debug.hh"
+#include "item.hh"
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
@@ -167,35 +168,35 @@ Player main_lvl_fight(Player player){
                     if (command == "commands"){
                         letter_by_letter_fast("All commands:\nnumbers from 1 to 10\nback\n");
                     }
-                    else if(stoi(command) == 1){
-                        player = use_consumable_item();
+                    else if(command == "1"){
+                        player = use_consumable_item(player, player.give_id(1));
                     }
-                    else if(stoi(command) == 2){
-
+                    else if(command == "2"){
+                        player = use_consumable_item(player, player.give_id(2));
                     }
-                    else if(stoi(command) == 3){
-
+                    else if(command == "3"){
+                        player = use_consumable_item(player, player.give_id(3));
                     }
-                    else if(stoi(command) == 4){
-
+                    else if(command == "4"){
+                        player = use_consumable_item(player, player.give_id(4));
                     }
-                    else if(stoi(command) == 5){
-
+                    else if(command == "5"){
+                        player = use_consumable_item(player, player.give_id(5));
                     }
-                    else if(stoi(command) == 6){
-
+                    else if(command == "6"){
+                        player = use_consumable_item(player, player.give_id(6));
                     }
-                    else if(stoi(command) == 7){
-
+                    else if(command == "7"){
+                        player = use_consumable_item(player, player.give_id(7));
                     }
-                    else if(stoi(command) == 8){
-
+                    else if(command == "8"){
+                        player = use_consumable_item(player, player.give_id(8));
                     }
-                    else if(stoi(command) == 9){
-
+                    else if(command == "9"){
+                        player = use_consumable_item(player, player.give_id(9));
                     }
-                    else if(stoi(command) == 10){
-
+                    else if(command == "10"){
+                        player = use_consumable_item(player, player.give_id(10));
                     }
                     else {
                         letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands");

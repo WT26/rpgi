@@ -29,6 +29,7 @@ Player use_consumable_item(Player player, int id){
     // 1. Healing potion 1
     else if( id == 1 ){
         player.give_hp(10);
+        player.used_item(true);
         return player;
     }
 

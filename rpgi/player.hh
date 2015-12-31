@@ -21,7 +21,10 @@ public:
     int print_str();
     int print_handy();
     int handy_tier();
+    int give_id(int item_slot);
     string print_name();
+
+    void used_item(bool booolean);
 
     void start_clock();
     void show_stats();
@@ -60,6 +63,8 @@ private:
     int money_;
     int elapsed_sofar_;
     time_t start_time_;
+
+    bool just_used_item;
 
     int total_commands_;
 

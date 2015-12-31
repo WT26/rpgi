@@ -290,4 +290,45 @@ string Player::player_seconds_minutes_hours(){
     if (current_hp_ >= hp_lvl_){
         current_hp_ = hp_lvl_;
     }
+}
+
+void Player::used_item(bool booolean){
+    just_used_item = booolean;
+}
+
+
+int Player::give_id(int item_slot){
+    if(item_slot == 1){
+        return item_1_;
+    }
+    else if(item_slot == 2){
+        return item_2_;
+    }
+    else if(item_slot == 3){
+        return item_3_;
+    }
+    else if(item_slot == 4){
+        return item_4_;
+    }
+    else if(item_slot == 5){
+        return item_5_;
+    }
+    else if(item_slot == 6){
+        return item_6_;
+    }
+    else if(item_slot == 7){
+        return item_7_;
+    }
+    else if(item_slot == 8){
+        return item_8_;
+    }
+    else if(item_slot == 10){
+        return item_9_;
+    }
+    else if(item_slot == 10){
+        return item_10_;
+    }
+    else{
+        return 0;
+    }
  }
