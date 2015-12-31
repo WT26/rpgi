@@ -160,7 +160,7 @@ Player main_lvl_fight(Player player){
             else if (command == "use item"){
                 letter_by_letter_fast("Which item you want to use, use number:\n");
                 player.show_items();
-                while (command != "back"){
+                while (command != "back" || command != "end" || command != "b"){
 
                     cout<<"\ncommand >";
                     getline(cin, command);
@@ -169,37 +169,49 @@ Player main_lvl_fight(Player player){
                         letter_by_letter_fast("All commands:\nnumbers from 1 to 10\nback\n");
                     }
                     else if(command == "1"){
-                        player = use_consumable_item(player, player.give_id(1));
+                        player = use_consumable_item(player, player.give_id(1), 1);
                     }
                     else if(command == "2"){
-                        player = use_consumable_item(player, player.give_id(2));
+                        player = use_consumable_item(player, player.give_id(2), 2);
                     }
                     else if(command == "3"){
-                        player = use_consumable_item(player, player.give_id(3));
+                        player = use_consumable_item(player, player.give_id(3), 3);
                     }
                     else if(command == "4"){
-                        player = use_consumable_item(player, player.give_id(4));
+                        player = use_consumable_item(player, player.give_id(4), 4);
                     }
                     else if(command == "5"){
-                        player = use_consumable_item(player, player.give_id(5));
+                        player = use_consumable_item(player, player.give_id(5), 5);
                     }
                     else if(command == "6"){
-                        player = use_consumable_item(player, player.give_id(6));
+                        player = use_consumable_item(player, player.give_id(6), 6);
                     }
                     else if(command == "7"){
-                        player = use_consumable_item(player, player.give_id(7));
+                        player = use_consumable_item(player, player.give_id(7), 7);
                     }
                     else if(command == "8"){
-                        player = use_consumable_item(player, player.give_id(8));
+                        player = use_consumable_item(player, player.give_id(8), 8);
                     }
                     else if(command == "9"){
-                        player = use_consumable_item(player, player.give_id(9));
+                        player = use_consumable_item(player, player.give_id(9), 9);
                     }
                     else if(command == "10"){
-                        player = use_consumable_item(player, player.give_id(10));
+                        player = use_consumable_item(player, player.give_id(10), 10);
+                    }
+                    else if(command == "back"|| command == "end" || command == "b"){
+                        break;
                     }
                     else {
                         letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands");
+                    }
+                    if (player.have_used_item()){
+                        //Enemys turn
+
+                        int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
+                        player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
+
+                        player.used_item(false);
+                        break;
                     }
                 }
             }
@@ -538,6 +550,14 @@ void letter_by_letter_very_fast(string string_to_print){
     for(char& c : string_to_print){
         cout<<c;
         usleep(20000);
+    }
+}
+
+
+void letter_by_letter_super_fast(string string_to_print){
+    for(char& c : string_to_print){
+        cout<<c;
+        usleep(5000);
     }
 }
 

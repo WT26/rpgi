@@ -38,10 +38,14 @@ public:
     void player_died();
     void update_time_elapsed();
     string player_seconds_minutes_hours();
+    void give_extra_damage(int amount);
+    void delete_item(int slot);
+
+    bool have_used_item();
 
     double seconds_elapsed();
 
-     void update_phase(int phase_number);
+    void update_phase(int phase_number);
 
     string save_header();
     string get_save_info();
@@ -62,9 +66,12 @@ private:
     int current_phase_;
     int money_;
     int elapsed_sofar_;
+    int extra_damage_holder_;
     time_t start_time_;
 
     bool just_used_item;
+
+
 
     int total_commands_;
 

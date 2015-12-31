@@ -24,6 +24,7 @@ using namespace std;
     void letter_by_letter_very_slow(string string_to_print);
     void letter_by_letter_fast(string string_to_print);
     void letter_by_letter_very_fast(string string_to_print);
+    void letter_by_letter_super_fast(string string_to_print);
 
     string seconds_minutes_hours(int seconds);
 

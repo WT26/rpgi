@@ -7,6 +7,6 @@
 using namespace std;
 
 string give_items_name(int id);
-Player use_consumable_item(Player player, int id);
+Player use_consumable_item(Player player, int id, int slot);
 
 #endif // ITEM_HH

@@ -28,6 +28,8 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     money_ = money;
     start_time_ = time(0);
     elapsed_sofar_ = elapsed_time;
+    just_used_item = false;
+    extra_damage_holder_;
 
     item_1_ = i_1;
     item_2_ = i_2;
@@ -108,7 +110,7 @@ void Player::show_stats(){
 }
 
 void Player::show_items(){
-        letter_by_letter_very_fast("\n1. " + give_items_name(item_1_) + "\n2. " + give_items_name(item_2_)
+        letter_by_letter_super_fast("\n1. " + give_items_name(item_1_) + "\n2. " + give_items_name(item_2_)
                                     + "\n3. " + give_items_name(item_3_) + "\n4. " + give_items_name(item_4_)
                                     + "\n5. " + give_items_name(item_5_) + "\n6. " + give_items_name(item_6_)
                                     + "\n7. " + give_items_name(item_7_) + "\n8. " + give_items_name(item_8_)
@@ -297,6 +299,11 @@ void Player::used_item(bool booolean){
 }
 
 
+bool Player::have_used_item(){
+    return just_used_item;
+}
+
+
 int Player::give_id(int item_slot){
     if(item_slot == 1){
         return item_1_;
@@ -331,4 +338,43 @@ int Player::give_id(int item_slot){
     else{
         return 0;
     }
- }
+}
+
+
+void Player::give_extra_damage(int amount){
+    extra_damage_holder_ = amount;
+}
+
+
+void Player::delete_item(int item_slot){
+    if(item_slot == 1){
+        item_1_ = 0;
+    }
+    else if(item_slot == 2){
+        item_2_ = 0;
+    }
+    else if(item_slot == 3){
+        item_3_ = 0;
+    }
+    else if(item_slot == 4){
+        item_4_ = 0;
+    }
+    else if(item_slot == 5){
+        item_5_ = 0;
+    }
+    else if(item_slot == 6){
+        item_6_ = 0;
+    }
+    else if(item_slot == 7){
+        item_7_ = 0;
+    }
+    else if(item_slot == 8){
+        item_8_ = 0;
+    }
+    else if(item_slot == 10){
+        item_9_ = 0;
+    }
+    else if(item_slot == 10){
+        item_10_ = 0;
+    }
+}
