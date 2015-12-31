@@ -15,6 +15,11 @@ Consumables are items 1-3
 1. Healing potion 1
 2. Damage maker 1
 3. Level upper
+
+IDEAS:
+-See enemys stats
+-all six elemental attacks, all three swiping attacks
+
 */
 
 string give_items_name(int id){

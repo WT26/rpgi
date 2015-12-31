@@ -92,6 +92,26 @@ Player main_lvl_fight(Player player){
     int enemy_str = rand()%(enemy_lvl - enemy_hp);
     int enemy_spd = rand()%(enemy_lvl - enemy_hp - enemy_str);
     int enemy_handy = rand()%(enemy_lvl - enemy_hp - enemy_str - enemy_spd);
+
+    if(main_lvl <= 15){
+        enemy_hp++;
+        enemy_str++;
+        enemy_spd++;
+        enemy_handy++;
+    }
+    else if(main_lvl <= 20){
+        enemy_hp += 3;
+        enemy_str += 3;
+        enemy_spd += 3;
+        enemy_handy += 3;
+    }
+    else if(main_lvl <= 25){
+         enemy_hp += 5;
+         enemy_str += 5;
+         enemy_spd += 5;
+         enemy_handy += 5;
+    }
+
     int enemy_handy_tier;
     int player_attack_count;
     vector<string> handy_attacks;
@@ -139,20 +159,35 @@ Player main_lvl_fight(Player player){
                 int player_damage{0};
                 int enemy_damage{0};
 
-                // Players turn
-                player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
-                enemy_hp -= player_damage;
-                if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
-                    player = main_fight_won(player);
-                    return player;
+                if (enemy_spd > player.print_spd() || rand()% 100 > 95){
+                    //Enemys turn
+                    enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
+                    player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
+
+                    // Players turn
+                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
+                    enemy_hp -= player_damage;
+                    if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
+                        player = main_fight_won(player);
+                        return player;
+                    }
+                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
                 }
-                player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
+                else {
+                    // Players turn
+                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
+                    enemy_hp -= player_damage;
+                    if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
+                        player = main_fight_won(player);
+                        return player;
+                    }
+                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
 
-                //Enemys turn
+                    //Enemys turn
 
-                enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
-
+                    enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
+                    player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
+                }
             }
             else if (command == "commands" || command == "c"){
                 letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n");
@@ -305,6 +340,14 @@ Player main_fight_won(Player player) {
     letter_by_letter_very_fast("You got " + to_string(xp_drop) + "xp and " + to_string(money_drop) + "money!\n");
     player.give_money(money_drop);
     player.give_xp(xp_drop);
+    int chance = rand()% 100;
+    if(chance >= 80){
+        if(!player.inventory_full()){
+
+        }
+        letter_by_letter_very_fast("\nEnemy dropped item!");
+
+    }
     return player;
 }
 
