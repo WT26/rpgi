@@ -348,7 +348,7 @@ Player main_fight_won(Player player) {
     if(chance >= 80){
         if(!player.inventory_full()){
             letter_by_letter_very_fast("\nEnemy dropped item!");
-
+            
         }
     }
     return player;

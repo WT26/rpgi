@@ -42,6 +42,7 @@ public:
     void delete_item(int slot);
 
     bool have_used_item();
+    bool inventory_full();
 
     double seconds_elapsed();
 

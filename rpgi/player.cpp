@@ -378,3 +378,50 @@ void Player::delete_item(int item_slot){
         item_10_ = 0;
     }
 }
+
+bool Player::inventory_full(){
+    if(item_1_ != 0 && item_2_ != 0 &&
+       item_3_ != 0 && item_4_ != 0 &&
+       item_5_ != 0 && item_6_ != 0 &&
+       item_7_ != 0 && item_8_ != 0 &&
+       item_9_ != 0 && item_10_ != 0){
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+int Player::show_first_empty_inv_space(){
+    if(item_1_ == 0){
+        return 1;
+    }
+    else if(item_2_ = 0){
+        ;
+    }
+    else if(item_2_ = 0){
+        item_3_ = 0;
+    }
+    else if(item_2_ = 0){
+        item_4_ = 0;
+    }
+    else if(item_2_ = 0){
+        item_5_ = 0;
+    }
+    else if(item_2_ = 0){
+        item_6_ = 0;
+    }
+    else if(item_2_ = 0){
+        item_7_ = 0;
+    }
+    else if(item_2_ = 0){
+        item_8_ = 0;
+    }
+    else if(item_slot == 10){
+        item_9_ = 0;
+    }
+    else if(item_slot == 10){
+        item_10_ = 0;
+    }
+}
