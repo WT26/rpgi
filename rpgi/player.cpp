@@ -75,23 +75,23 @@ string Player::print_name(){
 
 int Player::handy_tier(){
     int handy_tier;
-    if ( handy_lvl_ <=5 ){
+    if ( handy_lvl_ <=5 && handy_lvl_ >0){
         handy_tier = 1;
     }
-    else if( handy_lvl_ <= 10 ){
+    else if( handy_lvl_ > 5 && handy_lvl_ <= 10  ){
         handy_tier = 3;
     }
-    else if( handy_lvl_ <= 15 ){
-        handy_tier = 10;
+    else if( handy_lvl_ <= 15 && handy_lvl_ > 10){
+        handy_tier = 6;
     }
-    else if( handy_lvl_ <= 20 ){
-        handy_tier = 18;
+    else if( handy_lvl_ <= 20 && handy_lvl_ > 15){
+        handy_tier = 9;
     }
-    else if( handy_lvl_ <= 25 ){
-        handy_tier = 24;
+    else if( handy_lvl_ <= 25 && handy_lvl_ > 20){
+        handy_tier = 12;
     }
     else{
-        handy_tier = 30;
+        handy_tier = 15;
     }
     return handy_tier;
 }
@@ -106,7 +106,7 @@ void Player::show_stats(){
     string complete_time = player_seconds_minutes_hours();
     cout<<"\nYour stats:\nMain level: "<<main_lvl_<<"\nHp level: "<<hp_lvl_<<"\nStr level: "
        <<str_lvl_<<"\nSpd level: "<<spd_lvl_<<"\nHandy level: "<<handy_lvl_<<"\nAll experience: "
-      <<all_exp_<<"\nMoney: "<<money_<<"\nTotal playtime: " <<complete_time<< "\n\n";
+      <<all_exp_<<"\nMoney: "<<money_<<"\nCurrent hp: "<<current_hp_<<"/"<<hp_lvl_<<"\nTotal playtime: " <<complete_time<< "\n\n";
 }
 
 void Player::show_items(){
@@ -181,10 +181,10 @@ string Player::get_save_info(){
 
 
 void Player::level_up(){
-    letter_by_letter_slow("\n\nLEVEL UP ! !");
+    letter_by_letter_slow("\n\nLEVEL UP ! ! You are now level " + to_string(main_lvl_ + 1) + "!");
     letter_by_letter_fast("\nWhat you want to level up?");
     letter_by_letter_very_fast("\n1. Hp level: " + to_string(hp_lvl_) + "\n2. Str level: " + to_string(str_lvl_) +
-                               "\n3. Spd level: " + to_string(spd_lvl_) + "\n4. Handy level: " + to_string(handy_lvl_));
+                               "\n3. Spd level: " + to_string(spd_lvl_) + "\n4. Handy level: " + to_string(handy_lvl_) + "\n");
     string answer;
     bool answered = false;
     while(answered == false){
@@ -222,6 +222,7 @@ void Player::level_up(){
             letter_by_letter_very_fast("Enter one of the levels: hp, str, spd or handy.\n");
         }
     }
+    current_hp_ = hp_lvl_;
 }
 
 void Player::player_lose_damage(int damage){
@@ -259,6 +260,7 @@ Player Player::react_to_damage(Player player, int enemy_damage, vector<string> h
         letter_by_letter_fast("Enemy did " + to_string(enemy_damage) + " to you.\n");
         player.player_lose_damage(enemy_damage);
         letter_by_letter_fast("Your current hp: " + to_string(player.print_current_hp()));
+        cout<<"\n";
         sleep(2);
         if(player.print_current_hp() <= 0){
             player.player_died();
@@ -397,31 +399,66 @@ int Player::show_first_empty_inv_space(){
     if(item_1_ == 0){
         return 1;
     }
-    else if(item_2_ = 0){
-        ;
+    else if(item_2_ == 0){
+        return 2;
     }
-    else if(item_2_ = 0){
-        item_3_ = 0;
+    else if(item_3_ == 0){
+        return 3;
     }
-    else if(item_2_ = 0){
-        item_4_ = 0;
+    else if(item_4_ == 0){
+        return 4;
     }
-    else if(item_2_ = 0){
-        item_5_ = 0;
+    else if(item_5_ == 0){
+        return 5;
     }
-    else if(item_2_ = 0){
-        item_6_ = 0;
+    else if(item_6_ == 0){
+        return 6;
     }
-    else if(item_2_ = 0){
-        item_7_ = 0;
+    else if(item_7_ == 0){
+        return 7;
     }
-    else if(item_2_ = 0){
-        item_8_ = 0;
+    else if(item_8_ == 0){
+        return 8;
+    }
+    else if(item_9_ == 0){
+        return 9;
+    }
+    else if(item_10_ == 0){
+        return 10;
+    }
+}
+
+
+
+void Player::give_item(int item_slot, int id){
+    if(item_slot == 1){
+        item_1_ = id;
+    }
+    else if(item_slot == 2){
+        item_2_ = id;
+    }
+    else if(item_slot == 3){
+        item_3_ = id;
+    }
+    else if(item_slot == 4){
+        item_4_ = id;
+    }
+    else if(item_slot == 5){
+        item_5_ = id;
+    }
+    else if(item_slot == 6){
+        item_6_ = id;
+    }
+    else if(item_slot == 7){
+        item_7_ = id;
+    }
+    else if(item_slot == 8){
+        item_8_ = id;
     }
     else if(item_slot == 10){
-        item_9_ = 0;
+        item_9_ = id;
     }
     else if(item_slot == 10){
-        item_10_ = 0;
+        item_10_ = id;
     }
 }

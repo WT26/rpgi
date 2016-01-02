@@ -117,10 +117,12 @@ void phase_2(Player player){
             letter_by_letter_fast("Your inventory:");
             player.show_items();
         }
+
         else if (command == "stats" || command == "st" || command == "2"
                   || command == "2."){
             player.show_stats();
         }
+
         else if (command == "shop" || command == "sh"
                   || command == "Shop" || command == "3"
                   || command == "3."){
@@ -131,6 +133,7 @@ void phase_2(Player player){
                 letter_by_letter_fast("\nShop's clercks man is talking with tax people.\n");
             }
         }
+
         else if (command == "talk" || command == "Talk"
                   || command == "4" || command == "4."
                   || command == "t"){
@@ -147,11 +150,13 @@ void phase_2(Player player){
                 letter_by_letter_very_fast("\nYou see the group still arguing with kindom people.\n\n");
             }
         }
+
         else if (command == "woods" || command == "w"
                   || command == "Woods" || command == "5"
                   || command == "5."){
             player = main_lvl_fight(player);
         }
+
         else if (command == "boss" || command == "Boss"
                   || command == "6." || command == "6"
                   || command == "b"){
@@ -159,9 +164,10 @@ void phase_2(Player player){
                 letter_by_letter_very_fast("You're too weak to challenge him. (Suggested min. lvl is 15)\n");
             }
             else{
-                    //bossfite 01  The Relego
+                boss_fight_1(player);
             }
         }
+
         else if(command == "save" || command == "Save" || command == "save"
                  || command == "7" || command == "7."){
 
@@ -178,12 +184,14 @@ void phase_2(Player player){
                 }
             }
         }
+
         else if (command == "c"|| command == "C"||
                  command == "commands" || command == "Commands"
                  || command == "8" || command == "8."){
             letter_by_letter_super_fast("\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
                                        "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n");
         }
+
         else if (command == "end" || command =="End"
                  || command == "9" || command == "9."){
             command = "twentysix";

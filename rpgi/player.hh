@@ -22,6 +22,8 @@ public:
     int print_handy();
     int handy_tier();
     int give_id(int item_slot);
+    int show_first_empty_inv_space();
+
     string print_name();
 
     void used_item(bool booolean);
@@ -40,6 +42,7 @@ public:
     string player_seconds_minutes_hours();
     void give_extra_damage(int amount);
     void delete_item(int slot);
+    void give_item(int slot, int id);
 
     bool have_used_item();
     bool inventory_full();

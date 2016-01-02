@@ -38,6 +38,7 @@ Player use_consumable_item(Player player, int id, int slot){
         player.give_hp(10);
         player.used_item(true);
         player.delete_item(slot);
+        letter_by_letter_super_fast("\nYou used healing potion 1 !\n");
         return player;
     }
 
@@ -60,5 +61,18 @@ Player use_consumable_item(Player player, int id, int slot){
     }
     else {
         player.used_item(false);
+    }
+}
+
+
+int possible_drop_main_lvl_fight(Player player){
+    if(player.print_main_lvl() <= 15){
+        return (rand()% 1) + 1;
+    }
+    else if(player.print_main_lvl() <= 20){
+        return (rand()% 2) + 1;
+    }
+    else {
+        return (rand()% 2) + 1;
     }
 }

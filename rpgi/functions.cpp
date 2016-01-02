@@ -120,17 +120,22 @@ Player main_lvl_fight(Player player){
     double const ENEMY_DMG_PERCENT{0.5};
     int WAIT_TIME{2};
 
-    if(enemy_handy >= 15 && enemy_handy < 20){
+    if(enemy_handy >= 8 && enemy_handy < 15){
+        handy_attacks.push_back("slapped you!");
+        handy_attacks.push_back("tackled you!");
+        enemy_handy_tier = 5;
+    }
+    else if(enemy_handy >= 15 && enemy_handy < 20){
         handy_attacks.push_back("hit you with stick!");
         handy_attacks.push_back("hit you with rock!");
         handy_attacks.push_back("throwed dirt at you!");
-        enemy_handy_tier = 5;
+        enemy_handy_tier = 7;
     }
     else if(enemy_handy >= 20 && enemy_handy < 25){
         handy_attacks.push_back("hit you with metal stick!");
         handy_attacks.push_back("throwed firey ball at you!");
-        handy_attacks.push_back("Throwed glowing rock at you!");
-        enemy_handy_tier = 7;
+        handy_attacks.push_back("throwed glowing rock at you!");
+        enemy_handy_tier = 11;
     }
     else {
         handy_attacks.push_back("swiped you!");
@@ -244,6 +249,7 @@ Player main_lvl_fight(Player player){
                         letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands");
                     }
                     if (player.have_used_item()){
+
                         //Enemys turn
 
                         int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
@@ -288,7 +294,12 @@ int enemy_did_damage(int enemy_str, int handy_tier, double const ENEMY_DAMAGE_PE
     int enemy_damage{0};
     int minus_str = rand()% (enemy_str + 1);
     enemy_damage += (enemy_str - minus_str) * ENEMY_DAMAGE_PERCENT;
-    enemy_damage += rand()% handy_tier;
+    if(handy_tier == 1){
+        enemy_damage += rand()%handy_tier;
+    }
+    else{
+        enemy_damage += handy_tier;
+    }
     if(enemy_damage <= 0){
         enemy_damage = 0;
     }
@@ -300,8 +311,9 @@ int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAI
     int player_damage{0};
     letter_by_letter_very_fast("\nYou hit the enemy!\n");
     sleep(WAIT_TIME);
-    player_damage += ( player.print_str() - rand()% player.print_str() ) * PLAYER_DAMAGE_PERCENT;
-    player_damage += rand()% player.handy_tier();
+    int minus_dmg = rand()% (player.print_str() + 1);
+    player_damage += ( player.print_str() - minus_dmg ) * PLAYER_DAMAGE_PERCENT;
+    player_damage += player.handy_tier();
     if(player_damage < 0){
         player_damage = 0;
     }
@@ -348,7 +360,11 @@ Player main_fight_won(Player player) {
     if(chance >= 80){
         if(!player.inventory_full()){
             letter_by_letter_very_fast("\nEnemy dropped item!");
-
+            int id = possible_drop_main_lvl_fight(player);
+            int free_slot = player.show_first_empty_inv_space();
+            player.give_item(free_slot, id);
+            string item_name = give_items_name(id);
+            letter_by_letter_very_fast(" You got '" + item_name + "' !\n");
         }
     }
     return player;
@@ -396,8 +412,13 @@ void save_game(Player player){
                 file >> output;
                 vector<string> save_info;
                 save_info = split(output, ':');
+
+
+                int seconds = stoi(save_info[9]);
+                string time = seconds_minutes_hours(seconds);
+
                 cout<<"Name: " <<save_info[0] <<"  Class: "<<save_info[1]
-                   <<"  Main level: "<<save_info[2]<<"\n";
+                   <<"  Main level: "<<save_info[2]<<"  Playtime: "<<time<<"\n";
             }
             else{
                 cout<<"\n";
@@ -534,7 +555,7 @@ void load_game(){
                    savefile >> output;
                    vector<string> save_info;
                    save_info = split(output, ':');
-                   if (save_info.size() != 12){
+                   if (save_info.size() != 22){
                        letter_by_letter_very_fast("\nYou tried to load a old version of the game.\n");
                    }
                    else{
@@ -618,3 +639,153 @@ string seconds_minutes_hours(int seconds){
     string complete_string = "Hours: " + to_string(hours) + "  Minutes: " + to_string(minutes) + "  Seconds: " + to_string(total_seconds);
     return complete_string;
 }
+
+
+void boss_fight_1(Player player){
+
+    srand(time(NULL));
+
+
+    int enemy_hp = 15;
+    int enemy_str = 5;
+    int enemy_spd = 4;
+    int enemy_handy = 5;
+
+    int player_attack_count;
+
+    double const PLAYER_DMG_PERCENT{1.5};
+    double const ENEMY_DMG_PERCENT{0.5};
+    int WAIT_TIME{2};
+
+    bool enemy_alive = true;
+
+    if(enemy_alive == true && player.print_current_hp() > 0){
+
+        string command{"twentysix"};
+        letter_by_letter_fast("\nYou encounter " + enemy_name + "!" );
+
+        while(enemy_alive == true && player.print_current_hp() > 0){
+            letter_by_letter_very_fast("\nWhat you want to do?");
+            cout<<"\ncommand >";
+            getline(cin, command);
+
+            if (command == "attack" || command == "a" || command == "A" || command == "Attack"){
+                int player_damage{0};
+                int enemy_damage{0};
+
+
+                // Enemy faster
+                if (enemy_spd > player.print_spd() || rand()% 100 > 95){
+                    //Enemys turn
+
+                    // Players turn
+                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
+                    enemy_hp -= player_damage;
+                    if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
+                        player = main_fight_won(player);
+                        return player;
+                    }
+                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
+                }
+
+                // Player faster
+                else {
+                    // Players turn
+                    player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
+                    enemy_hp -= player_damage;
+                    if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
+                        player = main_fight_won(player);
+                        return player;
+                    }
+                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
+
+                    //Enemys turn
+
+                }
+            }
+            else if (command == "commands" || command == "c"){
+                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n");
+            }
+            else if (command == "use item"){
+                letter_by_letter_fast("Which item you want to use, use number:\n");
+                player.show_items();
+                while (command != "back" || command != "end" || command != "b"){
+
+                    cout<<"\ncommand >";
+                    getline(cin, command);
+
+                    if (command == "commands"){
+                        letter_by_letter_fast("All commands:\nnumbers from 1 to 10\nback\n");
+                    }
+                    else if(command == "1"){
+                        player = use_consumable_item(player, player.give_id(1), 1);
+                    }
+                    else if(command == "2"){
+                        player = use_consumable_item(player, player.give_id(2), 2);
+                    }
+                    else if(command == "3"){
+                        player = use_consumable_item(player, player.give_id(3), 3);
+                    }
+                    else if(command == "4"){
+                        player = use_consumable_item(player, player.give_id(4), 4);
+                    }
+                    else if(command == "5"){
+                        player = use_consumable_item(player, player.give_id(5), 5);
+                    }
+                    else if(command == "6"){
+                        player = use_consumable_item(player, player.give_id(6), 6);
+                    }
+                    else if(command == "7"){
+                        player = use_consumable_item(player, player.give_id(7), 7);
+                    }
+                    else if(command == "8"){
+                        player = use_consumable_item(player, player.give_id(8), 8);
+                    }
+                    else if(command == "9"){
+                        player = use_consumable_item(player, player.give_id(9), 9);
+                    }
+                    else if(command == "10"){
+                        player = use_consumable_item(player, player.give_id(10), 10);
+                    }
+                    else if(command == "back"|| command == "end" || command == "b"){
+                        break;
+                    }
+                    else {
+                        letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands");
+                    }
+                    if (player.have_used_item()){
+
+                        //Enemys turn
+
+                        player.used_item(false);
+                        break;
+                    }
+                }
+            }
+            else if (command == "run"){
+                letter_by_letter_fast("\nYou try to run away !");
+                sleep(WAIT_TIME);
+                if(rand()% 100 <= 35){
+                    letter_by_letter_fast("\nYou successfully ran away!\n\n");
+                    return player;
+                }
+                else{
+                    letter_by_letter_fast("You couldn't !\n");
+                    int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
+                    player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
+                }
+            }
+            else if (command == "debug"){
+                Debug debug();
+            }
+            else if (command == "stats"){
+                player.show_stats();
+            }
+            else {
+                letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
+            }
+        }
+    }
+    return player;
+}
+

@@ -26,6 +26,8 @@ using namespace std;
     void letter_by_letter_very_fast(string string_to_print);
     void letter_by_letter_super_fast(string string_to_print);
 
+    void boss_fight_1(Player player);
+
     string seconds_minutes_hours(int seconds);
 
     bool file_exists(string file_name);
