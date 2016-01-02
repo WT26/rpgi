@@ -35,4 +35,5 @@ using namespace std;
     void save_game(Player player);
     void load_game();
 
+    Player relego_turn(Player player, int enemy_turn);
 #endif // FUNCTIONS_HH

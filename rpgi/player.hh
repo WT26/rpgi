@@ -14,6 +14,11 @@ public:
            int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase,
            int elapsed_time, int current_hp, int money,
            int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10);
+
+    int const WAIT_TIME{2};
+    double const PLAYER_DMG_PERCENT{1.5};
+    double const ENEMY_DMG_PERCENT{0.5};
+
     int print_phase();
     int print_main_lvl();
     int print_current_hp();
@@ -75,8 +80,6 @@ private:
 
     bool just_used_item;
 
-
-
     int total_commands_;
 
     int item_1_;
@@ -91,6 +94,8 @@ private:
     int item_10_;
 
     int extra_damage_;
+
+    int carry_enemy_health_;
 
 
 };

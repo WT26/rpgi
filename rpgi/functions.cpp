@@ -160,7 +160,8 @@ Player main_lvl_fight(Player player){
             cout<<"\ncommand >";
             getline(cin, command);
 
-            if (command == "attack" || command == "a" || command == "A" || command == "Attack"){
+            if (command == "attack" || command == "a" || command == "A" || command == "Attack"
+                     || command == "1."  || command == "1"){
                 int player_damage{0};
                 int enemy_damage{0};
 
@@ -201,7 +202,7 @@ Player main_lvl_fight(Player player){
             else if (command == "commands" || command == "c"){
                 letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n");
             }
-            else if (command == "use item"){
+            else if (command == "use item" || command == "2."  || command == "2"){
                 letter_by_letter_fast("Which item you want to use, use number:\n");
                 player.show_items();
                 while (command != "back" || command != "end" || command != "b"){
@@ -260,7 +261,7 @@ Player main_lvl_fight(Player player){
                     }
                 }
             }
-            else if (command == "run"){
+            else if (command == "run" || command == "3."  || command == "3"){
                 letter_by_letter_fast("\nYou try to run away !");
                 sleep(WAIT_TIME);
                 if(rand()% 100 <= 35){
@@ -276,7 +277,7 @@ Player main_lvl_fight(Player player){
             else if (command == "debug"){
                 Debug debug();
             }
-            else if (command == "stats"){
+            else if (command == "stats" || command == "4."  || command == "4"){
                 player.show_stats();
             }
             else {
@@ -645,17 +646,12 @@ void boss_fight_1(Player player){
 
     srand(time(NULL));
 
-
-    int enemy_hp = 15;
-    int enemy_str = 5;
-    int enemy_spd = 4;
-    int enemy_handy = 5;
-
     int player_attack_count;
 
     double const PLAYER_DMG_PERCENT{1.5};
-    double const ENEMY_DMG_PERCENT{0.5};
     int WAIT_TIME{2};
+
+    int enemy_hp{15};
 
     bool enemy_alive = true;
 
@@ -669,21 +665,22 @@ void boss_fight_1(Player player){
             cout<<"\ncommand >";
             getline(cin, command);
 
-            if (command == "attack" || command == "a" || command == "A" || command == "Attack"){
+            if (command == "attack" || command == "a" || command == "A" || command == "Attack"
+                    || command == "1." || command == "1"){
                 int player_damage{0};
-                int enemy_damage{0};
-
 
                 // Enemy faster
                 if (enemy_spd > player.print_spd() || rand()% 100 > 95){
                     //Enemys turn
+                    player = relego_turn(player, enemy_turn);
+                    enemy_turn++;
 
                     // Players turn
                     player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
                     enemy_hp -= player_damage;
-                    if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
-                        player = main_fight_won(player);
-                        return player;
+                    if ( boss_1_hp_out( enemy_hp, WAIT_TIME) ){
+                        boss_fight_1_won(player);
+                        phase_3(player);
                     }
                     player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
                 }
@@ -693,18 +690,18 @@ void boss_fight_1(Player player){
                     // Players turn
                     player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
                     enemy_hp -= player_damage;
-                    if ( enemy_hp_out( enemy_hp, WAIT_TIME) ){
-                        player = main_fight_won(player);
+                    if ( boss_1_hp_out( enemy_hp, WAIT_TIME) ){
                         return player;
                     }
-                    player_attack_count =  player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
+                    player_attack_count = player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
 
                     //Enemys turn
-
+                    player = relego_turn(player, enemy_turn);
+                    enemy_turn++;
                 }
             }
             else if (command == "commands" || command == "c"){
-                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n");
+                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n4. stats\n");
             }
             else if (command == "use item"){
                 letter_by_letter_fast("Which item you want to use, use number:\n");
@@ -756,13 +753,14 @@ void boss_fight_1(Player player){
                     if (player.have_used_item()){
 
                         //Enemys turn
-
+                        player = relego_turn(player, enemy_turn);
+                        enemy_turn++;
                         player.used_item(false);
                         break;
                     }
                 }
             }
-            else if (command == "run"){
+            else if (command == "run" || command == "Run" || command == "3."  || command == "3"){
                 letter_by_letter_fast("\nYou try to run away !");
                 sleep(WAIT_TIME);
                 if(rand()% 100 <= 35){
@@ -771,14 +769,14 @@ void boss_fight_1(Player player){
                 }
                 else{
                     letter_by_letter_fast("You couldn't !\n");
-                    int enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, WAIT_TIME);
-                    player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
+                    player = relego_turn(player, enemy_turn);
+                    enemy_turn++;
                 }
             }
             else if (command == "debug"){
                 Debug debug();
             }
-            else if (command == "stats"){
+            else if (command == "stats" || command == "4."  || command == "4"){
                 player.show_stats();
             }
             else {
@@ -789,3 +787,57 @@ void boss_fight_1(Player player){
     return player;
 }
 
+
+Player relego_turn(Player player, int enemy_turn){
+    if( enemy_turn == 0 || enemy_turn == 6 || enemy_turn == 12){
+        letter_by_letter_very_fast("Its The Relego's turn!\n");
+        letter_by_letter_very_fast("Relego swinged his sword at you!\nRelego did 3 damage at you!\n");
+        player = react_to_boss_damage(player, 3);
+    }
+    else if( enemy_turn == 1 || enemy_turn == 7 || enemy_turn == 13){
+        letter_by_letter_very_fast("Its The Relego's turn!\n");
+        letter_by_letter_very_fast("Relego swinged his sword at you!\nRelego did 3 damage at you!\n");
+        player = react_to_boss_damage(player, 3);
+    }
+    else if( enemy_turn == 2 || enemy_turn == 8 || enemy_turn == 14){
+        letter_by_letter_very_fast("Its The Relego's turn!\n");
+        letter_by_letter_very_fast("Relego's swords started glowing slightly white\nHe jumps and hits you with a massive 5 damage!\n");
+        player = react_to_boss_damage(player, 5);
+    }
+    else if( enemy_turn == 3 || enemy_turn == 9 || enemy_turn == 15){
+        letter_by_letter_very_fast("Its The Relego's turn!\n");
+        letter_by_letter_very_fast("Relego catches his breath and smirks at you!\n");
+    }
+    else if( enemy_turn == 4 || enemy_turn == 10 || enemy_turn == 16){
+        letter_by_letter_very_fast("Its The Relego's turn!\n");
+        letter_by_letter_very_fast("Relego catches his breath and smirks at you!\n");
+    }
+    else if( enemy_turn == 5 || enemy_turn == 11 || enemy_turn == 17){
+        letter_by_letter_very_fast("Its The Relego's turn!\n");
+        letter_by_letter_very_fast("Relego catches his breath and smirks at you!\n");
+    }
+    else{
+        letter_by_letter_very_fast("Its The Relego's turn!\n");
+        letter_by_letter_very_fast("Relego swinged his sword at you!\nRelego did 3 damage at you!\n");
+        player = react_to_boss_damage(player, 3);
+    }
+}
+
+
+bool boss_1_hp_out(int enemy_hp, int WAIT_TIME){
+    if (enemy_hp <= 0 ){
+        enemy_hp = 0;
+        letter_by_letter_very_fast("The Relego doesn't have any hp left.\n");
+        letter_by_letter_fast("The Relego has died.\n");
+        sleep(WAIT_TIME);
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
+
+void boss_fight_1_won(Player player){
+
+}

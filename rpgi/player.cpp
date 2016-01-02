@@ -462,3 +462,16 @@ void Player::give_item(int item_slot, int id){
         item_10_ = id;
     }
 }
+
+
+Player Player::react_to_boss_damage(Player player, int enemy_damage){
+    player.player_lose_damage(enemy_damage);
+    letter_by_letter_fast("Your current hp: " + to_string(player.print_current_hp()));
+    cout<<"\n";
+    sleep(2);
+    if(player.print_current_hp() <= 0){
+        player.player_died();
+    }
+    return player;
+}
+
