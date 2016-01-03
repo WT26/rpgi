@@ -828,7 +828,7 @@ bool boss_1_hp_out(int enemy_hp, int WAIT_TIME){
     if (enemy_hp <= 0 ){
         enemy_hp = 0;
         letter_by_letter_very_fast("The Relego doesn't have any hp left.\n");
-        letter_by_letter_fast("The Relego has died.\n");
+        letter_by_letter_fast("The Relego has been beaten.\n");
         sleep(WAIT_TIME);
         return true;
     }
@@ -839,5 +839,10 @@ bool boss_1_hp_out(int enemy_hp, int WAIT_TIME){
 
 
 void boss_fight_1_won(Player player){
-
+    int xp_drop{75};
+    int money_drop{200};
+    letter_by_letter_fast("You got " + to_string(xp_drop) + "xp and " + to_string(money_drop) + "money !\n");
+    player.give_money(money_drop);
+    player.give_xp(xp_drop);
+    phase_3(player);
 }

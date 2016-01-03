@@ -223,8 +223,118 @@ void phase_2(Player player){
 //###V######V######V######V######V###### Phase 3 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_3(Player player){
-    cout<<"its phase 3\n";
+    player.update_phase(3);
+    letter_by_letter_very_fast("\nCollapsed Relego gathers himself up, and start walking towards escaping kingdom men\n"
+                               "They leave the village to north. Everyone around you celebrates\na bit and one by one comes to thank you. You found a letter\n"
+                               "where the Relego collapsed, it says: 'By any means, collect money from all over the land and quickly bring them to me\n"
+                               "The King of yours: -Name-'\nIt seems King has a sudden urge of money and is collecting it illegally. You decide to take action\n"
+                               "against it.");
+    bool talked = false;
 
+    string command{"twentysix"};
+
+    while(command != "end"){
+        cout<<"command >";
+        getline(cin, command);
+
+        if (command == "items" || command == "i" || command == "1"
+                || command == "1."){
+            letter_by_letter_fast("Your inventory:");
+            player.show_items();
+        }
+
+        else if (command == "stats" || command == "st" || command == "2"
+                  || command == "2."){
+            player.show_stats();
+        }
+
+        else if (command == "shop" || command == "sh"
+                  || command == "Shop" || command == "3"
+                  || command == "3."){
+            if (talked == false){
+            }
+            else {
+            }
+        }
+
+        else if (command == "talk" || command == "Talk"
+                  || command == "4" || command == "4."
+                  || command == "t"){
+            if(talked == false){
+                talked = true;
+            }
+            else {
+            }
+        }
+
+        else if (command == "woods" || command == "w"
+                  || command == "Woods" || command == "5"
+                  || command == "5."){
+            player = main_lvl_fight(player);
+        }
+
+        else if (command == "boss" || command == "Boss"
+                  || command == "6." || command == "6"
+                  || command == "b"){
+            if(player.print_main_lvl() <= 15){
+                letter_by_letter_very_fast("You're too weak to challenge him. (Suggested min. lvl is 15)\n");
+            }
+            else{
+                boss_fight_1(player);
+            }
+        }
+
+        else if(command == "save" || command == "Save" || command == "save"
+                 || command == "7" || command == "7."){
+
+            while(command != "no" && command != "2" && command != "2." && command != "No"){
+                letter_by_letter_fast("\n\ndo you want to save the game?\n\n1. Yes\n2. No\n");
+                cout<<"\ncommand >";
+                getline(cin, command);
+                if(command == "yes" || command == "1" || command == "1." || command == "y"){
+                    save_game(player);
+                    break;
+                }
+                else if (command == "no" || command == "2" || command == "2." || command == "No"){
+                    break;
+                }
+            }
+        }
+
+        else if (command == "c"|| command == "C"||
+                 command == "commands" || command == "Commands"
+                 || command == "8" || command == "8."){
+            letter_by_letter_super_fast("\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
+                                       "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n");
+        }
+
+        else if (command == "end" || command =="End"
+                 || command == "9" || command == "9."){
+            command = "twentysix";
+            while(command != "back"){
+                letter_by_letter_very_fast("\nDo you really want to return to main menu? All unsaved progress will be lost."
+                                           "\n1. Yes\n2. No");
+                cout<<"\n\ncommand >";
+                getline(cin, command);
+
+                if(command == "yes" || command == "Yes"
+                        || command == "1" || command == "1."){
+                    start_menu();
+                }
+                else if (command == "no" || command == "No"
+                         || command == "2" || command == "2."){
+                    command = "back";
+                }
+            }
+        }
+        else if (command == "debug"){
+            Debug debug = Debug();
+        }
+        else {
+            letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
+        }
+    }
+}
 }
 //############################################################################################
 //###V######V######V######V######V###### Phase 4 ######V######V######V######V######V######V###
