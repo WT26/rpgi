@@ -18,8 +18,8 @@ using namespace std;
 bool start_menu(){
     vector<string> commands{"new game", "load game", "quit"};
     string command;
-    letter_by_letter_slow("Start menu:\n");
-    letter_by_letter_very_fast("1. new game\n2. load game\n3. quit");
+    box_message("#                   START MENU                   #");
+    letter_by_letter_very_fast("\n1. New Game\n2. Load Game\n3. Quit Game\n");
     cout<<"\ncommand >";
 
     bool end_game{false};
@@ -79,6 +79,7 @@ int endGame(){
 }
 
 Player main_lvl_fight(Player player){
+    fight_started_message();
     srand(time(NULL));
 
     int main_lvl = player.print_main_lvl();
@@ -312,9 +313,30 @@ int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAI
     int player_damage{0};
     letter_by_letter_very_fast("\nYou hit the enemy!\n");
     sleep(WAIT_TIME);
-    int minus_dmg = rand()% (player.print_str() + 1);
-    player_damage += ( player.print_str() - minus_dmg ) * PLAYER_DAMAGE_PERCENT;
+    int minus_damage = player.print_str() - player.handy_tier();
+    if(minus_damage == 0){
+        minus_damage = 1;
+    }
+    int random_number = rand()% 100;
+    if(random_number <= 100 && random_number > 90){
+        minus_damage = minus_damage * 0.01;
+    }
+    else if(random_number <= 90 && random_number > 70){
+        minus_damage = minus_damage * 0.20;
+    }
+    else if(random_number <= 70 && random_number > 50){
+        minus_damage = minus_damage * 0.40;
+    }
+    else if(random_number <= 50 && random_number > 30){
+        minus_damage = minus_damage * 0.70;
+    }
+    else if(random_number <= 30 && random_number >= 0){
+        minus_damage = minus_damage;
+    }
+
+    player_damage += (player.print_str() - minus_damage);
     player_damage += player.handy_tier();
+    player_damage = player_damage * PLAYER_DAMAGE_PERCENT;
     if(player_damage < 0){
         player_damage = 0;
     }
@@ -354,13 +376,14 @@ bool op(int compare_this, int compare_with){
 Player main_fight_won(Player player) {
     int money_drop = main_fight_won_money(player);
     int xp_drop = main_fight_won_xp(player);
-    letter_by_letter_very_fast("You got " + to_string(xp_drop) + "xp and " + to_string(money_drop) + "money!\n");
+    fight_ended_message();
+    letter_by_letter_very_fast("\nREWARDS:\n+" + to_string(xp_drop) + " exp\n+" + to_string(money_drop) + " coins\n");
     player.give_money(money_drop);
     player.give_xp(xp_drop);
     int chance = rand()% 100;
     if(chance >= 80){
         if(!player.inventory_full()){
-            letter_by_letter_very_fast("\nEnemy dropped item!");
+            letter_by_letter_very_fast("\nEnemy also dropped an item!");
             int id = possible_drop_main_lvl_fight(player);
             int free_slot = player.show_first_empty_inv_space();
             player.give_item(free_slot, id);
@@ -642,8 +665,8 @@ string seconds_minutes_hours(int seconds){
 }
 
 
-void boss_fight_1(Player player){
-
+Player boss_fight_1(Player player){
+    box_message("#                   THE RELEGO                   #");
     srand(time(NULL));
 
     int player_attack_count;
@@ -652,13 +675,15 @@ void boss_fight_1(Player player){
     int WAIT_TIME{2};
 
     int enemy_hp{15};
+    int enemy_spd{4};
+    int enemy_turn{0};
 
     bool enemy_alive = true;
 
     if(enemy_alive == true && player.print_current_hp() > 0){
 
         string command{"twentysix"};
-        letter_by_letter_fast("\nYou encounter " + enemy_name + "!" );
+        letter_by_letter_fast("\nYou encounter The Relego!" );
 
         while(enemy_alive == true && player.print_current_hp() > 0){
             letter_by_letter_very_fast("\nWhat you want to do?");
@@ -679,6 +704,7 @@ void boss_fight_1(Player player){
                     player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
                     enemy_hp -= player_damage;
                     if ( boss_1_hp_out( enemy_hp, WAIT_TIME) ){
+                        fight_ended_message();
                         boss_fight_1_won(player);
                         phase_3(player);
                     }
@@ -691,7 +717,9 @@ void boss_fight_1(Player player){
                     player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, WAIT_TIME);
                     enemy_hp -= player_damage;
                     if ( boss_1_hp_out( enemy_hp, WAIT_TIME) ){
-                        return player;
+                        fight_ended_message();
+                        boss_fight_1_won(player);
+                        phase_3(player);
                     }
                     player_attack_count = player_attack_done(enemy_hp, player_attack_count, WAIT_TIME);
 
@@ -792,17 +820,17 @@ Player relego_turn(Player player, int enemy_turn){
     if( enemy_turn == 0 || enemy_turn == 6 || enemy_turn == 12){
         letter_by_letter_very_fast("Its The Relego's turn!\n");
         letter_by_letter_very_fast("Relego swinged his sword at you!\nRelego did 3 damage at you!\n");
-        player = react_to_boss_damage(player, 3);
+        player = player.react_to_boss_damage(player, 3);
     }
     else if( enemy_turn == 1 || enemy_turn == 7 || enemy_turn == 13){
         letter_by_letter_very_fast("Its The Relego's turn!\n");
         letter_by_letter_very_fast("Relego swinged his sword at you!\nRelego did 3 damage at you!\n");
-        player = react_to_boss_damage(player, 3);
+        player = player.react_to_boss_damage(player, 3);
     }
     else if( enemy_turn == 2 || enemy_turn == 8 || enemy_turn == 14){
         letter_by_letter_very_fast("Its The Relego's turn!\n");
         letter_by_letter_very_fast("Relego's swords started glowing slightly white\nHe jumps and hits you with a massive 5 damage!\n");
-        player = react_to_boss_damage(player, 5);
+        player = player.react_to_boss_damage(player, 5);
     }
     else if( enemy_turn == 3 || enemy_turn == 9 || enemy_turn == 15){
         letter_by_letter_very_fast("Its The Relego's turn!\n");
@@ -819,8 +847,9 @@ Player relego_turn(Player player, int enemy_turn){
     else{
         letter_by_letter_very_fast("Its The Relego's turn!\n");
         letter_by_letter_very_fast("Relego swinged his sword at you!\nRelego did 3 damage at you!\n");
-        player = react_to_boss_damage(player, 3);
+        player = player.react_to_boss_damage(player, 3);
     }
+    return player;
 }
 
 
@@ -845,4 +874,55 @@ void boss_fight_1_won(Player player){
     player.give_money(money_drop);
     player.give_xp(xp_drop);
     phase_3(player);
+}
+
+
+void fight_started_message(){
+    cout<<"##################################################\n";
+    usleep(5000);
+    cout<<"#                                                #\n";
+    usleep(5000);
+    cout<<"#                 FIGHT STARTED                  #\n";
+    usleep(5000);
+    cout<<"#                                                #\n";
+    usleep(5000);
+    cout<<"##################################################\n";
+    usleep(5000);
+}
+
+
+void fight_ended_message(){
+    cout<<"##################################################\n";
+    usleep(5000);
+    cout<<"#                                                #\n";
+    usleep(5000);
+    cout<<"#                  FIGHT ENDED                   #\n";
+    usleep(5000);
+    cout<<"#                                                #\n";
+    usleep(5000);
+    cout<<"##################################################\n";
+    usleep(5000);
+}
+
+
+void box_message(string message){
+    cout<<"##################################################\n";
+    usleep(5000);
+    cout<<"#                                                #\n";
+    usleep(5000);
+    cout<<message<<"\n";
+    usleep(5000);
+    cout<<"#                                                #\n";
+    usleep(5000);
+    cout<<"##################################################\n";
+    usleep(5000);
+}
+
+
+string give_spaces(int amount){
+    string space_string{""};
+    for(int i{0};i != amount; i++){
+        space_string += " ";
+    }
+    return space_string;
 }

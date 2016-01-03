@@ -15,9 +15,7 @@ public:
            int elapsed_time, int current_hp, int money,
            int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10);
 
-    int const WAIT_TIME{2};
-    double const PLAYER_DMG_PERCENT{1.5};
-    double const ENEMY_DMG_PERCENT{0.5};
+
 
     int print_phase();
     int print_main_lvl();
@@ -48,6 +46,7 @@ public:
     void give_extra_damage(int amount);
     void delete_item(int slot);
     void give_item(int slot, int id);
+    void show_all_info();
 
     bool have_used_item();
     bool inventory_full();
@@ -60,9 +59,12 @@ public:
     string get_save_info();
 
     Player react_to_damage(Player player, int enemy_damage, vector<string> handy_attacks, string enemy_name);
+    Player react_to_boss_damage(Player player, int enemy_damage);
+
 
 
 private:
+
     string player_name_;
     string class_name_;
     int main_lvl_;

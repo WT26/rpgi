@@ -162,10 +162,12 @@ double Player::seconds_elapsed(){
     return seconds_elapsed_since_start;
 }
 
+
 void Player::update_time_elapsed(){
     elapsed_sofar_ += difftime( time(0), start_time_ );
     start_time_ = time(0);
 }
+
 
 string Player::get_save_info(){
     update_time_elapsed();
@@ -225,6 +227,7 @@ void Player::level_up(){
     current_hp_ = hp_lvl_;
 }
 
+
 void Player::player_lose_damage(int damage){
     current_hp_ -= damage;
     if (current_hp_ < 0){
@@ -232,21 +235,24 @@ void Player::player_lose_damage(int damage){
     }
 }
 
+
 void Player::player_died(){
     cout<<"\n\n";
     usleep(200000);
-    letter_by_letter_slow("YOU DIED");
+    letter_by_letter_slow("YOU DIED\n");
     usleep(400000);
     bool for_ever{true};
     while(for_ever != false){
-        letter_by_letter_fast("main menu or end");
+        letter_by_letter_fast("\n1. Main Menu\n2. End\n\ncommand >");
         string command{"twentysix"};
         getline(cin, command);
 
-        if(command == "main menu" || command == "Main menu"){
+        if(command == "main menu" || command == "Main menu" || command == "1."
+                || command  == "1"){
             start_menu();
         }
-        else if(command == "end" || command == "e"){
+        else if(command == "end" || command == "e" || command == "2."
+                || command == "2"){
             endGame();
         }
         else if(command == "debug"){
@@ -473,5 +479,40 @@ Player Player::react_to_boss_damage(Player player, int enemy_damage){
         player.player_died();
     }
     return player;
+}
+
+
+void Player::show_all_info(){
+    cout<<"\n########################INFO######################\n";
+    usleep(5000);
+    int space_count = 50 - player_name_.length() - class_name_.length() - 18;
+    string spaces = give_spaces(space_count);
+    cout<<"# Name: "<<player_name_<<spaces<<" Class: "<<class_name_<<" #\n";
+    usleep(5000);
+    space_count = 50 - 16 - to_string(main_lvl_).length();
+    spaces = give_spaces(space_count);
+    cout<<"# Main level: "<<main_lvl_<<spaces<<" #\n";
+    usleep(5000);
+    space_count = 50 - 25 - to_string(hp_lvl_).length() - to_string(str_lvl_).length();
+    spaces = give_spaces(space_count);
+    cout<<"# Hp level: "<<hp_lvl_<<spaces<<"Str level: "<<str_lvl_<<" #\n";
+    usleep(5000);
+    space_count = 50 - 28 - to_string(spd_lvl_).length() - to_string(handy_lvl_).length();
+    spaces = give_spaces(space_count);
+    cout<<"# Spd level: "<<spd_lvl_<<spaces<<"Handy level: "<<handy_lvl_<<" #\n";
+    usleep(5000);
+    space_count = 50 - 23 - to_string(current_hp_).length() - to_string(hp_lvl_).length() - to_string(all_exp_).length();
+    spaces = give_spaces(space_count);
+    cout<<"# HP LEFT: "<<current_hp_<<"/"<<hp_lvl_<<spaces<<"ALL EXP: "<<all_exp_<<" #\n";
+    usleep(5000);
+    space_count = 50 - 11 - to_string(money_).length();
+    spaces = give_spaces(space_count);
+    cout<<"# Money: "<<money_<<spaces<<" #\n";
+    usleep(5000);
+    cout<<"####################INVENTORY#####################";
+    usleep(5000);
+    show_items();
+    cout<<"##################################################\n\n";
+    usleep(5000);
 }
 

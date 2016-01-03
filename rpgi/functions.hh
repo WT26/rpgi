@@ -20,13 +20,21 @@ using namespace std;
     int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAIT_TIME);
     int player_attack_done(int enemy_hp, int player_attack_count, int WAIT_TIME);
 
+    string give_spaces(int amount);
+
     void letter_by_letter_slow(string string_to_print);
     void letter_by_letter_very_slow(string string_to_print);
     void letter_by_letter_fast(string string_to_print);
     void letter_by_letter_very_fast(string string_to_print);
     void letter_by_letter_super_fast(string string_to_print);
 
-    void boss_fight_1(Player player);
+    void fight_started_message();
+    void fight_ended_message();
+    void box_message(string message);
+
+    Player boss_fight_1(Player player);
+    bool boss_1_hp_out(int enemy_hp, int WAIT_TIME);
+    void boss_fight_1_won(Player player);
 
     string seconds_minutes_hours(int seconds);
 

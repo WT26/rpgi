@@ -26,11 +26,12 @@ void phasehandler(Player player){
 
 // Character creation phase. Returns Player class to next phase.
 Player phase_1(){
-    letter_by_letter_fast("Character creation:");
+    box_message("#               CHARACTER CREATION               #");
+
     letter_by_letter_fast("\nPlease, enter your name: ");
     string name;
     getline(cin, name);
-    letter_by_letter_fast("\nHey "+ name +", now choose your class. But first let me explain all the skills:");
+    letter_by_letter_fast("\nHey "+ name +", now choose your class. But first let me explain all the skills:\n");
     string answer;
     while(answer != "Curator" && answer != "Salto" && answer != "curator" && answer != "salto" &&
           answer != "Ensis" && answer != "ensis" && answer != "Piger" && answer != "piger" &&
@@ -100,6 +101,7 @@ Player phase_1(){
 //###V######V######V######V######V###### Phase 2 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_2(Player player){
+    box_message("#            UNSETTLED LITTLE TOWNEY             #");
     player.start_clock();
     player.update_phase(2);
     letter_by_letter_very_fast("\nYou venture outside of your little hut.\nIts bright outside and you see"
@@ -120,7 +122,7 @@ void phase_2(Player player){
 
         else if (command == "stats" || command == "st" || command == "2"
                   || command == "2."){
-            player.show_stats();
+            player.show_all_info();
         }
 
         else if (command == "shop" || command == "sh"
@@ -147,7 +149,7 @@ void phase_2(Player player){
                 talked = true;
             }
             else {
-                letter_by_letter_very_fast("\nYou see the group still arguing with kindom people.\n\n");
+                letter_by_letter_very_fast("\nYou see the group still arguing with kingdom people.\n\n");
             }
         }
 
@@ -160,7 +162,7 @@ void phase_2(Player player){
         else if (command == "boss" || command == "Boss"
                   || command == "6." || command == "6"
                   || command == "b"){
-            if(player.print_main_lvl() <= 15){
+            if(player.print_main_lvl() < 15){
                 letter_by_letter_very_fast("You're too weak to challenge him. (Suggested min. lvl is 15)\n");
             }
             else{
@@ -223,12 +225,13 @@ void phase_2(Player player){
 //###V######V######V######V######V###### Phase 3 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_3(Player player){
+    box_message("#                  LITTLE TOWNEY                 #\n");
     player.update_phase(3);
-    letter_by_letter_very_fast("\nCollapsed Relego gathers himself up, and start walking towards escaping kingdom men\n"
+    letter_by_letter_fast("\nCollapsed Relego gathers himself up, and start walking towards escaping kingdom men\n"
                                "They leave the village to north. Everyone around you celebrates\na bit and one by one comes to thank you. You found a letter\n"
-                               "where the Relego collapsed, it says: 'By any means, collect money from all over the land and quickly bring them to me\n"
-                               "The King of yours: -Name-'\nIt seems King has a sudden urge of money and is collecting it illegally. You decide to take action\n"
-                               "against it.");
+                               "where the Relego collapsed, it says: 'By any means, collect\nmoney from all over the land and quickly bring them to me\n"
+                               "The King of yours: -Name-'\nIt seems King has a sudden urge of money and is collecting\nit illegally. You decide to take action"
+                               "against it.\n");
     bool talked = false;
 
     string command{"twentysix"};
@@ -276,11 +279,11 @@ void phase_3(Player player){
         else if (command == "boss" || command == "Boss"
                   || command == "6." || command == "6"
                   || command == "b"){
-            if(player.print_main_lvl() <= 15){
+            if(player.print_main_lvl() < 14){
                 letter_by_letter_very_fast("You're too weak to challenge him. (Suggested min. lvl is 15)\n");
             }
             else{
-                boss_fight_1(player);
+                player =boss_fight_1(player);
             }
         }
 
@@ -335,7 +338,7 @@ void phase_3(Player player){
         }
     }
 }
-}
+
 //############################################################################################
 //###V######V######V######V######V###### Phase 4 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
