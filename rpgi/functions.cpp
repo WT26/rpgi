@@ -201,7 +201,7 @@ Player main_lvl_fight(Player player){
                 }
             }
             else if (command == "commands" || command == "c"){
-                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n");
+                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n4. rush");
             }
             else if (command == "use item" || command == "2."  || command == "2"){
                 letter_by_letter_fast("Which item you want to use, use number:\n");
@@ -278,7 +278,46 @@ Player main_lvl_fight(Player player){
             else if (command == "debug"){
                 Debug debug();
             }
-            else if (command == "stats" || command == "4."  || command == "4"){
+            else if (command == "4" || command == "4." || command == "rush" || command == "Rush"){
+                int player_damage{0};
+                int enemy_damage{0};
+                while(enemy_alive){
+                    if (enemy_spd > player.print_spd() || rand()% 100 > 95){
+                        //Enemys turn
+                        enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, 0);
+                        player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
+
+                        // Players turn
+                        player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, 0);
+                        enemy_hp -= player_damage;
+                        if ( enemy_hp_out( enemy_hp, 0) ){
+                            enemy_alive = false;
+                            player = main_fight_won(player);
+                            return player;
+                        }
+                        player_attack_count =  player_attack_done(enemy_hp, player_attack_count, 0);
+                    }
+
+                    // Player faster
+                    else {
+                        // Players turn
+                        player_damage = player_did_damage(player, PLAYER_DMG_PERCENT, 0);
+                        enemy_hp -= player_damage;
+                        if ( enemy_hp_out( enemy_hp, 0) ){
+                            enemy_alive = false;
+                            player = main_fight_won(player);
+                            return player;
+                        }
+                        player_attack_count =  player_attack_done(enemy_hp, player_attack_count, 0);
+
+                        //Enemys turn
+
+                        enemy_damage = enemy_did_damage(enemy_str, enemy_handy_tier, ENEMY_DMG_PERCENT, 0);
+                        player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
+                    }
+                }
+            }
+            else if (command == "stats" || command == "6."  || command == "6"){
                 player.show_stats();
             }
             else {
