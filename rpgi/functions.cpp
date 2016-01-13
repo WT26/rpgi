@@ -117,8 +117,8 @@ Player main_lvl_fight(Player player){
     int player_attack_count;
     vector<string> handy_attacks;
 
-    double const PLAYER_DMG_PERCENT{1.5};
-    double const ENEMY_DMG_PERCENT{0.5};
+    double const PLAYER_DMG_PERCENT{1.2};
+    double const ENEMY_DMG_PERCENT{1};
     int WAIT_TIME{2};
 
     if(enemy_handy >= 8 && enemy_handy < 15){
@@ -200,8 +200,8 @@ Player main_lvl_fight(Player player){
                     player = player.react_to_damage(player, enemy_damage, handy_attacks, enemy_name);
                 }
             }
-            else if (command == "commands" || command == "c"){
-                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n4. rush");
+            else if (command == "commands" || command == "c" || command == "5" || command == "5."){
+                letter_by_letter_very_fast("\nAll commands:\n1. attack\n2. use item\n3. run\n4. rush\n5. commands\n6. stats");
             }
             else if (command == "use item" || command == "2."  || command == "2"){
                 letter_by_letter_fast("Which item you want to use, use number:\n");
@@ -318,7 +318,7 @@ Player main_lvl_fight(Player player){
                 }
             }
             else if (command == "stats" || command == "6."  || command == "6"){
-                player.show_stats();
+                player.show_all_info();
             }
             else {
                 letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
@@ -352,24 +352,24 @@ int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAI
     int player_damage{0};
     letter_by_letter_very_fast("\nYou hit the enemy!\n");
     sleep(WAIT_TIME);
-    int minus_damage = player.print_str() - player.handy_tier();
+    unsigned int minus_damage = player.print_str() - player.handy_tier();
     if(minus_damage == 0){
         minus_damage = 1;
     }
     int random_number = rand()% 100;
-    if(random_number <= 100 && random_number > 90){
+    if(random_number <= 100 && random_number > 95){
         minus_damage = minus_damage * 0.01;
     }
-    else if(random_number <= 90 && random_number > 70){
+    else if(random_number <= 95 && random_number > 85){
         minus_damage = minus_damage * 0.20;
     }
-    else if(random_number <= 70 && random_number > 50){
+    else if(random_number <= 85 && random_number > 70){
         minus_damage = minus_damage * 0.40;
     }
-    else if(random_number <= 50 && random_number > 30){
+    else if(random_number <= 70 && random_number > 40){
         minus_damage = minus_damage * 0.70;
     }
-    else if(random_number <= 30 && random_number >= 0){
+    else if(random_number <= 40 && random_number >= 0){
         minus_damage = minus_damage;
     }
 

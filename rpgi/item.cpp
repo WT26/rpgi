@@ -30,8 +30,9 @@ string give_items_name(int id){
 
 Player use_consumable_item(Player player, int id, int slot){
     if ( id == 0){
-        letter_by_letter_fast("\nYou dont have any item on that slot");
+        letter_by_letter_fast("\nYou dont have any item on that slot.");
         player.used_item(false);
+        return player;
     }
     // 1. Healing potion 1
     else if( id == 1 ){

@@ -1,6 +1,7 @@
 #include "phasehandler.hh"
 #include "functions.hh"
 #include "debug.hh"
+#include "item.hh"
 #include <iostream>
 #include <string>
 
@@ -114,20 +115,75 @@ void phase_2(Player player){
         cout<<"command >";
         getline(cin, command);
 
-        if (command == "items" || command == "i" || command == "1"
+        if (command == "inventory" || command == "inv" || command == "1"
                 || command == "1."){
             letter_by_letter_fast("Your inventory:");
             player.show_items();
         }
+        else if(command == "use item" || command == "use" || command == "2"
+                || command == "2."){
 
-        else if (command == "stats" || command == "st" || command == "2"
-                  || command == "2."){
+            while (command != "back" || command != "end" || command != "b"){
+                letter_by_letter_fast("Which item you want to use, use number:\n");
+                player.show_items();
+
+                cout<<"\ncommand >";
+                getline(cin, command);
+
+                if (command == "commands"){
+                    letter_by_letter_fast("All commands:\n> numbers from 1 to 10\n> back\n");
+                }
+                else if(command == "1"){
+                    player = use_consumable_item(player, player.give_id(1), 1);
+                }
+                else if(command == "2"){
+                    player = use_consumable_item(player, player.give_id(2), 2);
+                }
+                else if(command == "3"){
+                    player = use_consumable_item(player, player.give_id(3), 3);
+                }
+                else if(command == "4"){
+                    player = use_consumable_item(player, player.give_id(4), 4);
+                }
+                else if(command == "5"){
+                    player = use_consumable_item(player, player.give_id(5), 5);
+                }
+                else if(command == "6"){
+                    player = use_consumable_item(player, player.give_id(6), 6);
+                }
+                else if(command == "7"){
+                    player = use_consumable_item(player, player.give_id(7), 7);
+                }
+                else if(command == "8"){
+                    player = use_consumable_item(player, player.give_id(8), 8);
+                }
+                else if(command == "9"){
+                    player = use_consumable_item(player, player.give_id(9), 9);
+                }
+                else if(command == "10"){
+                    player = use_consumable_item(player, player.give_id(10), 10);
+                }
+                else if(command == "back"|| command == "end" || command == "b"){
+                    break;
+                }
+                else {
+                    letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands");
+                }
+                if (player.have_used_item()){
+                    player.used_item(false);
+                    break;
+                }
+            }
+        }
+
+        else if (command == "stats" || command == "st" || command == "3"
+                  || command == "3."){
             player.show_all_info();
         }
 
         else if (command == "shop" || command == "sh"
-                  || command == "Shop" || command == "3"
-                  || command == "3."){
+                  || command == "Shop" || command == "4"
+                  || command == "4."){
             if (talked == false){
                 letter_by_letter_fast("\nShop's clercks man doesn't seem to be here.\n");
             }
@@ -137,7 +193,7 @@ void phase_2(Player player){
         }
 
         else if (command == "talk" || command == "Talk"
-                  || command == "4" || command == "4."
+                  || command == "5" || command == "5."
                   || command == "t"){
             if(talked == false){
                 letter_by_letter_very_fast("\nYou walk to the group. You see a bunch of people that you haven't\nseen before. It appears that they are collecting some new tax moneys.\n");
@@ -154,13 +210,13 @@ void phase_2(Player player){
         }
 
         else if (command == "woods" || command == "w"
-                  || command == "Woods" || command == "5"
-                  || command == "5."){
+                  || command == "Woods" || command == "6"
+                  || command == "6."){
             player = main_lvl_fight(player);
         }
 
         else if (command == "boss" || command == "Boss"
-                  || command == "6." || command == "6"
+                  || command == "7." || command == "7"
                   || command == "b"){
             if(player.print_main_lvl() < 15){
                 letter_by_letter_very_fast("You're too weak to challenge him. (Suggested min. lvl is 15)\n");
@@ -171,7 +227,7 @@ void phase_2(Player player){
         }
 
         else if(command == "save" || command == "Save" || command == "save"
-                 || command == "7" || command == "7."){
+                 || command == "8" || command == "8."){
 
             while(command != "no" && command != "2" && command != "2." && command != "No"){
                 letter_by_letter_fast("\n\ndo you want to save the game?\n\n1. Yes\n2. No\n");
@@ -189,9 +245,9 @@ void phase_2(Player player){
 
         else if (command == "c"|| command == "C"||
                  command == "commands" || command == "Commands"
-                 || command == "8" || command == "8."){
-            letter_by_letter_super_fast("\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
-                                       "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n");
+                 || command == "9" || command == "9."){
+            letter_by_letter_super_fast("\nAll commands are:\n1. inventory\n2. use item\n3. stats\n4. shop\n5. talk\n"
+                                       "6. woods          (random encounter)\n7. boss\n8. save\n9. commands\n10. end\n\n");
         }
 
         else if (command == "end" || command =="End"
