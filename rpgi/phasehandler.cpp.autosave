@@ -314,16 +314,18 @@ void phase_3(Player player){
             letter_by_letter_fast("\nWho do you want to talk to?\n1. Guy next to horse and a cart\n2. Little guy\n");
             command = "twentysix";
             getline(cin, command);
-            if(talked_littleguy == false){
-                letter_by_letter_fast("\n'So you're going to ");
-                talked = true;
+            if(command == "littleguy" || command == "2." || command == "2" || command == "little guy" || command == "Little guy"){
+                letter_by_letter_fast("\n'So you're going to Caeco? Walking is a option, but I'd persuadeo the cart guy.'\n\n");
+                talked_littleguy = true;
             }
-            else {
+            else if((command == "1." || command == "1" || command == "Guy" || command == "Guy next to horse and a cart" || command == "guy next to")
+                    && talked_littleguy == true && talked_cart == false){
+                cart_talk_tree(player);
             }
         }
 
-        else if (command == "ruins"
-                  || command == "Ruins" || command == "5"
+        else if (command == "windmill"
+                  || command == "Windmill" || command == "5"
                   || command == "5."){
             player = main_lvl_fight(player);
         }

@@ -353,7 +353,7 @@ int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAI
     letter_by_letter_very_fast("\nYou hit the enemy!\n");
     sleep(WAIT_TIME);
     unsigned int minus_damage = player.print_str() - player.handy_tier();
-    if(minus_damage == 0){
+    if(minus_damage >= 0){
         minus_damage = 1;
     }
     int random_number = rand()% 100;
@@ -497,12 +497,14 @@ void save_game(Player player){
             save_file_name += to_string(1) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
         }
         else if (command == "2" || command == "2.") {
             string save_file_name{"save_"};
             save_file_name += to_string(2) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "3" || command == "3.") {
@@ -510,6 +512,7 @@ void save_game(Player player){
             save_file_name += to_string(3) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "4" || command == "4.") {
@@ -517,6 +520,7 @@ void save_game(Player player){
             save_file_name += to_string(4) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "5" || command == "5.") {
@@ -524,6 +528,7 @@ void save_game(Player player){
             save_file_name += to_string(5) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
 
         }
@@ -532,6 +537,7 @@ void save_game(Player player){
             save_file_name += to_string(6) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "7" || command == "7.") {
@@ -539,6 +545,7 @@ void save_game(Player player){
             save_file_name += to_string(7) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "8" || command == "8.") {
@@ -546,6 +553,7 @@ void save_game(Player player){
             save_file_name += to_string(8) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "9" || command == "9.") {
@@ -553,6 +561,8 @@ void save_game(Player player){
             save_file_name += to_string(9) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
+
 
         }
         else if (command == "10" || command == "10.") {
@@ -560,6 +570,7 @@ void save_game(Player player){
             save_file_name += to_string(10) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "end" || command == "" || command == " " || command == "back"){
@@ -964,4 +975,36 @@ string give_spaces(int amount){
         space_string += " ";
     }
     return space_string;
+}
+
+
+void cart_talk_tree(Player player){
+    string command{"twentysix"};
+    letter_by_letter_fast("\n'Oh you want me to take you to Caeco? That would be 600 coins thank you.'");
+    letter_by_letter_super_fast("\n1. Pay 600 coins\n2. You will get your money when we get there\n"
+                                "3. Thats outrageous, I'll pay 200\n4. I thought you'd go there by yourself because of the market\n5. commands\n6. back");
+    getline(cin, command);
+    while(){
+        if(command == "1." || command == "1"){
+
+        }
+        else if(command == "2." || command == "2"){
+            letter_by_letter_fast("\n'Im sorry, but I cannot trust you that much.'");
+        }
+        else if(command == "3." || command == "3"){
+            letter_by_letter_fast("\n'Haha, Im not stupid.'\n");
+
+        }
+        else if(command == "4." || command == "4"){
+            letter_by_letter_fast("\n'What market?'\n");
+            command = "twentysix";
+        }
+        else if(command == "5." || command == "5" || command == "c"){
+            letter_by_letter_super_fast("\n1. Pay 600 coins\n2. You will get your money when we get there\n"
+                                        "3. Thats outrageous, I'll pay 200\n4. I thought you'd go there by yourself because of the market\n5. commands\n6. back");
+        }
+        else if(command == "6." || command == "6"){
+            break;
+        }
+    }
 }
