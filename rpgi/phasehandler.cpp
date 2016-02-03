@@ -130,7 +130,7 @@ void phase_2(Player player){
                 cout<<"\ncommand >";
                 getline(cin, command);
 
-                if (command == "commands"){
+                if (command == "commands" || command == "c"){
                     letter_by_letter_fast("All commands:\n> numbers from 1 to 10\n> back\n");
                 }
                 else if(command == "1"){
@@ -167,7 +167,7 @@ void phase_2(Player player){
                     break;
                 }
                 else {
-                    letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands");
+                    letter_by_letter_very_fast("\nWrong command, use 'commands' to see all commands\n");
                 }
                 if (player.have_used_item()){
                     player.used_item(false);

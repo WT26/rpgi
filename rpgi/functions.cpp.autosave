@@ -353,7 +353,7 @@ int player_did_damage(Player player, double const PLAYER_DAMAGE_PERCENT, int WAI
     letter_by_letter_very_fast("\nYou hit the enemy!\n");
     sleep(WAIT_TIME);
     unsigned int minus_damage = player.print_str() - player.handy_tier();
-    if(minus_damage == 0){
+    if(minus_damage >= 0){
         minus_damage = 1;
     }
     int random_number = rand()% 100;
@@ -503,6 +503,7 @@ void save_game(Player player){
             save_file_name += to_string(2) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "3" || command == "3.") {
@@ -510,6 +511,7 @@ void save_game(Player player){
             save_file_name += to_string(3) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "4" || command == "4.") {
@@ -517,6 +519,7 @@ void save_game(Player player){
             save_file_name += to_string(4) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "5" || command == "5.") {
@@ -524,6 +527,7 @@ void save_game(Player player){
             save_file_name += to_string(5) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
 
         }
@@ -532,6 +536,7 @@ void save_game(Player player){
             save_file_name += to_string(6) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "7" || command == "7.") {
@@ -539,6 +544,7 @@ void save_game(Player player){
             save_file_name += to_string(7) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "8" || command == "8.") {
@@ -546,6 +552,7 @@ void save_game(Player player){
             save_file_name += to_string(8) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "9" || command == "9.") {
@@ -553,6 +560,8 @@ void save_game(Player player){
             save_file_name += to_string(9) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
+            
 
         }
         else if (command == "10" || command == "10.") {
@@ -560,6 +569,7 @@ void save_game(Player player){
             save_file_name += to_string(10) + ".txt";
             ofstream a_file(save_file_name);
             a_file<<player.get_save_info();
+            cout<<"\nGAME SAVED\n\n";
 
         }
         else if (command == "end" || command == "" || command == " " || command == "back"){
