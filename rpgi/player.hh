@@ -47,9 +47,11 @@ public:
     void delete_item(int slot);
     void give_item(int slot, int id);
     void show_all_info();
+    void pay(int amount);
 
     bool have_used_item();
     bool inventory_full();
+    bool enough_money(int amount);
 
     double seconds_elapsed();
 

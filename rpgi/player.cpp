@@ -516,3 +516,18 @@ void Player::show_all_info(){
     usleep(5000);
 }
 
+
+bool Player::enough_money(int amount){
+    if(amount > money_){
+        return false;
+    }
+    else{
+        return true;
+    }
+}
+
+
+void Player::pay(int amount){
+    money_ -= amount;
+}
+

@@ -215,6 +215,17 @@ void phase_2(Player player){
             player = main_lvl_fight(player);
         }
 
+        else if (command == "boss" || command == "Boss"
+                          || command == "7." || command == "7"
+                          || command == "b"){
+                    if(player.print_main_lvl() < 14){
+                        letter_by_letter_very_fast("You're too weak to challenge him. (Suggested min. lvl is 15)\n");
+                    }
+                    else{
+                        player =boss_fight_1(player);
+                    }
+                }
+
         else if(command == "save" || command == "Save" || command == "save"
                  || command == "8" || command == "8."){
 
@@ -275,7 +286,7 @@ void phase_3(Player player){
     letter_by_letter_fast("\nCollapsed Relego gathers himself up, and start walking towards escaping kingdom men\n"
                                "They leave the village to north. Everyone around you celebrates\na bit and one by one comes to thank you. You found a letter\n"
                                "where the Relego collapsed, it says: 'By any means, collect\nmoney from all over the land and quickly bring them to me\n"
-                               "The King of yours: -Name-'\nIt seems King has a sudden urge of money and is collecting\nit illegally. You decide to take action"
+                               "The King of yours: -Name(Ater(obscure))-'\nIt seems King has a sudden urge of money and is collecting\nit illegally. You decide to take action"
                                "against it.\n");
 
     bool talked_cart = false;
@@ -314,16 +325,18 @@ void phase_3(Player player){
             letter_by_letter_fast("\nWho do you want to talk to?\n1. Guy next to horse and a cart\n2. Little guy\n");
             command = "twentysix";
             getline(cin, command);
-            if(talked_littleguy == false){
-                letter_by_letter_fast("\n'So you're going to ");
-                talked = true;
+            if(command == "littleguy" || command == "2." || command == "2" || command == "little guy" || command == "Little guy"){
+                letter_by_letter_fast("\n'So you're going to Caeco? Walking is an option, but I'd persuadeo the cart guy.'\n\n");
+                talked_littleguy = true;
             }
-            else {
+            else if((command == "1." || command == "1" || command == "Guy" || command == "Guy next to horse and a cart" || command == "guy next to")
+                    && talked_littleguy == true && talked_cart == false){
+                cart_talk_tree(player);
             }
         }
 
-        else if (command == "ruins"
-                  || command == "Ruins" || command == "5"
+        else if (command == "windmill"
+                  || command == "Windmill" || command == "5"
                   || command == "5."){
             player = main_lvl_fight(player);
         }

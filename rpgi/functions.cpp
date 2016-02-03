@@ -985,6 +985,8 @@ void cart_talk_tree(Player player){
                                 "3. Thats outrageous, I'll pay 200\n4. I thought you'd go there by yourself because of the market\n5. commands\n6. back");
     getline(cin, command);
     while(command != "exit"){
+        cout<<"command >";
+
         if(command == "1." || command == "1" || command == "Pay 600 coins" || command == "pay"){
             if(player.enough_money(600)){
                 player.pay(600);
@@ -992,13 +994,19 @@ void cart_talk_tree(Player player){
             }
             else {
                 letter_by_letter_fast("\n'You dont have enough money!'\n");
+                command = "twentysix";
+
             }
         }
         else if(command == "2." || command == "2"){
             letter_by_letter_fast("\n'Im sorry, but I cannot trust you that much.'\n");
+            command = "twentysix";
+
         }
         else if(command == "3." || command == "3"){
             letter_by_letter_fast("\n'Haha, Im not stupid.'\n");
+            command = "twentysix";
+
         }
         else if(command == "4." || command == "4"){
             letter_by_letter_fast("\n'What market?'\n");
@@ -1007,8 +1015,12 @@ void cart_talk_tree(Player player){
                                         "3. Okay, okay. I just need a ride to Caeco to talk to king\n4. commands\n5. back\n\n");
 
             while(command != "exit"){
+                cout<<"command >";
+
                 if(command == "1" || command == "1."){
                     letter_by_letter_fast("\n'But I have a Fine cart right here!'\n");
+                    command = "twentysix";
+
                 }
                 else if (command == "2" || command == "2."){
                     letter_by_letter_fast("\n'Well that sound interesting.. What kind of people?'\n");
@@ -1016,8 +1028,12 @@ void cart_talk_tree(Player player){
                     letter_by_letter_super_fast("\n1. Political minds\n2. Customers\n"
                                                 "3. Creative art people\n4. commands\n5. back\n\n");
                     while(command != "exit"){
+                        cout<<"command >";
+
                         if(command == "1" || command == "1."){
                             letter_by_letter_fast("\n'I don't really care about that kind of stuff.'\n");
+                            command = "twentysix";
+
                         }
                         else if (command == "2" || command == "2."){
                             letter_by_letter_fast("\n'Well I could try to sell some of my crops.. Sure lets go.'\n");
@@ -1025,6 +1041,8 @@ void cart_talk_tree(Player player){
 
                             letter_by_letter_fast("\n\nDo you really want to leave to Caeco?\n\n1. Yes\n2. No\n\n");
                             while(command != "2."){
+                                cout<<"command >";
+
                                 if(command == "1" || command == "1." || command == "yes" || command == "Yes"){
                                     phase_3(player);
                                 }
@@ -1038,21 +1056,30 @@ void cart_talk_tree(Player player){
                         }
                         else if (command == "3" || command == "3."){
                             letter_by_letter_fast("\n'Do I look like a guy who paints alot? Im not.'\n");
+                            command = "twentysix";
+
                         }
-                        else if (command == "4" || command == "4." || command == "commands" || ccommand == "c"){
+                        else if (command == "4" || command == "4." || command == "commands" || command == "c"){
                             letter_by_letter_fast("\n1. Political minds\n2. Customers\n"
                                                   "3. Creative art people\n4. commands\n5. back\n\n");
+                            command = "twentysix";
+
                         }
                         else if (command == "5" || command == "5." || command == "back"){
                             break;
                         }
+                    }
                 }
                 else if (command == "3" || command == "3."){
                     letter_by_letter_fast("\n'I know, but I can't do it for free.'\n");
+                    command = "twentysix";
+
                 }
-                else if (command == "4" || command == "4." || command == "commands" || ccommand == "c"){
+                else if (command == "4" || command == "4." || command == "commands" || command == "c"){
                     letter_by_letter_fast("\n1. Sale of carts!\n2. Market where comes people from all over the Alacer\n"
                                           "3. Okay, okay. I just need a ride to Caeco to talk to king\n4. commands\n5. back\n\n");
+                    command = "twentysix";
+
                 }
                 else if (command == "5" || command == "5." || command == "back"){
                     break;
@@ -1062,6 +1089,8 @@ void cart_talk_tree(Player player){
         else if(command == "5." || command == "5" || command == "c" || command == "commands"){
             letter_by_letter_super_fast("\n1. Pay 600 coins\n2. You will get your money when we get there\n"
                                         "3. Thats outrageous, I'll pay 200\n4. I thought you'd go there by yourself because of the market\n5. commands\n6. back\n");
+            command = "twentysix";
+
         }
         else if(command == "6." || command == "6" || command == "back"){
             break;

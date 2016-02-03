@@ -32,6 +32,8 @@ using namespace std;
     void fight_ended_message();
     void box_message(string message);
 
+    void cart_talk_tree(Player player);
+
     Player boss_fight_1(Player player);
     bool boss_1_hp_out(int enemy_hp, int WAIT_TIME);
     void boss_fight_1_won(Player player);
