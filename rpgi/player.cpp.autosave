@@ -526,3 +526,8 @@ bool Player::enough_money(int amount){
     }
 }
 
+
+void Player::pay(int amount){
+    money_ -= amount;
+}
+
