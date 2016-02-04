@@ -1097,3 +1097,68 @@ void cart_talk_tree(Player player){
         }
     }
 }
+
+
+Player item_shop(Player player){
+    string command{"twentysix"};
+    // Shop Boc?
+
+    letter_by_letter_very_fast("\n'Welcome welcome! What would you like to do?'\n");
+    letter_by_letter_super_fast("\n1. Buy\n2. Sell\n3. Talk\n4. Exit\n5. Commands\n\n");
+
+    getline(cin, command);
+    while(command != "exit"){
+        cout<<"command >";
+
+
+        if(command == "1" || command == "1." || command == "buy" || command == "Buy"){
+            string command{"twentysix"};
+            while(command != "exit"){
+                letter_by_letter_super_fast("\n-Buying-\n\n1. Health Potion 1\t(120 coins)\n2. Damage Maker 1\t(150 coins)\n3. Level Upper\t(1000 coins)\n4. Back\n5. Commands\n\n");
+                cout<<"command >";
+                getline(cin, command);
+
+                if(command == "1" || command == "1." || command == "health potion" || command == "Health Potion 1"){
+                    if(player.enough_money(120)){
+                        int free_slot = player.show_first_empty_inv_space();
+                        player.give_item(free_slot, 1);
+                        string item_name = give_items_name(1);
+                        letter_by_letter_very_fast(" You got '" + item_name + "' !\n");
+                        player.pay(120);
+                    }
+                    else {
+                        letter_by_letter_fast("\n'You dont have enough money!'\n");
+                        command = "twentysix";
+
+                    }
+                }
+                else if(command == "2" || command == "2." || command == "damage maker" || command == "Damage Maker 1"){
+
+                }
+                else if (command == "3" || command == "3." || command == "level upper" || command == "Lever Upper"){
+
+                }
+                else if(command == "4" || command == "4" || command == "Back" || command == "back"){
+                    break;
+                }
+                else if(command == "5" || command == "5." || command == "commands" || command == "c"
+                        || command == "Commands"){
+                    letter_by_letter_super_fast("\nAll commands:\n1. Buy\n2. Sell\n3. Talk\n4. Exit\n5. Commands\n\n ");
+                }
+            }
+        }
+        else if(command == "2" || command == "2." || command == "sell" || command == "Sell"){
+
+        }
+        else if(command == "3" || command == "3." || command == "talk" || command == "Talk"){
+            letter_by_letter_fast("\n'Have you seen any magnets laying around?\nI couldn't find any of mine after those military people rambled by.'\n\n");
+        }
+        else if(command == "4" || command == "4." || command == "exit" || command == "Exit"){
+            return player;
+        }
+        else if(command == "5" || command == "5." || command == "commands" || command == "c"
+                || command == "Commands"){
+            letter_by_letter_super_fast("\nAll commands:\n1. Buy\n2. Sell\n3. Talk\n4. Exit\n5. Commands\n\n ");
+        }
+    }
+}
