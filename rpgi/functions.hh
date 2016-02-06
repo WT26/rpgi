@@ -12,8 +12,11 @@ using namespace std;
     bool enemy_hp_out(int enemy_hp, int WAIT_TIME);
     vector<string> split(const string& stringToSplit, char charToSplit);
     int endGame();
+
     Player main_lvl_fight(Player player);
     Player main_fight_won(Player player);
+    Player item_shop(Player player);
+
     int main_fight_won_money(Player player);
     int main_fight_won_xp(Player player);
     int enemy_did_damage(int enemy_str, int handy_tier, double const ENEMY_DAMAGE_PERCENT, int WAIT_TIME);

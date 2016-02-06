@@ -312,10 +312,7 @@ void phase_3(Player player){
         else if (command == "shop" || command == "sh"
                   || command == "Shop" || command == "3"
                   || command == "3."){
-            if (talked_littleguy == false){
-            }
-            else {
-            }
+            player =  item_shop(player);
         }
 
         else if (command == "talk" || command == "Talk"
@@ -362,7 +359,7 @@ void phase_3(Player player){
                  command == "commands" || command == "Commands"
                  || command == "8" || command == "8."){
             letter_by_letter_super_fast("\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
-                                       "5. woods          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n");
+                                       "5. windmill          (random encounter)\n6. boss\n7. save\n8. commands\n9. end\n\n");
         }
 
         else if (command == "end" || command =="End"

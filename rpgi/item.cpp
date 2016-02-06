@@ -12,8 +12,8 @@ using namespace std;
 
 Consumables are items 1-3
 
-1. Healing potion 1
-2. Damage maker 1
+1. Healing potion 1                 120
+2. Damage maker 1                150
 3. Level upper
 
 IDEAS:
