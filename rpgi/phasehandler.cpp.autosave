@@ -285,8 +285,8 @@ void phase_3(Player player){
     player.update_phase(3);
     letter_by_letter_fast("\nCollapsed Relego gathers himself up, and start walking towards escaping kingdom men\n"
                                "They leave the village to north. Everyone around you celebrates\na bit and one by one comes to thank you. You found a letter\n"
-                               "where the Relego collapsed, it says: 'By any means, collect\nmoney from all over the land and quickly bring them to me\n"
-                               "The King of yours: -Name(Ater(obscure))-'\nIt seems King has a sudden urge of money and is collecting\nit illegally. You decide to take action"
+                               "where the Relego collapsed, it says: \n'By any means, collect\nmoney from all over the land and quickly bring them to me\n"
+                               "The King of yours: Ater'\nIt seems King has a sudden urge of money and is collecting it illegally. You decide to take action "
                                "against it.\n");
 
     bool talked_cart = false;
