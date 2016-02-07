@@ -281,7 +281,7 @@ void phase_2(Player player){
 //###V######V######V######V######V###### Phase 3 ######V######V######V######V######V######V###
 //VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 void phase_3(Player player){
-    box_message("#                  LITTLE TOWNEY                 #\n");
+    box_message("#                  LITTLE TOWNEY                 #");
     player.update_phase(3);
     letter_by_letter_fast("\nCollapsed Relego gathers himself up, and start walking towards escaping kingdom men\n"
                                "They leave the village to north. Everyone around you celebrates\na bit and one by one comes to thank you. You found a letter\n"

@@ -1108,14 +1108,14 @@ Player item_shop(Player player){
     letter_by_letter_very_fast("\n'Welcome welcome! What would you like to do?'\n");
     letter_by_letter_super_fast("\n1. Buy\n2. Sell\n3. Talk\n4. Exit\n5. Commands\n\n");
 
-    getline(cin, command);
     while(command != "exit"){
         cout<<"command >";
+        getline(cin, command);
 
 
         if(command == "1" || command == "1." || command == "buy" || command == "Buy"){
             while(command != "exit"){
-                string command{"twentysix"};
+                command="twentysix";
 
                 letter_by_letter_super_fast("\n\n-Buying-\n\n1. Health Potion 1          (120 coins)\n2. Damage Maker 1          (150 coins)\n3. Level Upper               (1000 coins)\n4. Back\n5. Commands\n\n");
                 cout<<"command >";
@@ -1163,6 +1163,9 @@ Player item_shop(Player player){
                 else if(command == "5" || command == "5." || command == "commands" || command == "c"
                         || command == "Commands"){
                     letter_by_letter_super_fast("\n\n-Buying-\n\n1. Health Potion 1          (120 coins)\n2. Damage Maker 1          (150 coins)\n3. Level Upper               (1000 coins)\n4. Back\n5. Commands\n\n");
+                }
+                else{
+                    letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
                 }
             }
         }
