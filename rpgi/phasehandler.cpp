@@ -58,7 +58,7 @@ Player phase_1(){
         int handy = 3;
         string class_name = "Curator";
         Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 14, 0,
-                               0,0,0,0,0,0,0,0,0,0);
+                               0,0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "Salto" || answer == "salto"){
@@ -68,7 +68,7 @@ Player phase_1(){
         int handy = 3;
         string class_name = "Salto";
         Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 10, 0
-                               ,0,0,0,0,0,0,0,0,0,0);
+                               ,0,0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "Ensis" || answer == "ensis"){
@@ -78,7 +78,7 @@ Player phase_1(){
         int handy = 1;
         string class_name = "Ensis";
         Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 11, 0
-                               ,0,0,0,0,0,0,0,0,0,0);
+                               ,0,0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "Piger" || answer == "piger"){
@@ -88,7 +88,7 @@ Player phase_1(){
         int handy = 2;
         string class_name = "Piger";
         Player player = Player(name, class_name, 10, hp, str, spd, handy, 0, 1, 0, 12, 0,
-                               0,0,0,0,0,0,0,0,0,0);
+                               0,0,0,0,0,0,0,0,0,0,0);
         phase_2(player);
     }
     else if (answer == "debug"){
@@ -285,8 +285,8 @@ void phase_3(Player player){
     player.update_phase(3);
     letter_by_letter_fast("\nCollapsed Relego gathers himself up, and start walking towards escaping kingdom men\n"
                                "They leave the village to north. Everyone around you celebrates\na bit and one by one comes to thank you. You found a letter\n"
-                               "where the Relego collapsed, it says: 'By any means, collect\nmoney from all over the land and quickly bring them to me\n"
-                               "The King of yours: -Name(Ater(obscure))-'\nIt seems King has a sudden urge of money and is collecting\nit illegally. You decide to take action"
+                               "where the Relego collapsed, it says: \n'By any means, collect\nmoney from all over the land and quickly bring them to me\n"
+                               "The King of yours: Ater'\nIt seems King has a sudden urge of money and is collecting it illegally. You decide to take action "
                                "against it.\n");
 
     bool talked_cart = false;
@@ -335,6 +335,114 @@ void phase_3(Player player){
                     && talked_littleguy == false){
                 letter_by_letter_fast("\n'Good day sir. Quite a lovely day it is.'\n\n");
             }
+        }
+        else if (command == "windmill"
+                  || command == "Windmill" || command == "5"
+                  || command == "5."){
+            player = main_lvl_fight(player);
+        }
+
+        else if(command == "save" || command == "Save" || command == "save"
+                 || command == "6" || command == "6."){
+
+            while(command != "no" && command != "2" && command != "2." && command != "No"){
+                letter_by_letter_fast("\n\ndo you want to save the game?\n\n1. Yes\n2. No\n");
+                cout<<"\ncommand >";
+                getline(cin, command);
+                if(command == "yes" || command == "1" || command == "1." || command == "y"){
+                    save_game(player);
+                    break;
+                }
+                else if (command == "no" || command == "2" || command == "2." || command == "No"){
+                    break;
+                }
+            }
+        }
+
+        else if (command == "c"|| command == "C"||
+                 command == "commands" || command == "Commands"
+                 || command == "7" || command == "7."){
+            letter_by_letter_super_fast("\nAll commands are:\n1. items\n2. stats\n3. shop\n4. talk\n"
+                                       "5. windmill          (random encounter)\n6. save\n7. commands\n8. end\n\n");
+        }
+
+        else if (command == "end" || command =="End"
+                 || command == "8" || command == "8."){
+            command = "twentysix";
+            while(command != "back"){
+                letter_by_letter_very_fast("\nDo you really want to return to main menu? All unsaved progress will be lost."
+                                           "\n1. Yes\n2. No");
+                cout<<"\n\ncommand >";
+                getline(cin, command);
+
+                if(command == "yes" || command == "Yes"
+                        || command == "1" || command == "1."){
+                    start_menu();
+                }
+                else if (command == "no" || command == "No"
+                         || command == "2" || command == "2."){
+                    command = "back";
+                }
+            }
+        }
+        else if (command == "debug"){
+            Debug debug = Debug();
+        }
+        else {
+            letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
+        }
+    }
+}
+
+//############################################################################################
+//###V######V######V######V######V###### Phase 4 ######V######V######V######V######V######V###
+//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
+void phase_4(Player player){
+    player.update_phase(4);
+    if(player.give_caeco_intro() == false){
+        box_message("#                  ROAD TO CAECO                 #");
+        letter_by_letter_fast("\nYou jump to the cart and you take off out of the village.\n");
+        letter_by_letter_slow("\n\n. . . . Road is long and sun starts to fall so you decide to take a nap.\n\n. . . . . ");
+        player.caeco_intro_change();
+    }
+    if(player.give_caeco_intro() == true){
+        box_message("#                   CAECO MARKET                 #");
+        letter_by_letter_very_fast("\nYou wake up, and it seems that you've arrived to the center of the Caeco.\n"
+                                    "You jump off the cart and see lots of people doing their daily chores.\nThere seems to be "
+                                   "a little panic in everyones face, and you decide that its good opportunity\nto sneak in and talk with"
+                                   "the king.\n");
+    }
+
+
+    string command{"twentysix"};
+
+    while(command != "end"){
+        cout<<"command >";
+        getline(cin, command);
+
+        if (command == "items" || command == "i" || command == "1"
+                || command == "1."){
+            letter_by_letter_fast("Your inventory:");
+            player.show_items();
+        }
+
+        else if (command == "stats" || command == "st" || command == "2"
+                  || command == "2."){
+            player.show_stats();
+        }
+
+        /*
+        else if (command == "shop" || command == "sh"
+                  || command == "Shop" || command == "3"
+                  || command == "3."){
+            player =  item_shop(player);
+        }
+        */
+        else if (command == "boss" || command == "Boss"
+                  || command == "4" || command == "4."
+                  || command == "b"){
+
+            //bossfight = first figth with guard then you can save again and then fight with boss
         }
         else if (command == "windmill"
                   || command == "Windmill" || command == "5"
@@ -392,14 +500,6 @@ void phase_3(Player player){
             letter_by_letter_very_fast("Wrong command, see all commands 'commands'\n");
         }
     }
-}
-
-//############################################################################################
-//###V######V######V######V######V###### Phase 4 ######V######V######V######V######V######V###
-//VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
-void phase_4(Player player){
-    cout<<"its phase 4\n";
-
 }
 //############################################################################################
 //###V######V######V######V######V###### Phase 5 ######V######V######V######V######V######V###

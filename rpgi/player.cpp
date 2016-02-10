@@ -13,7 +13,7 @@ using namespace std;
 
 Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
                int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase, int elapsed_time, int current_hp, int money,
-               int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10)
+               int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10, int caeco_visited)
 {
     player_name_ = player_name;
     class_name_ = class_name;
@@ -43,6 +43,13 @@ Player::Player(string player_name, string class_name, int main_lvl, int hp_lvl,
     item_10_ = i_10;
 
     extra_damage_ = 0;
+
+    if(caeco_visited == 0){
+        caeco_intro_ = false;
+    }
+    else{
+        caeco_intro_ = true;
+    }
 }
 
 int Player::print_phase(){
@@ -529,5 +536,13 @@ bool Player::enough_money(int amount){
 
 void Player::pay(int amount){
     money_ -= amount;
+}
+
+bool Player::give_caeco_intro(){
+    return caeco_intro_;
+}
+
+void Player::caeco_intro_change(){
+    caeco_intro_ = true;
 }
 

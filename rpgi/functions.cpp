@@ -629,7 +629,7 @@ void load_game(){
                    savefile >> output;
                    vector<string> save_info;
                    save_info = split(output, ':');
-                   if (save_info.size() != 22){
+                   if (save_info.size() != 23){
                        letter_by_letter_very_fast("\nYou tried to load a old version of the game.\n");
                    }
                    else{
@@ -638,7 +638,7 @@ void load_game(){
                                stoi(save_info[8]), stoi(save_info[9]), stoi(save_info[10]), stoi(save_info[11]),
                                stoi(save_info[12]), stoi(save_info[13]), stoi(save_info[14]), stoi(save_info[15]),
                                stoi(save_info[16]), stoi(save_info[17]), stoi(save_info[18]), stoi(save_info[19]),
-                               stoi(save_info[20]), stoi(save_info[21]));
+                               stoi(save_info[20]), stoi(save_info[21]), stoi(save_info[22]));
                        savefile.close();
                        phasehandler(player);
                    }
@@ -982,7 +982,7 @@ void cart_talk_tree(Player player){
     string command{"twentysix"};
     letter_by_letter_fast("\n'Oh you want me to take you to Caeco? That would be 600 coins thank you.'");
     letter_by_letter_super_fast("\n1. Pay 600 coins\n2. You will get your money when we get there\n"
-                                "3. Thats outrageous, I'll pay 200\n4. I thought you'd go there by yourself because of the market\n5. commands\n6. back");
+                                "3. Thats outrageous, I'll pay 200\n4. I thought you'd go there by yourself because of the market\n5. commands\n6. back\n\n");
     while(command != "exit"){
         command = "twentysix";
         cout<<"command >";
@@ -1037,13 +1037,13 @@ void cart_talk_tree(Player player){
                             letter_by_letter_fast("\n'Well I could try to sell some of my crops.. Sure lets go.'\n");
 
                             letter_by_letter_fast("\n\nDo you really want to leave to Caeco?\n\n1. Yes\n2. No\n\n");
-                            while(command != "2."){
+                            while(command != "exit"){
                                 command = "twentysix";
                                 cout<<"command >";
                                 getline(cin, command);
 
                                 if(command == "1" || command == "1." || command == "yes" || command == "Yes"){
-                                    phase_3(player);
+                                    phase_4(player);
                                 }
                                 else if (command == "2." || command == "2" || command == "no" || command == "No"){
                                     command = "exit";

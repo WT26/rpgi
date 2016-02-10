@@ -65,7 +65,7 @@ void Debug::debugger(){
     int item = stoi(temporary);
     Player player = Player(name, class_name, main_lvl, hp_lvl, str_lvl, spd_lvl,
                            handy_lvl, 0, skip_to_phase, elapsed_time, current_hp, money,
-                           item, item, item, item, item, item, item, item, item, item);
+                           item, item, item, item, item, item, item, item, item, item, 0);
 
     phasehandler(player);
 }

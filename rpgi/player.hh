@@ -13,7 +13,8 @@ public:
     Player(string player_name, string class_name, int main_lvl, int hp_lvl,
            int str_lvl, int spd_lvl, int handy_lvl, int all_exp, int phase,
            int elapsed_time, int current_hp, int money,
-           int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10);
+           int i_1, int i_2, int i_3, int i_4, int i_5, int i_6, int i_7, int i_8, int i_9, int i_10,
+           int caeco_visited);
 
 
 
@@ -52,6 +53,9 @@ public:
     bool have_used_item();
     bool inventory_full();
     bool enough_money(int amount);
+    bool give_caeco_intro();
+
+    void caeco_intro_change();
 
     double seconds_elapsed();
 
@@ -83,6 +87,7 @@ private:
     time_t start_time_;
 
     bool just_used_item;
+    bool caeco_intro_;
 
     int total_commands_;
 
