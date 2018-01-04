@@ -1,4 +1,4 @@
-Example of what savefile should exist of:
+Example of what savefile should consist of:
 
 Name:Class:Main_lvl:Hp_lvl:Str_lvl:Spd_lvl:Handy_lvl:all_xp:phase:time:current_hp:money:caeco_intro
 
